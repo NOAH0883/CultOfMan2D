@@ -9,8 +9,13 @@ public class AdamPlayerTest : MonoBehaviour
     InputAction dodgeAction;
     [SerializeField] private float playerSpeed;
     [SerializeField] private float rollDistance;
+    public GameObject playerHurtbox;
+    public GameObject playerHitbox;
     private bool active;
-    private float idleTime;
+    private float actionTime;
+    [SerializeField] private float rollTime;
+    [SerializeField] private float rollInvulnerability;
+    Vector3 desiredView;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,6 +24,10 @@ public class AdamPlayerTest : MonoBehaviour
         active = true;
         moveAction = InputSystem.actions.FindAction("Move");
         dodgeAction = InputSystem.actions.FindAction("Dodge");
+        if (rollInvulnerability >= rollTime)
+        {
+            rollInvulnerability = rollTime;
+        }
     }
 
     // Update is called once per frame
@@ -28,22 +37,18 @@ public class AdamPlayerTest : MonoBehaviour
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
             transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
-            if (moveAction.IsPressed())
-            {
-                Debug.Log(moveAction);
-            }
-
             if (dodgeAction.IsPressed() && active)
             {
                 active = false;
                 DodgeRollCalc(moveValue);
                 Debug.Log("Dodge roll.");
             }
+
         }
         else
         {
-            idleTime -= Time.deltaTime;
-            if (idleTime <= 0)
+            actionTime -= Time.deltaTime;
+            if (actionTime <= 0)
             {
                 active = true;
             }
@@ -57,46 +62,57 @@ public class AdamPlayerTest : MonoBehaviour
         Vector3 endPos = transform.position;
         float rollX = moveValue.x;
         float rollY = moveValue.y;
-        if (rollX != 0 || rollY == 0)
-        {
-            if (rollX >= 0)
+
+            if (rollX > 0)
             {
-                endPos = transform.position + new Vector3(rollDistance, 0, 0);
+                endPos += new Vector3(rollDistance, 0, 0);
                 Debug.Log("Right roll.");
             }
             else if (rollX < 0)
             {
-                endPos = transform.position - new Vector3(rollDistance, 0, 0);
+                endPos -= new Vector3(rollDistance, 0, 0);
                 Debug.Log("Left roll.");
             }
-        }
-        else
-        {
             if (rollY > 0)
             {
-                endPos = transform.position + new Vector3(0, rollDistance, 0);
+                endPos += new Vector3(0, rollDistance, 0);
                 Debug.Log("Upwards roll.");
             }
             else if (rollY < 0)
             {
-                endPos = transform.position - new Vector3(0, rollDistance, 0);
+                endPos -= new Vector3(0, rollDistance, 0);
                 Debug.Log("Downwards roll.");
             }
-        }
 
-        idleTime = 0.3f;
-        StartCoroutine(DodgeRoll(startPos, endPos, idleTime));
-        transform.position = endPos;
+            if (endPos == transform.position)
+            {
+                endPos += new Vector3(rollDistance, 0, 0);
+                Debug.Log("Right roll.");
+            }
+
+        StartCoroutine(DodgeRoll(startPos, endPos, rollTime));
+        actionTime = rollTime + 0.1f;
     }
 
-    IEnumerator DodgeRoll(Vector3 startPos, Vector3 endPos, float idleTime)
+    IEnumerator DodgeRoll(Vector3 startPos, Vector3 endPos, float rollTime)
     {
         float elapsed = 0f;
-        print("Start roll.");
-        while (elapsed < idleTime)
+        float iFrames = rollInvulnerability;
+
+        Debug.Log("Start roll.");
+        while (elapsed < rollTime)
         {
+            if (iFrames > 0f)
+            {
+                playerHurtbox.SetActive(false);
+                iFrames -= Time.deltaTime;
+            }
+            else
+            {
+                playerHurtbox.SetActive(true);
+            }
             elapsed += Time.deltaTime;
-            float t = elapsed / idleTime;
+            float t = elapsed / rollTime;
 
             float easeOutT = Mathf.Sin(t * Mathf.PI * 0.5f);
 
@@ -104,6 +120,7 @@ public class AdamPlayerTest : MonoBehaviour
             yield return null;
         }
         transform.position = endPos;
-        print("End roll.");
+        playerHurtbox.SetActive(true);
+        Debug.Log("End roll.");
     }
 }
