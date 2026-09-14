@@ -21,6 +21,9 @@ public class VillagerAI : MonoBehaviour
     private float targetStateTime;
     private bool isWalking;
 
+    public bool isSick;
+    public int foodNeeded = 2;
+
     [SerializeField] Vector2 box;
     Vector2 boxPos;
 
