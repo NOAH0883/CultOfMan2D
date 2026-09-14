@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.59, y: 2.557253, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.26638, y: 0.26638, z: 0.26638}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -132,10 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c39bd086866dc4caaeccbd9113322c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VillagerAI
-  moveSpeed: 2
-  minWalkTime: 2
-  maxWalkTime: 5
+  moveSpeed: 0.6
+  minWalkTime: 3
+  maxWalkTime: 6
   minIdleTime: 1
-  maxIdleTime: 3
+  maxIdleTime: 5
   campZone: {fileID: 0}
   box: {x: 7.88, y: 4.87}
