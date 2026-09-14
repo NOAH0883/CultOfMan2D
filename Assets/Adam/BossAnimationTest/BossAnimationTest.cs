@@ -10,7 +10,7 @@ public class BossAnimationTest : MonoBehaviour
     }
     void BossAnimationEvent()
     {
-        print("Slam attack.");
+        Debug.Log("Slam attack.");
         StartCoroutine(SlamAttack());
     }
     IEnumerator SlamAttack()

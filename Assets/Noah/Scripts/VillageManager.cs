@@ -3,6 +3,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.XR;
+using System.Runtime.CompilerServices;
 
 
 public class VillageManager : MonoBehaviour
@@ -26,6 +28,9 @@ public class VillageManager : MonoBehaviour
     [SerializeField] float villagerSpawnMax;
     [SerializeField] GameObject HousePrefab;
 
+    [Header("Spawner")]
+    [SerializeField] List<GameObject> spawnPos;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,11 +39,20 @@ public class VillageManager : MonoBehaviour
         {
             SpawnVillagerStart();
         }
+        housing = 5;
     }
 
     public void Test()
     {
+
         villagers = villagers.OrderByDescending(go => go.GetComponent<TestVillager>().isSick).ToList(); // sort the list so that the sick villagers get feed first
+
+        //bool villagersSick?
+        //set villagersSick = false
+        // if villager is sick, villagersSick = true
+
+        bool villagersSick = false;
+
 
         for (int i = 0; i < villagers.Count; i++)
         {
@@ -51,8 +65,11 @@ public class VillageManager : MonoBehaviour
             }
 
             if (testVillager.isSick != true)
-
+            {
                 testVillager.isSick = true;
+                villagersSick = true;
+            }
+
             else
             {
                 villagers.RemoveAt(i);
@@ -63,7 +80,7 @@ public class VillageManager : MonoBehaviour
         spareFood = currentFood;
         
         
-        if (population < housing)
+        if (population < housing && !villagersSick)
         {
             SpawnVillager();
         }
@@ -74,35 +91,36 @@ public class VillageManager : MonoBehaviour
     
     private void SpawnVillagerStart()
     {
-        GameObject villager = Instantiate(villagerPrefab, Vector3.zero, Quaternion.identity);
+        int randSpawn = Random.Range(0, spawnPos.Count);
+        Debug.Log(randSpawn);
+        Transform spawnPoint = spawnPos[randSpawn].transform;
+
+        GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
+        
         villagers.Add(villager);
     }
 
 
    
     
-    private void SpawnVillager()
+    public void SpawnVillager()
     {
-        housing = 10;
-
+        
         villagersToSpawn = housing - population;
+        
+        if (villagersToSpawn > 3)
+            villagersToSpawn = 3;
+
 
         for (int i = 0; i < villagersToSpawn; i++)
         {
-            GameObject villager = Instantiate(villagerPrefab, Vector3.zero, Quaternion.identity);
-            villagers.Add(villager);
-        }
-       
+            int randSpawn = Random.Range(0, spawnPos.Count);
+            Transform spawnPoint = spawnPos[randSpawn].transform;
+            GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
 
-        // house can hold 5 villagers
-        // if villagers are feed 
-        // check if population is less than housing 
-        //housing - population = villagersToSpawn
-        //spawnMax = housing
-        //if villagersToSpawn is greater than spawnMax
-        //villagersToSpawn = spawnMax
-        //for villagersToSpawn
-        // spawn villagers and add to list 
+            villagers.Add(villager);
+            population++;
+        }
     }
 
 
@@ -110,10 +128,6 @@ public class VillageManager : MonoBehaviour
     {
         housing += 5;
 
-        float randPosx = Random.Range(5, -5);
-        float randPosy = Random.Range(5, -5);
-        Vector2 housingPos = new Vector2(randPosx, randPosy);
-
-        GameObject house = Instantiate(HousePrefab, housingPos, Quaternion.identity);
+        GameObject house = Instantiate(HousePrefab, transform.position, Quaternion.identity);
     }
 }
