@@ -1,8 +1,9 @@
 using NUnit.Framework;
-using Unity.VisualScripting;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 
 
@@ -10,12 +11,11 @@ using System.Linq;
 public class VillageManager : MonoBehaviour
 {
 
-
-
     [Header("Food")]
     [SerializeField] int population;
-    [SerializeField] int currentFood;
+    public float currentFood;
     [SerializeField] int spareFood;
+    [SerializeField] int sacrificeAmount;
 
     [Header("Villagers")]
     [SerializeField] GameObject villagerPrefab;
@@ -31,7 +31,7 @@ public class VillageManager : MonoBehaviour
 
     [Header("Spawner")]
     [SerializeField] List<GameObject> spawnPos;
-
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,15 +45,11 @@ public class VillageManager : MonoBehaviour
 
     public void Test()
     {
+        currentFood += spareFood; //add spare food to current food 
 
         villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
-        //bool villagersSick?
-        //set villagersSick = false
-        // if villager is sick, villagersSick = true
-
         bool villagersSick = false;
-
 
         for (int i = 0; i < villagers.Count; i++)
         {
@@ -79,14 +75,15 @@ public class VillageManager : MonoBehaviour
             }
         }
 
-        spareFood = currentFood;
+        if (currentFood >= Mathf.RoundToInt(population / 2) )
+            spareFood = Mathf.RoundToInt(population / 2);
+        else
+            spareFood = Mathf.RoundToInt(currentFood);
         
         
         if (population < housing && !villagersSick)
-        {
             SpawnVillager();
-        }
-            
+         
     }
 
     
@@ -103,7 +100,6 @@ public class VillageManager : MonoBehaviour
     }
 
 
-   
     
     public void SpawnVillager()
     {
@@ -113,8 +109,10 @@ public class VillageManager : MonoBehaviour
         if (villagersToSpawn > 3)
             villagersToSpawn = 3;
 
+        float rnd = Random.Range(1, villagersToSpawn);
 
-        for (int i = 0; i < villagersToSpawn; i++)
+
+        for (int i = 0; i < rnd; i++)
         {
             int randSpawn = Random.Range(0, spawnPos.Count);
             Transform spawnPoint = spawnPos[randSpawn].transform;
@@ -129,7 +127,17 @@ public class VillageManager : MonoBehaviour
     public void SpawnHouse()
     {
         housing += 5;
-
         GameObject house = Instantiate(HousePrefab, transform.position, Quaternion.identity);
+    }
+
+
+
+    public void Sacrifice()
+    {
+        int rnd = Random.Range(0, villagers.Count);  
+        Destroy(villagers[rnd]);  
+        villagers.RemoveAt(rnd);
+        population--;
+        currentFood += sacrificeAmount;
     }
 }
