@@ -561,6 +561,10 @@ MonoBehaviour:
   villagerPrefab: {fileID: 8870936767134630069, guid: 6ba62789706dc85479413bd8cd2872e8, type: 3}
   villagers: []
   villagerScript: {fileID: 3649510494981801638, guid: 6ba62789706dc85479413bd8cd2872e8, type: 3}
+  housing: 0
+  villagersToSpawn: 0
+  villagerSpawnMax: 0
+  HousePrefab: {fileID: 8675781391877033780, guid: 27ced865eb7d5d6408f84afb12ec5ca4, type: 3}
 --- !u!4 &975689152
 Transform:
   m_ObjectHideFlags: 0

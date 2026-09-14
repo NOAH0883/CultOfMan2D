@@ -26,6 +26,9 @@ public class VillageManager : MonoBehaviour
     [SerializeField] float villagerSpawnMax;
     [SerializeField] GameObject HousePrefab;
 
+    [Header("Spawner")]
+    [SerializeField] List<GameObject> spawnPos;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -74,25 +77,37 @@ public class VillageManager : MonoBehaviour
     
     private void SpawnVillagerStart()
     {
-        GameObject villager = Instantiate(villagerPrefab, Vector3.zero, Quaternion.identity);
+        int randSpawn = Random.Range(0, spawnPos.Count);
+        Debug.Log(randSpawn);
+        Transform spawnPoint = spawnPos[randSpawn].transform;
+
+        GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
+        
         villagers.Add(villager);
     }
 
 
    
     
-    private void SpawnVillager()
+    public void SpawnVillager()
     {
         housing = 10;
 
         villagersToSpawn = housing - population;
+        
+        if (villagersToSpawn > 3)
+            villagersToSpawn = 3;
+
 
         for (int i = 0; i < villagersToSpawn; i++)
         {
-            GameObject villager = Instantiate(villagerPrefab, Vector3.zero, Quaternion.identity);
+            int randSpawn = Random.Range(0, spawnPos.Count);
+            Transform spawnPoint = spawnPos[randSpawn].transform;
+            GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
+
             villagers.Add(villager);
+            population++;
         }
-       
 
         // house can hold 5 villagers
         // if villagers are feed 
@@ -110,10 +125,6 @@ public class VillageManager : MonoBehaviour
     {
         housing += 5;
 
-        float randPosx = Random.Range(5, -5);
-        float randPosy = Random.Range(5, -5);
-        Vector2 housingPos = new Vector2(randPosx, randPosy);
-
-        GameObject house = Instantiate(HousePrefab, housingPos, Quaternion.identity);
+        GameObject house = Instantiate(HousePrefab, transform.position, Quaternion.identity);
     }
 }
