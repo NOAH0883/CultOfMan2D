@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask interactionLayer;
     [SerializeField] float interactionDis;
 
-
+    [SerializeField] VillageManager villageManager;
+    public int food;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,7 +41,8 @@ public class Player : MonoBehaviour
             if (hit.TryGetComponent<Interactable>(out Interactable interactableObject))
             {
 
-                interactableObject.Interact();
+                interactableObject.Interact(villageManager);
+                
             }
         }
         else

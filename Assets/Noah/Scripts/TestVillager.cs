@@ -14,6 +14,7 @@ public class TestVillager : MonoBehaviour
     void Start()
     {
         isSick = false;
+
     }
 
     // Update is called once per frame
