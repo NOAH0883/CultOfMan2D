@@ -7,6 +7,8 @@ public class TestVillager : MonoBehaviour
     public bool isSick;
     public int foodNeeded = 2;
 
+    // name
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
