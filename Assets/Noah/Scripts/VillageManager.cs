@@ -20,7 +20,7 @@ public class VillageManager : MonoBehaviour
     [Header("Villagers")]
     [SerializeField] GameObject villagerPrefab;
     [SerializeField] List<GameObject> villagers;
-    [SerializeField] VillagersMovement villager;
+    [SerializeField] VillagerAI villagerScript;
     
 
     [Header("housing")]
@@ -46,7 +46,7 @@ public class VillageManager : MonoBehaviour
     public void Test()
     {
 
-        villagers = villagers.OrderByDescending(go => go.GetComponent<TestVillager>().isSick).ToList(); // sort the list so that the sick villagers get feed first
+        villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
         //bool villagersSick?
         //set villagersSick = false
@@ -57,7 +57,7 @@ public class VillageManager : MonoBehaviour
 
         for (int i = 0; i < villagers.Count; i++)
         {
-            TestVillager testVillager = villagers[i].GetComponent<TestVillager>();
+            VillagerAI testVillager = villagers[i].GetComponent<VillagerAI>();
             if (currentFood >= testVillager.foodNeeded)
             {
                 currentFood -= testVillager.foodNeeded;
@@ -73,8 +73,9 @@ public class VillageManager : MonoBehaviour
 
             else
             {
-                villagers.RemoveAt(i);
                 Destroy(villagers[i]);
+                villagers.RemoveAt(i);
+                
             }
         }
 
