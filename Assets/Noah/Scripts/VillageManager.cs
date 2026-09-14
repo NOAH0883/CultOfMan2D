@@ -3,8 +3,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.XR;
-using System.Runtime.CompilerServices;
+
+
 
 
 public class VillageManager : MonoBehaviour
@@ -20,7 +20,8 @@ public class VillageManager : MonoBehaviour
     [Header("Villagers")]
     [SerializeField] GameObject villagerPrefab;
     [SerializeField] List<GameObject> villagers;
-    [SerializeField] TestVillager villagerScript;
+    //[SerializeField] VillagersMovement villagerScript;
+    [
 
     [Header("housing")]
     [SerializeField] float housing;
