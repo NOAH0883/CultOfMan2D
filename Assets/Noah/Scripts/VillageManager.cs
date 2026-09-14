@@ -3,6 +3,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.XR;
+using System.Runtime.CompilerServices;
 
 
 public class VillageManager : MonoBehaviour
@@ -37,11 +39,20 @@ public class VillageManager : MonoBehaviour
         {
             SpawnVillagerStart();
         }
+        housing = 5;
     }
 
     public void Test()
     {
+
         villagers = villagers.OrderByDescending(go => go.GetComponent<TestVillager>().isSick).ToList(); // sort the list so that the sick villagers get feed first
+
+        //bool villagersSick?
+        //set villagersSick = false
+        // if villager is sick, villagersSick = true
+
+        bool villagersSick = false;
+
 
         for (int i = 0; i < villagers.Count; i++)
         {
@@ -54,8 +65,11 @@ public class VillageManager : MonoBehaviour
             }
 
             if (testVillager.isSick != true)
-
+            {
                 testVillager.isSick = true;
+                villagersSick = true;
+            }
+
             else
             {
                 villagers.RemoveAt(i);
@@ -66,7 +80,7 @@ public class VillageManager : MonoBehaviour
         spareFood = currentFood;
         
         
-        if (population < housing)
+        if (population < housing && !villagersSick)
         {
             SpawnVillager();
         }
@@ -91,8 +105,7 @@ public class VillageManager : MonoBehaviour
     
     public void SpawnVillager()
     {
-        housing = 10;
-
+        
         villagersToSpawn = housing - population;
         
         if (villagersToSpawn > 3)
@@ -108,16 +121,6 @@ public class VillageManager : MonoBehaviour
             villagers.Add(villager);
             population++;
         }
-
-        // house can hold 5 villagers
-        // if villagers are feed 
-        // check if population is less than housing 
-        //housing - population = villagersToSpawn
-        //spawnMax = housing
-        //if villagersToSpawn is greater than spawnMax
-        //villagersToSpawn = spawnMax
-        //for villagersToSpawn
-        // spawn villagers and add to list 
     }
 
 
