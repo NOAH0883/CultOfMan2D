@@ -20,8 +20,8 @@ public class VillageManager : MonoBehaviour
     [Header("Villagers")]
     [SerializeField] GameObject villagerPrefab;
     [SerializeField] List<GameObject> villagers;
-    //[SerializeField] VillagersMovement villagerScript;
-    [
+    [SerializeField] VillagersMovement villager;
+    
 
     [Header("housing")]
     [SerializeField] float housing;
