@@ -5,5 +5,6 @@ public class IInteractable : MonoBehaviour
    public interface Interactable
     {
         void Interact(VillageManager villageManager);
+        
     }
 }
