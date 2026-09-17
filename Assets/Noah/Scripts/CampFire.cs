@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 using static IInteractable;
 using static InputSystem_Actions;
@@ -9,8 +12,9 @@ public class CampFire : MonoBehaviour, Interactable
 
     [SerializeField] GameObject CampFireMenu;
     [SerializeField] InputActionProperty closeMenu;
+    [SerializeField] GameObject firstButtonInMenu;
+    bool open;
 
-   
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,12 +25,20 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void Interact(VillageManager villageManager)
     {
-       closeMenu.action.Enable();
-       closeMenu.action.performed += OnCancel;
 
-        CampFireMenu.SetActive(true);
-        Time.timeScale = 0f;
+        if (!open)
+        {
+            open = true;
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
 
+
+            closeMenu.action.Enable();
+            closeMenu.action.performed += OnCancel;
+
+            CampFireMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 
   
@@ -41,20 +53,10 @@ public class CampFire : MonoBehaviour, Interactable
 
             CampFireMenu.SetActive(false);
             Time.timeScale = 1f;
+            open = false;
 
-            
         }
             
     }
-
-
-
-   
-
-   
-
-
-
-
 
 }

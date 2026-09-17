@@ -1,10 +1,12 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
-
+using Random = UnityEngine.Random;
 
 
 
@@ -21,7 +23,7 @@ public class VillageManager : MonoBehaviour
     [SerializeField] GameObject villagerPrefab;
     [SerializeField] List<GameObject> villagers;
     [SerializeField] VillagerAI villagerScript;
-    
+
 
     [Header("housing")]
     [SerializeField] float housing;
@@ -31,6 +33,9 @@ public class VillageManager : MonoBehaviour
 
     [Header("Spawner")]
     [SerializeField] List<GameObject> spawnPos;
+
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI foodNeededText;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,6 +46,13 @@ public class VillageManager : MonoBehaviour
             SpawnVillagerStart();
         }
         housing = 5;
+    }
+
+
+    void Update()
+    {
+        int dailyFoodRequirement = villagers.Count * 2;
+        foodNeededText.text = currentFood.ToString() + " / " + dailyFoodRequirement.ToString();
     }
 
     public void Test()
@@ -90,6 +102,7 @@ public class VillageManager : MonoBehaviour
     
     private void SpawnVillagerStart()
     {
+
         int randSpawn = Random.Range(0, spawnPos.Count);
         Debug.Log(randSpawn);
         Transform spawnPoint = spawnPos[randSpawn].transform;

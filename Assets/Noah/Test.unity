@@ -647,6 +647,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CampFire
   CampFireMenu: {fileID: 261704933}
+  closeMenu:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Close Menu
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 31f511db-3e07-4bf3-8865-fab6ef0c6431
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!61 &651625758
 BoxCollider2D:
   m_ObjectHideFlags: 0
