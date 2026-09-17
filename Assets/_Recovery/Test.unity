@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 651625760}
   - component: {fileID: 651625759}
   - component: {fileID: 651625758}
-  - component: {fileID: 651625757}
+  - component: {fileID: 651625761}
   m_Layer: 6
   m_Name: Campfire
   m_TagString: Untagged
@@ -634,19 +634,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &651625757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651625756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c402dc780abc8f4fa5346cf82326b77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CampFire
-  CampFireMenu: {fileID: 261704933}
 --- !u!61 &651625758
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -760,13 +747,38 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651625756}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.02, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &651625761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651625756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c402dc780abc8f4fa5346cf82326b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CampFire
+  CampFireMenu: {fileID: 261704933}
+  closeMenu:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Close Menu
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 96849718-fdf7-4cae-be76-30bdfbb90d5c
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &695942770
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,7 +1006,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!212 &706897258
@@ -1198,7 +1210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VillageManager
   population: 5
-  currentFood: 8
+  currentFood: 0
   spareFood: 0
   sacrificeAmount: 10
   villagerPrefab: {fileID: 2144619104558205579, guid: 634582bfb1fbf324c98893bdde29dfde, type: 3}
@@ -1834,8 +1846,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1580817702}
   - component: {fileID: 1580817701}
-  - component: {fileID: 1580817700}
   - component: {fileID: 1580817703}
+  - component: {fileID: 1580817700}
   m_Layer: 6
   m_Name: BerryBush
   m_TagString: Untagged
@@ -1855,7 +1867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed55243c7cf0704ab31fae2dd709f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestInteraction
-  foodAmount: 0
+  foodAmount: 1
 --- !u!212 &1580817701
 SpriteRenderer:
   serializedVersion: 2
@@ -1924,7 +1936,7 @@ Transform:
   m_GameObject: {fileID: 1580817699}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.8, y: -4.38, z: 0}
+  m_LocalPosition: {x: -1.54, y: -3.78, z: 0}
   m_LocalScale: {x: 0.87857807, y: 0.87857807, z: 0.87857807}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1992,6 +2004,7 @@ GameObject:
   - component: {fileID: 1588261572}
   - component: {fileID: 1588261571}
   - component: {fileID: 1588261570}
+  - component: {fileID: 1588261573}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2015,17 +2028,17 @@ MonoBehaviour:
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
@@ -2060,6 +2073,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1588261573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588261569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e6fc7b398d60d46942e1476efa6d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  inputActions: {fileID: 0}
 --- !u!1 &1713434222
 GameObject:
   m_ObjectHideFlags: 0
@@ -2492,5 +2518,5 @@ SceneRoots:
   - {fileID: 1580817702}
   - {fileID: 975689152}
   - {fileID: 477329449}
-  - {fileID: 1588261572}
   - {fileID: 651625760}
+  - {fileID: 1588261572}
