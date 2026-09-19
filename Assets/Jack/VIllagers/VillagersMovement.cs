@@ -28,9 +28,6 @@ public class VillagerAI : MonoBehaviour
     Vector2 boxPos;
 
 
-
-
-
     void Start()
     {
 

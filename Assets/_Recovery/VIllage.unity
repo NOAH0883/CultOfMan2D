@@ -1849,7 +1849,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7f778fbe6f73645bdb02dcb19f0304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DontDestroyOnLOad
-  objectIndex: 1
 --- !u!1 &980885814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,6 +1968,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2abeb6dff63e239469d0077d5409b788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  keepLoaded:
+  - {fileID: 1743105812}
+  - {fileID: 1588261569}
+  - {fileID: 888895011189810640}
+  - {fileID: 975689150}
+  - {fileID: 996157239}
 --- !u!1 &1077962141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +2690,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   villageManager: {fileID: 975689151}
+  sceneLoader: {fileID: 996157241}
 --- !u!61 &1440342777
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2975,6 +2981,7 @@ GameObject:
   - component: {fileID: 1588261572}
   - component: {fileID: 1588261571}
   - component: {fileID: 1588261570}
+  - component: {fileID: 1588261573}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -3043,6 +3050,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1588261573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588261569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7f778fbe6f73645bdb02dcb19f0304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DontDestroyOnLOad
 --- !u!1 &1640033257
 GameObject:
   m_ObjectHideFlags: 0
@@ -3489,7 +3508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7f778fbe6f73645bdb02dcb19f0304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DontDestroyOnLOad
-  objectIndex: 3
 --- !u!1 &1792387038
 GameObject:
   m_ObjectHideFlags: 0
@@ -4088,7 +4106,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1743105814}
 --- !u!114 &3009425788566911764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4208,7 +4226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7f778fbe6f73645bdb02dcb19f0304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DontDestroyOnLOad
-  objectIndex: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

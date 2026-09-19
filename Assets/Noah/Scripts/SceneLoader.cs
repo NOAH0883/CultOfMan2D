@@ -16,7 +16,17 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(Hunting(huntingLevel));
     }
 
-   IEnumerator Hunting(string huntingLevel)
+    public void LoadVillage()
+    {
+        StartCoroutine(Village());
+    }
+
+
+
+
+
+
+    IEnumerator Hunting(string huntingLevel)
    {
         // load hunting scene 
 
@@ -48,6 +58,54 @@ public class SceneLoader : MonoBehaviour
         }
         
     }
+
+
+    IEnumerator Village()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        Scene HunitngScene = SceneManager.GetSceneByName(currentScene);
+
+
+        Scene villageScene = SceneManager.GetSceneByName("Village");
+        SceneManager.SetActiveScene(villageScene);
+
+        
+        GameObject[] rootObjects = villageScene.GetRootGameObjects();
+
+        foreach (GameObject rootObj in rootObjects)
+        {
+            rootObj.SetActive(true);
+        }
+
+
+        for (int i = 0; i < keepLoaded.Count; i++)
+        {
+            SceneManager.MoveGameObjectToScene(keepLoaded[i], villageScene);
+        }
+
+        SceneManager.UnloadSceneAsync(HunitngScene);
+        
+        yield return null;
+    }
+
+
+
+    // go back to village
+    // move back all keep gameobject
+    //unload hunting scene
+    //re-activate village scene
+    // set time of day to allow for actions
+
+
+
+
+    //static variables 
+    //timeofday 
+    //foodamount
+    //number of villages 
+    //housing 
+    //wepon upgrades
+
 
 
 }
