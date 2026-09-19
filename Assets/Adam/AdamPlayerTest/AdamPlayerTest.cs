@@ -1,18 +1,30 @@
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class AdamPlayerTest : MonoBehaviour
 {
     InputAction moveAction;
     InputAction dodgeAction;
+    InputAction lookAction;
     [SerializeField] private float playerSpeed;
     [SerializeField] private float rollDistance;
     public GameObject playerHurtbox;
+    public GameObject playerHurtboxPivot;
     public GameObject playerHitbox;
     private bool active;
     private float actionTime;
+    
+    [SerializeField] TextMeshProUGUI directionText;
+    Vector2 playerPos;
+    Vector2 lookInput = new Vector2 (0, 0);
+    enum PlayerLookDevice { Mouse, Joystick, Gamepad }
+    PlayerLookDevice LookCurrentDevice;
+
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
     Vector3 desiredView;
@@ -33,9 +45,93 @@ public class AdamPlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 relativePos = Vector2.zero;
+        playerPos = transform.position;
+
+
+        // Read SHANWAN right stick
+
+        if (Mouse.current != null)
+        {
+            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+            if (mouseDelta.sqrMagnitude > 0.01f)
+            {
+                LookCurrentDevice = PlayerLookDevice.Mouse;
+            }
+
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);
+            relativePos = mouseWorldPos - playerPos;
+        }
+        if (Joystick.current != null)
+        {
+            AxisControl z = Joystick.current["z"] as AxisControl;
+            AxisControl rz = Joystick.current["rz"] as AxisControl;
+
+            if (z != null && rz != null)
+            {
+                Vector2 joystickInput = new Vector2(z.ReadValue(), -rz.ReadValue());
+
+                if (joystickInput.sqrMagnitude > 0.01f)
+                {
+                    LookCurrentDevice = PlayerLookDevice.Joystick;
+                    lookInput = joystickInput;
+                }
+            }
+        }
+        if (Gamepad.current != null)
+        {
+            Vector2 gamepadInput = Gamepad.current.rightStick.ReadValue();
+
+            if (gamepadInput.sqrMagnitude > 0.01f)
+            {
+                LookCurrentDevice = PlayerLookDevice.Gamepad;
+                lookInput = gamepadInput;
+            }
+        }
+
+        switch (LookCurrentDevice)
+        {
+            case PlayerLookDevice.Joystick:
+                relativePos = lookInput;
+                break;
+
+            case PlayerLookDevice.Gamepad:
+                relativePos = lookInput;
+                break;
+
+            case PlayerLookDevice.Mouse:
+                Vector2 mousePosition =
+                    Mouse.current.position.ReadValue();
+
+                Vector2 mouseWorldPos =
+                    Camera.main.ScreenToWorldPoint(mousePosition);
+
+                relativePos = mouseWorldPos - playerPos;
+                break;
+        }
+
+
+        if (relativePos.sqrMagnitude > 0.01f)
+        {
+            float angleDegrees =
+                Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
+
+            angleDegrees =
+                Mathf.Round(angleDegrees / 45f) * 45f;
+
+            directionText.text =
+                "Angle: " + angleDegrees +
+                " | Device: " + LookCurrentDevice;
+
+            playerHurtboxPivot.transform.rotation =
+                Quaternion.Euler(0, 0, angleDegrees);
+        }
+
         if (active)
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
+            
             transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
             if (dodgeAction.IsPressed() && active)
             {
@@ -43,6 +139,7 @@ public class AdamPlayerTest : MonoBehaviour
                 DodgeRollCalc(moveValue);
                 Debug.Log("Dodge roll.");
             }
+
 
         }
         else
@@ -53,7 +150,7 @@ public class AdamPlayerTest : MonoBehaviour
                 active = true;
             }
         }
-        
+
     }
 
     void DodgeRollCalc(Vector2 moveValue)
