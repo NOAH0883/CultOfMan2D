@@ -13,6 +13,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
     [SerializeField] GameObject firstButtonInMenu;
     [SerializeField] InputActionProperty closeMenu;
     [SerializeField] VillageManager villageManager;
+    [SerializeField] SceneLoader sceneLoader;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,9 +53,16 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     public void GrassLands()
     {
+        closeMenu.action.Disable();
+        closeMenu.action.performed -= OnCancel;
+
+
+        huntingMenu.SetActive(false);
+        Time.timeScale = 1f;
+
         string sceneToLoad = "GrassLands";
         
-        villageManager.LoadHunting(sceneToLoad);
+        sceneLoader.LoadHunting(sceneToLoad);
     }
   
 

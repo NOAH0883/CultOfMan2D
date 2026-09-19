@@ -42,7 +42,7 @@ public class VillageManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
 
         for (int i = 0; i < population; i++)
         {
@@ -162,16 +162,16 @@ public class VillageManager : MonoBehaviour
 
 
 
-    public void LoadHunting(string loadScene)
-    {
+    //public void LoadHunting(string loadScene)
+    //{
 
-        for (int i = 0; i < villagers.Count; i++)
-        {
-            villagers[i].SetActive(false); // disable all villages , make sure that have dont destroy on load 
-        }
+    //    for (int i = 0; i < villagers.Count; i++)
+    //    {
+    //        villagers[i].SetActive(false); // disable all villages , make sure that have dont destroy on load 
+    //    }
 
-        SceneManager.LoadScene(loadScene);
-    }
+    //    SceneManager.LoadScene(loadScene);
+    //}
 
 
 
