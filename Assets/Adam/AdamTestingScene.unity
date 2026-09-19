@@ -149,26 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115faa08287d57c4b9276b71f4d7f540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  lookAction:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Look
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: f652e27a-1601-46cc-9ff0-719a9f9be50e
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 4b45ff94-a47d-4ce9-8f50-4dd437e248f6
-        m_Path: <Mouse>/position
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Look
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
   playerSpeed: 3
   rollDistance: 3
   playerHurtbox: {fileID: 337528360}
@@ -872,7 +852,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1, y: 0}
+  m_Offset: {x: 3, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -882,7 +862,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 2}
+  m_Size: {x: 5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &888799138
 GameObject:
