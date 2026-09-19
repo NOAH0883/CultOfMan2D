@@ -22,6 +22,18 @@ public class AdamPlayerTest : MonoBehaviour
     [SerializeField] TextMeshProUGUI directionText;
     Vector2 playerPos;
     Vector2 lookInput = new Vector2 (0, 0);
+    enum Direction
+    {
+        N,
+        NE,
+        E,
+        SE,
+        S,
+        SW,
+        W,
+        NW
+    }   
+    Direction CurrentDirection;
     enum PlayerLookDevice { Mouse, Joystick, Gamepad }
     PlayerLookDevice LookCurrentDevice;
 
@@ -45,11 +57,37 @@ public class AdamPlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Looking();
+
+        if (active)
+        {
+            Vector2 moveValue = moveAction.ReadValue<Vector2>();
+            
+            transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
+            if (dodgeAction.WasPressedThisFrame() && active)
+            {
+                active = false;
+                DodgeRollCalc(moveValue);
+                Debug.Log("Dodge roll.");
+            }
+
+
+        }
+        else
+        {
+            actionTime -= Time.deltaTime;
+            if (actionTime <= 0)
+            {
+                active = true;
+            }
+        }
+
+    }
+
+    void Looking()
+    {
         Vector2 relativePos = Vector2.zero;
         playerPos = transform.position;
-
-
-        // Read SHANWAN right stick
 
         if (Mouse.current != null)
         {
@@ -114,79 +152,37 @@ public class AdamPlayerTest : MonoBehaviour
 
         if (relativePos.sqrMagnitude > 0.01f)
         {
-            float angleDegrees =
-                Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
-
-            angleDegrees =
-                Mathf.Round(angleDegrees / 45f) * 45f;
-
-            directionText.text =
-                "Angle: " + angleDegrees +
-                " | Device: " + LookCurrentDevice;
-
-            playerHurtboxPivot.transform.rotation =
-                Quaternion.Euler(0, 0, angleDegrees);
+            float angleDegrees = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
+            angleDegrees = Mathf.Round(angleDegrees / 45f) * 45f;
+            directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
+            playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angleDegrees);
         }
-
-        if (active)
-        {
-            Vector2 moveValue = moveAction.ReadValue<Vector2>();
-            
-            transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
-            if (dodgeAction.IsPressed() && active)
-            {
-                active = false;
-                DodgeRollCalc(moveValue);
-                Debug.Log("Dodge roll.");
-            }
-
-
-        }
-        else
-        {
-            actionTime -= Time.deltaTime;
-            if (actionTime <= 0)
-            {
-                active = true;
-            }
-        }
-
     }
-
+    
     void DodgeRollCalc(Vector2 moveValue)
     {
         Vector3 startPos = transform.position;
         Vector3 endPos = transform.position;
-        float rollX = moveValue.x;
-        float rollY = moveValue.y;
 
-            if (rollX > 0)
-            {
-                endPos += new Vector3(rollDistance, 0, 0);
-                Debug.Log("Right roll.");
-            }
-            else if (rollX < 0)
-            {
-                endPos -= new Vector3(rollDistance, 0, 0);
-                Debug.Log("Left roll.");
-            }
-            if (rollY > 0)
-            {
-                endPos += new Vector3(0, rollDistance, 0);
-                Debug.Log("Upwards roll.");
-            }
-            else if (rollY < 0)
-            {
-                endPos -= new Vector3(0, rollDistance, 0);
-                Debug.Log("Downwards roll.");
-            }
+        float angleDegrees = (Mathf.Atan2(moveValue.x, moveValue.y) * Mathf.Rad2Deg);
+        if (angleDegrees < 0) { angleDegrees += 360; }
+        int angle = Mathf.RoundToInt(angleDegrees / 45f) % 8;
+        CurrentDirection = (Direction)angle;
 
-            if (endPos == transform.position)
-            {
-                endPos += new Vector3(rollDistance, 0, 0);
-                Debug.Log("Right roll.");
-            }
+        switch (CurrentDirection)
+        {
+            case Direction.N: endPos += new Vector3(0, rollDistance, 0); break;
+            case Direction.NE: endPos += new Vector3(rollDistance, rollDistance, 0); break;
+            case Direction.E: endPos += new Vector3(rollDistance, 0, 0); break;
+            case Direction.SE: endPos += new Vector3(rollDistance, -rollDistance, 0); break;
+            case Direction.S: endPos += new Vector3(0, -rollDistance, 0); break;
+            case Direction.SW: endPos += new Vector3(-rollDistance, -rollDistance, 0); break;
+            case Direction.W: endPos += new Vector3(-rollDistance, 0, 0); break;
+            case Direction.NW: endPos += new Vector3(-rollDistance, rollDistance, 0); break;
+            default: break;
+        }
 
+        Debug.Log("Current Direction Number: " + CurrentDirection);
         StartCoroutine(DodgeRoll(startPos, endPos, rollTime));
         actionTime = rollTime + 0.1f;
     }
