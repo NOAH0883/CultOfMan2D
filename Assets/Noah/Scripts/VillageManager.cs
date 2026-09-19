@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
 
@@ -41,6 +42,8 @@ public class VillageManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameObject.SetActive(false);
+
         for (int i = 0; i < population; i++)
         {
             SpawnVillagerStart();
@@ -153,4 +156,25 @@ public class VillageManager : MonoBehaviour
         population--;
         currentFood += sacrificeAmount;
     }
+
+
+
+
+
+
+    public void LoadHunting(string loadScene)
+    {
+
+        for (int i = 0; i < villagers.Count; i++)
+        {
+            villagers[i].SetActive(false); // disable all villages , make sure that have dont destroy on load 
+        }
+
+        SceneManager.LoadScene(loadScene);
+    }
+
+
+
+
+
 }

@@ -14,7 +14,14 @@ public class Player : MonoBehaviour
 
     [SerializeField] VillageManager villageManager;
     public int food;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+   
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,23 +49,22 @@ public class Player : MonoBehaviour
             {
 
                 interactableObject.Interact(villageManager);
-                
+
             }
         }
         else
         {
-            Debug.Log("No Hit");
+           return;
         }
     }
 
-    
+
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, interactionDis);
     }
-
 
 }
 

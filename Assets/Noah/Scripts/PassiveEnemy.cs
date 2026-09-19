@@ -51,7 +51,7 @@ public class PassiveEnemy : MonoBehaviour
     void Idle()
     {
         //play idle animations
-        Debug.Log("idle");
+        //Debug.Log("idle");
     }
 
     private void OnTriggerStay2D(Collider2D collision)

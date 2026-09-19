@@ -27,6 +27,14 @@ public class VillagerAI : MonoBehaviour
     [SerializeField] Vector2 box;
     Vector2 boxPos;
 
+
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+
     void Start()
     {
 
