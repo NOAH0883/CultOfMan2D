@@ -27,6 +27,7 @@ public class VillagerAI : MonoBehaviour
     [SerializeField] Vector2 box;
     Vector2 boxPos;
 
+
     void Start()
     {
 

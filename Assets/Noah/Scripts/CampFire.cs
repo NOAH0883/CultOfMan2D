@@ -54,7 +54,6 @@ public class CampFire : MonoBehaviour, Interactable
             CampFireMenu.SetActive(false);
             Time.timeScale = 1f;
             open = false;
-
         }
             
     }

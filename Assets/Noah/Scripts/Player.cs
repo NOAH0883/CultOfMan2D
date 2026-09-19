@@ -1,5 +1,8 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 using static IInteractable;
 
 public class Player : MonoBehaviour
@@ -14,9 +17,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] VillageManager villageManager;
     public int food;
+    PlayerInput input;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        input = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -42,16 +49,16 @@ public class Player : MonoBehaviour
             {
 
                 interactableObject.Interact(villageManager);
-                
+
             }
         }
         else
         {
-            Debug.Log("No Hit");
+            return;
         }
     }
 
-    
+
 
     private void OnDrawGizmosSelected()
     {
@@ -60,5 +67,27 @@ public class Player : MonoBehaviour
     }
 
 
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        rb = GetComponent<Rigidbody2D>();
+        if (input != null)
+        {
+            // 4. Force reset the input system to refresh device bindings
+            input.enabled = false;
+            input.enabled = true;
+
+        }
+    }
 }
 

@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static IInteractable;
 
@@ -11,6 +12,8 @@ public class HuntingMenu : MonoBehaviour, Interactable
     [SerializeField] GameObject huntingMenu;
     [SerializeField] GameObject firstButtonInMenu;
     [SerializeField] InputActionProperty closeMenu;
+    [SerializeField] VillageManager villageManager;
+    [SerializeField] SceneLoader sceneLoader;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,12 +25,10 @@ public class HuntingMenu : MonoBehaviour, Interactable
     public void Interact(VillageManager villageManager)
     {
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
+        //EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
 
         closeMenu.action.Enable();
-
-
         closeMenu.action.performed += OnCancel;
 
         huntingMenu.SetActive(true);
@@ -52,9 +53,18 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     public void GrassLands()
     {
-        Debug.Log("Go to grasslands");
-    }
+        closeMenu.action.Disable();
+        closeMenu.action.performed -= OnCancel;
 
+
+        huntingMenu.SetActive(false);
+        Time.timeScale = 1f;
+
+        string sceneToLoad = "GrassLands";
+        
+        sceneLoader.LoadHunting(sceneToLoad);
+    }
+  
 
 
 
