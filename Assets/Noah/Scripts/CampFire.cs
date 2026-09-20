@@ -73,9 +73,9 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void UpgradeWeapon()
     {
-        if(GameData.food>3 && !villageManager.hasWeapon)
+        if(GameData.food>3 && !GameData.hasWeapon)
         {
-            villageManager.hasWeapon = true;
+            GameData.hasWeapon = true;
             Debug.Log("Give playerWeapon");
             GameData.food -= 3;
         }
@@ -84,7 +84,5 @@ public class CampFire : MonoBehaviour, Interactable
             Debug.Log("Not enough food");
         }
     }
-        
-
 
 }

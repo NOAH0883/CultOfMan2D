@@ -36,8 +36,7 @@ public class VillageManager : MonoBehaviour
 
     
     
-    
-    public bool hasWeapon;
+  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,7 +48,7 @@ public class VillageManager : MonoBehaviour
 
 
 
-        hasWeapon = false;
+        GameData.hasWeapon = false;
 
         GameData.isDay = true;
         GameData.population = 3;

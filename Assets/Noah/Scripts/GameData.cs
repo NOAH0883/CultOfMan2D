@@ -9,4 +9,5 @@ public static class GameData
     public static bool isDay;
     public static bool hasFeedVillage;
     public static bool spawnVillagers;
+    public static bool hasWeapon;
 }
