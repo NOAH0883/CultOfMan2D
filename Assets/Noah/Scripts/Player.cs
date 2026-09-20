@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask interactionLayer;
     [SerializeField] float interactionDis;
 
-    [SerializeField] VillageManager villageManager;
-    public int food;
+    
+   
     PlayerInput input;
 
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
             if (hit.TryGetComponent<Interactable>(out Interactable interactableObject))
             {
 
-                interactableObject.Interact(villageManager);
+                interactableObject.Interact();
 
             }
         }
@@ -68,26 +68,6 @@ public class Player : MonoBehaviour
 
 
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        rb = GetComponent<Rigidbody2D>();
-        if (input != null)
-        {
-            // 4. Force reset the input system to refresh device bindings
-            input.enabled = false;
-            input.enabled = true;
-
-        }
-    }
+   
 }
 

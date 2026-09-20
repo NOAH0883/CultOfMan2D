@@ -12,27 +12,34 @@ public class HuntingMenu : MonoBehaviour, Interactable
     [SerializeField] GameObject huntingMenu;
     [SerializeField] GameObject firstButtonInMenu;
     [SerializeField] InputActionProperty closeMenu;
-    [SerializeField] VillageManager villageManager;
-    [SerializeField] SceneLoader sceneLoader;
-    
+    SceneLoader sceneLoader;
+   
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         huntingMenu.SetActive(false);
+
+        sceneLoader = Object.FindAnyObjectByType<SceneLoader>();
+        if (sceneLoader != null)
+            Debug.Log("got the sceneloader");
     }
 
-    public void Interact(VillageManager villageManager)
+    public void Interact()
     {
+        if (GameData.isDay)
+        {
 
-        //EventSystem.current.SetSelectedGameObject(null);
-        //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
+            //EventSystem.current.SetSelectedGameObject(null);
+            //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
 
-        closeMenu.action.Enable();
-        closeMenu.action.performed += OnCancel;
+            closeMenu.action.Enable();
+            closeMenu.action.performed += OnCancel;
 
-        huntingMenu.SetActive(true);
-        Time.timeScale = 0f;
+            huntingMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 
     void OnCancel(InputAction.CallbackContext context)
@@ -61,8 +68,8 @@ public class HuntingMenu : MonoBehaviour, Interactable
         Time.timeScale = 1f;
 
         string sceneToLoad = "GrassLands";
-        
-        sceneLoader.LoadHunting(sceneToLoad);
+        Vector2 spawnPos = new Vector2(-7, 0);
+        sceneLoader.LoadHunting(sceneToLoad, spawnPos);
     }
   
 

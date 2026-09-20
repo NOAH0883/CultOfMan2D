@@ -8,85 +8,39 @@ using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour
 {
-    
-    [SerializeField] List<GameObject> keepLoaded;
+    [SerializeField] VillageManager villageManager;
+    Player player;
 
-    public void LoadHunting(string huntingLevel)
+    public void LoadHunting(string loadScene, Vector2 spawnPos)
     {
-        StartCoroutine(Hunting(huntingLevel));
+
+        player = UnityEngine.Object.FindAnyObjectByType<Player>();
+
+
+        for (int i = 0; i < villageManager.villagers.Count; i++)
+        {
+            villageManager.villagers[i].SetActive(false); // disable all villages , make sure that have dont destroy on load 
+        }
+
+        player.transform.position = spawnPos;
+
+        SceneManager.LoadScene(loadScene);
     }
 
-    public void LoadVillage()
+    public void LoadVillage(Vector2 spawnPos)
     {
-        StartCoroutine(Village());
+        player = UnityEngine.Object.FindAnyObjectByType<Player>();
+
+        for (int i = 0; i < villageManager.villagers.Count; i++)
+        {
+            villageManager.villagers[i].SetActive(true); 
+        }
+
+        player.transform.position = spawnPos;
+        SceneManager.LoadScene("Village");
     }
 
-
-
-
-
-
-    IEnumerator Hunting(string huntingLevel)
-   {
-        // load hunting scene 
-
-        AsyncOperation loadOp = SceneManager.LoadSceneAsync(huntingLevel, LoadSceneMode.Additive);
-        while (!loadOp.isDone)
-        {
-            yield return null;
-        }
-        
-        string currentScene = SceneManager.GetActiveScene().name;
-        Scene villageScene = SceneManager.GetSceneByName(currentScene);
-
-        Scene huntingScene = SceneManager.GetSceneByName(huntingLevel);
-        SceneManager.SetActiveScene(huntingScene);
-
-
-        
-        for (int i = 0; i < keepLoaded.Count; i++)
-        {
-            SceneManager.MoveGameObjectToScene(keepLoaded[i], huntingScene);
-        }
-
-
-        GameObject[] rootObjects = villageScene.GetRootGameObjects();
-        
-        foreach (GameObject rootObj in rootObjects)
-        {
-            rootObj.SetActive(false);
-        }
-        
-    }
-
-
-    IEnumerator Village()
-    {
-        string currentScene = SceneManager.GetActiveScene().name;
-        Scene HunitngScene = SceneManager.GetSceneByName(currentScene);
-
-
-        Scene villageScene = SceneManager.GetSceneByName("Village");
-        SceneManager.SetActiveScene(villageScene);
-
-        
-        GameObject[] rootObjects = villageScene.GetRootGameObjects();
-
-        foreach (GameObject rootObj in rootObjects)
-        {
-            rootObj.SetActive(true);
-        }
-
-
-        for (int i = 0; i < keepLoaded.Count; i++)
-        {
-            SceneManager.MoveGameObjectToScene(keepLoaded[i], villageScene);
-        }
-
-        SceneManager.UnloadSceneAsync(HunitngScene);
-        
-        yield return null;
-    }
+}
 
 
 
@@ -108,4 +62,4 @@ public class SceneLoader : MonoBehaviour
 
 
 
-}
+

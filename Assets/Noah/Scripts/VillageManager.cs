@@ -15,14 +15,13 @@ public class VillageManager : MonoBehaviour
 {
 
     [Header("Food")]
-    [SerializeField] int population;
-    public float currentFood;
+    
     [SerializeField] int spareFood;
     [SerializeField] int sacrificeAmount;
 
     [Header("Villagers")]
     [SerializeField] GameObject villagerPrefab;
-    [SerializeField] List<GameObject> villagers;
+    public List<GameObject> villagers;
     [SerializeField] VillagerAI villagerScript;
 
 
@@ -35,16 +34,21 @@ public class VillageManager : MonoBehaviour
     [Header("Spawner")]
     [SerializeField] List<GameObject> spawnPos;
 
-    [Header("UI")]
-    [SerializeField] TextMeshProUGUI foodNeededText;
+
     
+    public bool hasWeapon;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
+        hasWeapon = false;
+
+        GameData.isDay = true;
+        GameData.population = 3;
         gameObject.SetActive(true);
 
-        for (int i = 0; i < population; i++)
+        for (int i = 0; i < GameData.population; i++)
         {
             SpawnVillagerStart();
         }
@@ -52,15 +56,12 @@ public class VillageManager : MonoBehaviour
     }
 
 
-    void Update()
-    {
-        int dailyFoodRequirement = villagers.Count * 2;
-        foodNeededText.text = currentFood.ToString() + " / " + dailyFoodRequirement.ToString();
-    }
+    
 
     public void Test()
     {
-        currentFood += spareFood; //add spare food to current food 
+        Debug.Log("work plz");
+        GameData.food += spareFood; //add spare food to current food 
 
         villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
@@ -69,10 +70,14 @@ public class VillageManager : MonoBehaviour
         for (int i = 0; i < villagers.Count; i++)
         {
             VillagerAI testVillager = villagers[i].GetComponent<VillagerAI>();
-            if (currentFood >= testVillager.foodNeeded)
+            if (GameData.food >= testVillager.foodNeeded)
             {
-                currentFood -= testVillager.foodNeeded;
+                GameData.food -= testVillager.foodNeeded;
                 testVillager.isSick = false;
+                
+                SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
+                sr.color = Color.white;
+
                 continue;
             }
 
@@ -80,28 +85,39 @@ public class VillageManager : MonoBehaviour
             {
                 testVillager.isSick = true;
                 villagersSick = true;
-            }
+                
+                SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
+                sr.color = Color.green;
 
+                continue;
+            }
             else
             {
                 Destroy(villagers[i]);
                 villagers.RemoveAt(i);
-                
+                GameData.population--;
             }
         }
 
-        if (currentFood >= Mathf.RoundToInt(population / 2) )
-            spareFood = Mathf.RoundToInt(population / 2);
-        else
-            spareFood = Mathf.RoundToInt(currentFood);
-        
-        
-        if (population < housing && !villagersSick)
-            SpawnVillager();
+       
          
     }
 
     
+    void OverNight()
+    {
+        //if (GameData.food >= Mathf.RoundToInt(GameData.population / 2))
+        //    spareFood = Mathf.RoundToInt(GameData.population / 2);
+        //else
+        //    spareFood = Mathf.RoundToInt(GameData.food);
+
+
+        //if (GameData.population < housing && !villagersSick)
+        //    SpawnVillager();
+    }
+
+
+
     
     private void SpawnVillagerStart()
     {
@@ -113,6 +129,7 @@ public class VillageManager : MonoBehaviour
         GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
         
         villagers.Add(villager);
+        DontDestroyOnLoad(villager);
     }
 
 
@@ -120,7 +137,7 @@ public class VillageManager : MonoBehaviour
     public void SpawnVillager()
     {
         
-        villagersToSpawn = housing - population;
+        villagersToSpawn = housing - GameData.population;
         
         if (villagersToSpawn > 3)
             villagersToSpawn = 3;
@@ -135,16 +152,17 @@ public class VillageManager : MonoBehaviour
             GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
 
             villagers.Add(villager);
-            population++;
+            DontDestroyOnLoad(villager);
+            GameData.population++;
         }
     }
 
 
-    public void SpawnHouse()
-    {
-        housing += 5;
-        GameObject house = Instantiate(HousePrefab, transform.position, Quaternion.identity);
-    }
+    //public void SpawnHouse()
+    //{
+    //    housing += 5;
+    //    GameObject house = Instantiate(HousePrefab, transform.position, Quaternion.identity);
+    //}
 
 
 
@@ -153,28 +171,9 @@ public class VillageManager : MonoBehaviour
         int rnd = Random.Range(0, villagers.Count);  
         Destroy(villagers[rnd]);  
         villagers.RemoveAt(rnd);
-        population--;
-        currentFood += sacrificeAmount;
+        GameData.population--;
+        GameData.food += sacrificeAmount;
     }
-
-
-
-
-
-
-    //public void LoadHunting(string loadScene)
-    //{
-
-    //    for (int i = 0; i < villagers.Count; i++)
-    //    {
-    //        villagers[i].SetActive(false); // disable all villages , make sure that have dont destroy on load 
-    //    }
-
-    //    SceneManager.LoadScene(loadScene);
-    //}
-
-
-
 
 
 }

@@ -15,29 +15,34 @@ public class CampFire : MonoBehaviour, Interactable
     [SerializeField] GameObject firstButtonInMenu;
     bool open;
 
-
+    VillageManager villageManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         CampFireMenu.SetActive(false);
+
+        villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
     }
 
-    public void Interact(VillageManager villageManager)
+    public void Interact()
     {
 
-        if (!open)
+        if (!GameData.isDay)
         {
-            open = true;
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
+            if (!open)
+            {
+                //open = true;
+                //EventSystem.current.SetSelectedGameObject(null);
+                //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
 
 
-            closeMenu.action.Enable();
-            closeMenu.action.performed += OnCancel;
+                closeMenu.action.Enable();
+                closeMenu.action.performed += OnCancel;
 
-            CampFireMenu.SetActive(true);
-            Time.timeScale = 0f;
+                CampFireMenu.SetActive(true);
+                Time.timeScale = 0f;
+            }
         }
     }
 
@@ -57,5 +62,40 @@ public class CampFire : MonoBehaviour, Interactable
         }
             
     }
+
+
+    public void Feed()
+    {
+
+        if (!GameData.hasFeedVillage)
+        {
+            Debug.Log("FeedVIllages");
+            GameData.hasFeedVillage = true;
+            villageManager.Test();
+        }
+            
+    }
+
+    public void Sacrifice()
+    {
+        if(GameData.population > 1 )
+            villageManager.Sacrifice();
+    }
+
+    public void UpgradeWeapon()
+    {
+        if(GameData.food>3 && !villageManager.hasWeapon)
+        {
+            villageManager.hasWeapon = true;
+            Debug.Log("Give playerWeapon");
+            GameData.food -= 3;
+        }
+        else
+        {
+            Debug.Log("Not enough food");
+        }
+    }
+        
+
 
 }
