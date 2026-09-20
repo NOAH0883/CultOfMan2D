@@ -16,6 +16,7 @@ public class AdamPlayerTest : MonoBehaviour
     public GameObject playerHurtbox;
     public GameObject playerHurtboxPivot;
     public GameObject playerHitbox;
+    public BoxCollider2D playerHitboxCollider;
     private bool active;
     private bool canAttack;
     private bool attacking;
@@ -238,6 +239,8 @@ public class AdamPlayerTest : MonoBehaviour
         {
             canAttack = false;
             attacking = true;
+            playerHitboxCollider.size = new Vector2 (3, 1);
+            playerHitboxCollider.offset = new Vector2 (2, 0);
             StartCoroutine(Attack());
             Debug.Log("Left click.");
         }
