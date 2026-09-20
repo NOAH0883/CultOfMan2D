@@ -10,6 +10,7 @@ public class PassiveEnemy : MonoBehaviour
     bool canSeePlayer;
     Vector2 runDir;
     [SerializeField] float health;
+    [SerializeField] int foodAmount;
     
     EnemyStates enemyStates;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -87,12 +88,14 @@ public class PassiveEnemy : MonoBehaviour
         
     }
 
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         if (health <= 0)
         {
-            enemyStates = EnemyStates.dead;
+            GameData.food += foodAmount;
+            Destroy(gameObject);
+            //enemyStates = EnemyStates.dead;
         }
     }
 

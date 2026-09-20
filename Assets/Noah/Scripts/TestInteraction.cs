@@ -62,17 +62,17 @@ public class TestInteraction : MonoBehaviour, Interactable
             villageManager.Sacrifice();
     }
 
-    public void UpgradeWeapon()
-    {
-        if (GameData.food > 3 && !villageManager.hasWeapon)
-        {
-            villageManager.hasWeapon = true;
-            Debug.Log("Give playerWeapon");
-            GameData.food -= 3;
-        }
-        else
-        {
-            Debug.Log("Not enough food");
-        }
-    }
+    //public void UpgradeWeapon()
+    //{
+    //    if (GameData.food > 3 && !villageManager.hasWeapon)
+    //    {
+    //        villageManager.hasWeapon = true;
+    //        Debug.Log("Give playerWeapon");
+    //        GameData.food -= 3;
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Not enough food");
+    //    }
+    //}
 }

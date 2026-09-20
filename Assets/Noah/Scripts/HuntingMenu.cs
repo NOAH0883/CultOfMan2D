@@ -70,7 +70,24 @@ public class HuntingMenu : MonoBehaviour, Interactable
         Vector2 spawnPos = new Vector2(-7, 0);
         sceneLoader.LoadHunting(sceneToLoad, spawnPos);
     }
-  
+
+    public void GrassLands2()
+    {
+        if (GameData.hasWeapon)
+        {
+            closeMenu.action.Disable();
+            closeMenu.action.performed -= OnCancel;
+
+
+            huntingMenu.SetActive(false);
+            Time.timeScale = 1f;
+
+            string sceneToLoad = "GrassLands2";
+            Vector2 spawnPos = new Vector2(-7, 0);
+            sceneLoader.LoadHunting(sceneToLoad, spawnPos);
+        }
+        
+    }
 
 
 
