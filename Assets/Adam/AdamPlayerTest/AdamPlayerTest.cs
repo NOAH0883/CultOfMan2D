@@ -10,13 +10,15 @@ public class AdamPlayerTest : MonoBehaviour
 {
     InputAction moveAction;
     InputAction dodgeAction;
-    InputAction lookAction;
+    InputAction attackAction;
     [SerializeField] private float playerSpeed;
     [SerializeField] private float rollDistance;
     public GameObject playerHurtbox;
     public GameObject playerHurtboxPivot;
     public GameObject playerHitbox;
     private bool active;
+    private bool canAttack;
+    private bool attacking;
     private float actionTime;
     
     [SerializeField] TextMeshProUGUI directionText;
@@ -39,15 +41,21 @@ public class AdamPlayerTest : MonoBehaviour
 
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
-    Vector3 desiredView;
+
+    [SerializeField] private float attackTime;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         active = true;
+        canAttack = true;
+        attacking = false;
         moveAction = InputSystem.actions.FindAction("Move");
         dodgeAction = InputSystem.actions.FindAction("Dodge");
+        attackAction = InputSystem.actions.FindAction("Attack");
+        attackAction.performed += ctx => OnLeftClick();
+
         if (rollInvulnerability >= rollTime)
         {
             rollInvulnerability = rollTime;
@@ -57,21 +65,26 @@ public class AdamPlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Looking();
+        if (canAttack)
+        {
+            Looking();
+        }
+        
 
         if (active)
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
             
-            //transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
-            if (dodgeAction.WasPressedThisFrame() && active)
+            transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
+            if (dodgeAction.WasPressedThisFrame())
             {
                 active = false;
+                canAttack = false;
+                attacking = false;
+                StopCoroutine(Attack());
                 DodgeRollCalc(moveValue);
                 Debug.Log("Dodge roll.");
             }
-
-
         }
         else
         {
@@ -185,7 +198,7 @@ public class AdamPlayerTest : MonoBehaviour
 
         Debug.Log("Current Direction Number: " + CurrentDirection);
         StartCoroutine(DodgeRoll(startPos, endPos, rollTime));
-        actionTime = rollTime + 0.1f;
+        actionTime = rollTime + 0.02f;
     }
 
     IEnumerator DodgeRoll(Vector3 startPos, Vector3 endPos, float rollTime)
@@ -215,6 +228,35 @@ public class AdamPlayerTest : MonoBehaviour
         }
         transform.position = endPos;
         playerHurtbox.SetActive(true);
+        canAttack = true;
         Debug.Log("End roll.");
+    }
+
+    private void OnLeftClick()
+    {
+        if (active && canAttack)
+        {
+            canAttack = false;
+            attacking = true;
+            StartCoroutine(Attack());
+            Debug.Log("Left click.");
+        }
+    }
+
+    IEnumerator Attack()
+    {
+        float elapsed = 0f;
+
+        Debug.Log("Start attack.");
+        while (elapsed < attackTime && attacking)
+        {
+            elapsed += Time.deltaTime;
+            playerHitbox.SetActive(true);
+            yield return null;
+        }
+        playerHitbox.SetActive(false);
+        Debug.Log("End attack.");
+        canAttack = true;
+        yield return null;
     }
 }

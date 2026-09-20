@@ -157,6 +157,7 @@ MonoBehaviour:
   directionText: {fileID: 1079495716}
   rollTime: 0.3
   rollInvulnerability: 0.2
+  attackTime: 1
 --- !u!212 &146398932
 SpriteRenderer:
   serializedVersion: 2
@@ -802,7 +803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &860904976
 Transform:
   m_ObjectHideFlags: 0
