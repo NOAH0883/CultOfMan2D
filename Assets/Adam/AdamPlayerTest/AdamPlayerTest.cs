@@ -63,7 +63,7 @@ public class AdamPlayerTest : MonoBehaviour
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
             
-            transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
+            //transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
             if (dodgeAction.WasPressedThisFrame() && active)
             {
                 active = false;
@@ -162,7 +162,7 @@ public class AdamPlayerTest : MonoBehaviour
     void DodgeRollCalc(Vector2 moveValue)
     {
         Vector3 startPos = transform.position;
-        Vector3 endPos = transform.position;
+        Vector3 endPos = new Vector3(0, 0, 0);
 
         float angleDegrees = (Mathf.Atan2(moveValue.x, moveValue.y) * Mathf.Rad2Deg);
         if (angleDegrees < 0) { angleDegrees += 360; }
@@ -171,16 +171,17 @@ public class AdamPlayerTest : MonoBehaviour
 
         switch (CurrentDirection)
         {
-            case Direction.N: endPos += new Vector3(0, rollDistance, 0); break;
-            case Direction.NE: endPos += new Vector3(rollDistance, rollDistance, 0); break;
-            case Direction.E: endPos += new Vector3(rollDistance, 0, 0); break;
-            case Direction.SE: endPos += new Vector3(rollDistance, -rollDistance, 0); break;
-            case Direction.S: endPos += new Vector3(0, -rollDistance, 0); break;
-            case Direction.SW: endPos += new Vector3(-rollDistance, -rollDistance, 0); break;
-            case Direction.W: endPos += new Vector3(-rollDistance, 0, 0); break;
-            case Direction.NW: endPos += new Vector3(-rollDistance, rollDistance, 0); break;
+            case Direction.N: endPos = new Vector3(0, 1, 0); break;
+            case Direction.NE: endPos = new Vector3(1, 1, 0); break;
+            case Direction.E: endPos = new Vector3(1, 0, 0); break;
+            case Direction.SE: endPos = new Vector3(1, -1, 0); break;
+            case Direction.S: endPos = new Vector3(0, -1, 0); break;
+            case Direction.SW: endPos = new Vector3(-1, -1, 0); break;
+            case Direction.W: endPos = new Vector3(-1, 0, 0); break;
+            case Direction.NW: endPos = new Vector3(-1, 1, 0); break;
             default: break;
         }
+        endPos = startPos + (endPos.normalized * rollDistance);
 
         Debug.Log("Current Direction Number: " + CurrentDirection);
         StartCoroutine(DodgeRoll(startPos, endPos, rollTime));
