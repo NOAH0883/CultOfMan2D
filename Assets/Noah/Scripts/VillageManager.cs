@@ -34,14 +34,15 @@ public class VillageManager : MonoBehaviour
     [Header("Spawner")]
     [SerializeField] List<GameObject> spawnPos;
 
-
+    
+    
     
     public bool hasWeapon;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        GameData.spawnVillagers = false;
         GameData.isDay = true;
         GameData.hasFeedVillage = false;
         GameData.food = 0;
@@ -58,6 +59,7 @@ public class VillageManager : MonoBehaviour
         {
             SpawnVillagerStart();
         }
+        
         housing = 5;
 
     }
@@ -69,7 +71,7 @@ public class VillageManager : MonoBehaviour
     {
         villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
-        //bool villagersSick = false;
+        
         
         
 
@@ -85,15 +87,15 @@ public class VillageManager : MonoBehaviour
                 
                 SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
                 sr.color = Color.white;
-
+                GameData.spawnVillagers = true;
                 continue;
             }
 
             if (testVillager.isSick != true)
             {
                 testVillager.isSick = true;
-                //villagersSick = true;
-                
+                GameData.spawnVillagers = false;
+
                 SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
                 sr.color = Color.green;
             }
@@ -102,21 +104,27 @@ public class VillageManager : MonoBehaviour
                 Destroy(villagers[i]);
                 villagers.RemoveAt(i);
                 GameData.population--;
+                GameData.spawnVillagers = false;
             }
         }
     }
 
     
-    void OverNight()
+    public void OverNight()
     {
-        //if (GameData.food >= Mathf.RoundToInt(GameData.population / 2))
-        //    spareFood = Mathf.RoundToInt(GameData.population / 2);
-        //else
-        //    spareFood = Mathf.RoundToInt(GameData.food);
 
+        if(GameData.population < housing && GameData.spawnVillagers)
+        {
+            Debug.Log("SpawnVillager");
+            int randSpawn = Random.Range(0, spawnPos.Count);
+            Transform spawnPoint = spawnPos[randSpawn].transform;
+            GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
 
-        //if (GameData.population < housing && !villagersSick)
-        //    SpawnVillager();
+            villagers.Add(villager);
+            DontDestroyOnLoad(villager);
+            GameData.population++;
+        }
+
     }
 
 

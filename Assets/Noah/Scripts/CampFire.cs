@@ -67,7 +67,7 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void Sacrifice()
     {
-        if(GameData.population > 1 )
+        if(GameData.population > 0 )
             villageManager.Sacrifice();
     }
 
