@@ -3,7 +3,7 @@ using static IInteractable;
 
 public class Sleep : MonoBehaviour, Interactable
 {
-
+    
     void Start()
     {
        
@@ -20,8 +20,7 @@ public class Sleep : MonoBehaviour, Interactable
             GameData.hasFeedVillage = false;
             GameData.food = 0;
 
-
-
+            
             //player the day cycle animation 
             // make new villages if needed
        }

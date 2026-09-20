@@ -173,9 +173,11 @@ public class VillageManager : MonoBehaviour
 
     public void Sacrifice()
     {
-        int rnd = Random.Range(0, villagers.Count);  
-        Destroy(villagers[rnd]);  
+        int rnd = Random.Range(0, villagers.Count);
+        Debug.Log(rnd);
+        Destroy(villagers[rnd]);
         villagers.RemoveAt(rnd);
+
         GameData.population--;
         GameData.food += sacrificeAmount;
     }

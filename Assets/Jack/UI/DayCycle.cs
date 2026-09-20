@@ -10,7 +10,7 @@ public class DayCycle : MonoBehaviour
 
     // tutorial menu 
     [SerializeField] GameObject tutorialMenu;
-    [SerializeField] GameObject closeButton;
+    
 
     bool hasRotated;
 
@@ -18,8 +18,8 @@ public class DayCycle : MonoBehaviour
     {
         DayCycleOn();
         hasRotated = false;
-
-        tutorialMenu.SetActive(false);
+        
+        //tutorialMenu.SetActive(false);
     }
 
 
@@ -48,7 +48,7 @@ public class DayCycle : MonoBehaviour
             float t = timeElapsed / rotationSpeed;
 
             // 3. FIX: Lerp between the fixed START rotation and END rotation
-            transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
+            dayCycleMenu.transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
 
             yield return null;
         }
@@ -60,16 +60,18 @@ public class DayCycle : MonoBehaviour
         Debug.Log("wait");
 
         yield return new WaitForSeconds(2f);
-        dayCycleMenu.SetActive(false);
-        yield return new WaitForSeconds(1f);
 
-        
-        hasRotated = true;
         dayCycleMenu.SetActive(false);
+
+        yield return new WaitForSeconds(.5f);
+
+        tutorial();
+        hasRotated = true;
+        
         // turn on tutorial 
     }
 
-    void DayCycleOn()
+    public void DayCycleOn()
     {
         StartCoroutine(Rotate());
     }
@@ -78,17 +80,16 @@ public class DayCycle : MonoBehaviour
     {
         tutorialMenu.SetActive(true);
         Time.timeScale = 0;
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(closeButton);
-
+        
         //turn off tutorial 
         //destroy tutorial 
         //set game speed to 1 
     }
     public void CloseTutorialMenu()
     {
-        Destroy(tutorialMenu);
         Time.timeScale = 1;
+        Destroy(tutorialMenu);
+        
        
     }
 }

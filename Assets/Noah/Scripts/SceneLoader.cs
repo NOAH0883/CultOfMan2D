@@ -10,10 +10,11 @@ public class SceneLoader : MonoBehaviour
 {
     VillageManager villageManager;
     Player player;
+    
 
     public void LoadHunting(string loadScene, Vector2 spawnPos)
     {
-
+        
         player = UnityEngine.Object.FindAnyObjectByType<Player>();
         villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
 
