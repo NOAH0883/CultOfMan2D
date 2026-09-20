@@ -9,8 +9,7 @@ public class huntingManager : MonoBehaviour, Interactable
     void Start()
     {
         sceneloader = Object.FindAnyObjectByType<SceneLoader>();
-        if (sceneloader != null)
-            Debug.Log("got the sceneloader");
+        
     }
     
 
@@ -26,7 +25,7 @@ public class huntingManager : MonoBehaviour, Interactable
     void backToVillage()
     {
         Vector2 spawnPos = new Vector2(7, 0);
-        GameData.isDay = false;
+        
         sceneloader.LoadVillage(spawnPos);
         
         

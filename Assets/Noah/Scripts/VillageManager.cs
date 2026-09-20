@@ -16,7 +16,7 @@ public class VillageManager : MonoBehaviour
 
     [Header("Food")]
     
-    [SerializeField] int spareFood;
+    
     [SerializeField] int sacrificeAmount;
 
     [Header("Villagers")]
@@ -41,7 +41,13 @@ public class VillageManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
+        GameData.isDay = true;
+        GameData.hasFeedVillage = false;
+        GameData.food = 0;
+
+
+
         hasWeapon = false;
 
         GameData.isDay = true;
@@ -53,6 +59,7 @@ public class VillageManager : MonoBehaviour
             SpawnVillagerStart();
         }
         housing = 5;
+
     }
 
 
@@ -60,16 +67,17 @@ public class VillageManager : MonoBehaviour
 
     public void Test()
     {
-        Debug.Log("work plz");
-        GameData.food += spareFood; //add spare food to current food 
-
         villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
-        bool villagersSick = false;
+        //bool villagersSick = false;
+        
+        
 
         for (int i = 0; i < villagers.Count; i++)
         {
+            
             VillagerAI testVillager = villagers[i].GetComponent<VillagerAI>();
+
             if (GameData.food >= testVillager.foodNeeded)
             {
                 GameData.food -= testVillager.foodNeeded;
@@ -84,12 +92,10 @@ public class VillageManager : MonoBehaviour
             if (testVillager.isSick != true)
             {
                 testVillager.isSick = true;
-                villagersSick = true;
+                //villagersSick = true;
                 
                 SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
                 sr.color = Color.green;
-
-                continue;
             }
             else
             {
@@ -98,9 +104,6 @@ public class VillageManager : MonoBehaviour
                 GameData.population--;
             }
         }
-
-       
-         
     }
 
     
@@ -123,13 +126,15 @@ public class VillageManager : MonoBehaviour
     {
 
         int randSpawn = Random.Range(0, spawnPos.Count);
-        Debug.Log(randSpawn);
+        
         Transform spawnPoint = spawnPos[randSpawn].transform;
 
         GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
         
         villagers.Add(villager);
         DontDestroyOnLoad(villager);
+        
+        Debug.Log(villagers.Count);
     }
 
 

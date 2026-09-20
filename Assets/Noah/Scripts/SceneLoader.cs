@@ -8,13 +8,14 @@ using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] VillageManager villageManager;
+    VillageManager villageManager;
     Player player;
 
     public void LoadHunting(string loadScene, Vector2 spawnPos)
     {
 
         player = UnityEngine.Object.FindAnyObjectByType<Player>();
+        villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
 
 
         for (int i = 0; i < villageManager.villagers.Count; i++)
@@ -29,7 +30,10 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadVillage(Vector2 spawnPos)
     {
+        GameData.isDay = false;
+
         player = UnityEngine.Object.FindAnyObjectByType<Player>();
+        villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
 
         for (int i = 0; i < villageManager.villagers.Count; i++)
         {

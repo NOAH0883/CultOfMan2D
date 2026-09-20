@@ -16,6 +16,8 @@ public class PlayerUI : MonoBehaviour
     void Update()
     {
 
+        
+
         GameData.dailyGoal = GameData.population * 2;
         foodNeededText.text = "Food needed " + GameData.food.ToString() + " / " + GameData.dailyGoal.ToString();
     }

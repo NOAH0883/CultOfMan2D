@@ -3,6 +3,15 @@ using static IInteractable;
 
 public class Sleep : MonoBehaviour, Interactable
 {
+
+    void Start()
+    {
+       
+        Debug.Log("day");
+    }
+    
+
+
     public void Interact()
     {
        if(!GameData.isDay)

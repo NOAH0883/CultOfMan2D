@@ -1,19 +1,17 @@
-using System;
+
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using UnityEngine.Windows;
+
 using static IInteractable;
-using static InputSystem_Actions;
+
 
 public class CampFire : MonoBehaviour, Interactable
 {
 
     [SerializeField] GameObject CampFireMenu;
     [SerializeField] InputActionProperty closeMenu;
-    [SerializeField] GameObject firstButtonInMenu;
-    bool open;
+   
 
     VillageManager villageManager;
 
@@ -22,27 +20,19 @@ public class CampFire : MonoBehaviour, Interactable
     {
         CampFireMenu.SetActive(false);
 
-        villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
     }
 
     public void Interact()
     {
-
+        
         if (!GameData.isDay)
         {
-            if (!open)
-            {
-                //open = true;
-                //EventSystem.current.SetSelectedGameObject(null);
-                //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
+            villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
+            closeMenu.action.Enable();
+            closeMenu.action.performed += OnCancel;
 
-
-                closeMenu.action.Enable();
-                closeMenu.action.performed += OnCancel;
-
-                CampFireMenu.SetActive(true);
-                Time.timeScale = 0f;
-            }
+            CampFireMenu.SetActive(true);
+            Time.timeScale = 0f;
         }
     }
 
@@ -51,14 +41,14 @@ public class CampFire : MonoBehaviour, Interactable
     {
        if(context.performed)
         {
-
+           
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
 
 
             CampFireMenu.SetActive(false);
             Time.timeScale = 1f;
-            open = false;
+            
         }
             
     }
@@ -66,10 +56,9 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void Feed()
     {
-
+        
         if (!GameData.hasFeedVillage)
         {
-            Debug.Log("FeedVIllages");
             GameData.hasFeedVillage = true;
             villageManager.Test();
         }
