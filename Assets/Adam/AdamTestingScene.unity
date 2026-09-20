@@ -150,13 +150,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerSpeed: 3
-  rollDistance: 3
+  rollDistance: 2
   playerHurtbox: {fileID: 337528360}
   playerHurtboxPivot: {fileID: 888799138}
   playerHitbox: {fileID: 860904975}
   directionText: {fileID: 1079495716}
-  rollTime: 0.6
-  rollInvulnerability: 0.4
+  rollTime: 0.3
+  rollInvulnerability: 0.2
 --- !u!212 &146398932
 SpriteRenderer:
   serializedVersion: 2
@@ -250,7 +250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &183435049
 MonoBehaviour:
   m_ObjectHideFlags: 0
