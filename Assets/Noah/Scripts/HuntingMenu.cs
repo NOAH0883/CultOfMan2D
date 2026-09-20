@@ -22,8 +22,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
         huntingMenu.SetActive(false);
 
         sceneLoader = Object.FindAnyObjectByType<SceneLoader>();
-        if (sceneLoader != null)
-            Debug.Log("got the sceneloader");
+        
     }
 
     public void Interact()
