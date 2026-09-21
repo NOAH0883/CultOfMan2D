@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,7 @@ public class AdamPlayerTest : MonoBehaviour
     private bool canAttack;
     private bool attacking;
     private float actionTime;
+    private PlayerHitbox playerHitboxScript;
     
     [SerializeField] TextMeshProUGUI directionText;
     Vector2 playerPos;
@@ -56,6 +58,7 @@ public class AdamPlayerTest : MonoBehaviour
         dodgeAction = InputSystem.actions.FindAction("Dodge");
         attackAction = InputSystem.actions.FindAction("Attack");
         attackAction.performed += ctx => OnLeftClick();
+        playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
 
         if (rollInvulnerability >= rollTime)
         {
@@ -239,6 +242,7 @@ public class AdamPlayerTest : MonoBehaviour
         {
             canAttack = false;
             attacking = true;
+            playerHitboxScript.damage = 5;
             playerHitboxCollider.size = new Vector2 (3, 1);
             playerHitboxCollider.offset = new Vector2 (2, 0);
             StartCoroutine(Attack());
