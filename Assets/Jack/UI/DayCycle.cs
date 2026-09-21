@@ -10,12 +10,16 @@ public class DayCycle : MonoBehaviour
 
     // tutorial menu 
     [SerializeField] GameObject tutorialMenu;
-    
+
+ 
+
 
     bool hasRotated;
 
     void Start()
     {
+        
+
         DayCycleOn();
         hasRotated = false;
         
@@ -25,6 +29,8 @@ public class DayCycle : MonoBehaviour
 
     void Update()
     {
+        
+
         //check if has rotated
         if(hasRotated && tutorialMenu != null)
             tutorial();

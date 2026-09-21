@@ -1,12 +1,20 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using static IInteractable;
 
 public class Sleep : MonoBehaviour, Interactable
 {
     VillageManager villageManager;
     [SerializeField] GameObject sleepani;
+
+
+
+    [SerializeField] Light2D lighting;
+    [SerializeField] Color dayColour;
+    [SerializeField] Color nightColour;
+
     void Start()
     {
         villageManager = Object.FindAnyObjectByType<VillageManager>();
@@ -14,7 +22,18 @@ public class Sleep : MonoBehaviour, Interactable
         sleepani.SetActive(false);
     }
     
+    void Update()
+    {
+        if (GameData.isDay)
+        {
+            lighting.color = dayColour;
+        }
+        else
+        {
+            lighting.color = nightColour;
+        }
 
+    }
 
     public void Interact()
     {
