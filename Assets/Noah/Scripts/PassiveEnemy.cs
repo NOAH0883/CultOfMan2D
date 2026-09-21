@@ -14,79 +14,79 @@ public class PassiveEnemy : MonoBehaviour
     
     EnemyStates enemyStates;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        enemyStates = EnemyStates.idle;
-    }
+    //void Start()
+    //{
+    //    rb = GetComponent<Rigidbody2D>();
+    //    enemyStates = EnemyStates.idle;
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
-        stateManager();
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    stateManager();
 
-        switch (enemyStates)
-        { 
-            case EnemyStates.idle:
-                Idle();
-                break;
+    //    switch (enemyStates)
+    //    {
+    //        case EnemyStates.idle:
+    //            Idle();
+    //            break;
 
-            case EnemyStates.run:
-                Run();
-                break;
+    //        case EnemyStates.run:
+    //            Run();
+    //            break;
 
-            case EnemyStates.dead:
+    //        case EnemyStates.dead:
 
-                break;
-        }
-    }
+    //            break;
+    //    }
+    //}
 
-    void stateManager()
-    {
-        if (canSeePlayer)
-            enemyStates = EnemyStates.run;
-        else
-            enemyStates = EnemyStates.idle;
-    }
+    //void stateManager()
+    //{
+    //    if (canSeePlayer)
+    //        enemyStates = EnemyStates.run;
+    //    else
+    //        enemyStates = EnemyStates.idle;
+    //}
 
-    void Idle()
-    {
-        //play idle animations
-        //Debug.Log("idle");
-    }
+    //void Idle()
+    //{
+    //    //play idle animations
+    //    //Debug.Log("idle");
+    //}
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            playerPos = collision.transform;
-            
-            canSeePlayer = true;
-        }
-    }
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        playerPos = collision.transform;
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            canSeePlayer = false;
-        }
-    }
+    //        canSeePlayer = true;
+    //    }
+    //}
 
-    void Run()
-    {
-        runDir = transform.position - playerPos.position;
-        //play run animations
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player"))
+    //    {
+    //        canSeePlayer = false;
+    //    }
+    //}
 
-    private void FixedUpdate()
-    {
-        if(canSeePlayer)
-        {
-            rb.MovePosition(rb.position + runDir * MoveSpeed * Time.deltaTime);
-        }
-        
-    }
+    //void Run()
+    //{
+    //    runDir = transform.position - playerPos.position;
+    //    //play run animations
+    //}
+
+    //private void FixedUpdate()
+    //{
+    //    if (canSeePlayer)
+    //    {
+    //        rb.MovePosition(rb.position + runDir * MoveSpeed * Time.deltaTime);
+    //    }
+
+    //}
 
     public void TakeDamage(float damage)
     {
