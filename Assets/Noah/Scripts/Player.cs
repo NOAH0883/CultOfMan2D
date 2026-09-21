@@ -9,34 +9,34 @@ public class Player : MonoBehaviour
 {
 
 
-    [SerializeField] float playerSpeed;
-    private Vector2 movementInput;
-    private Rigidbody2D rb;
+    //[SerializeField] float playerSpeed;
+    //private Vector2 movementInput;
+    //private Rigidbody2D rb;
     [SerializeField] LayerMask interactionLayer;
     [SerializeField] float interactionDis;
 
     
    
-    PlayerInput input;
+    [SerializeField] PlayerInput input;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         input = GetComponent<PlayerInput>();
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>();
     }
 
-    void OnMove(InputValue inputValue)
-    {
-        movementInput = inputValue.Get<Vector2>();
-    }
+    //void OnMove(InputValue inputValue)
+    //{
+    //    movementInput = inputValue.Get<Vector2>();
+    //}
 
 
-    void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + movementInput * playerSpeed * Time.deltaTime);
-    }
+    //void FixedUpdate()
+    //{
+    //    rb.MovePosition(rb.position + movementInput * playerSpeed * Time.deltaTime);
+    //}
 
 
     void OnInteract(InputValue inputValue)
