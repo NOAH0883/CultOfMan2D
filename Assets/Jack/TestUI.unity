@@ -576,6 +576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayNightCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 6407808745561422063, guid: 29e8892ae34f2dc46b98d36db5c20c21, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7397226878959299822, guid: 29e8892ae34f2dc46b98d36db5c20c21, type: 3}
       propertyPath: closeButton
       value: 
@@ -584,6 +588,10 @@ PrefabInstance:
       propertyPath: tutorialMenu
       value: 
       objectReference: {fileID: 80284626975883444}
+    - target: {fileID: 8160622905686443489, guid: 29e8892ae34f2dc46b98d36db5c20c21, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8745505389921635546, guid: 29e8892ae34f2dc46b98d36db5c20c21, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

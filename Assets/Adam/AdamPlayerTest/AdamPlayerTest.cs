@@ -1,8 +1,6 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Build.Reporting;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -171,7 +169,7 @@ public class AdamPlayerTest : MonoBehaviour
         {
             float angleDegrees = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
             angleDegrees = Mathf.Round(angleDegrees / 45f) * 45f;
-            directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
+            //directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
             playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angleDegrees);
         }
     }
