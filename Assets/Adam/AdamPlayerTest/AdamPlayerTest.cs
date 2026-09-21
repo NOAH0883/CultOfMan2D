@@ -238,7 +238,7 @@ public class AdamPlayerTest : MonoBehaviour
 
     private void OnLeftClick()
     {
-        if (active && canAttack)
+        if (active && canAttack && GameData.hasWeapon)
         {
             canAttack = false;
             attacking = true;
