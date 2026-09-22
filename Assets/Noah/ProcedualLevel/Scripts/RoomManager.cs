@@ -30,6 +30,9 @@ public class RoomManager : MonoBehaviour
     private int roomCount;
 
     private bool generationComplete = false;
+
+
+    [SerializeField] List<GameObject> roomsPrefab = new List<GameObject>();
             
     private void Start()
     {
@@ -72,12 +75,9 @@ public class RoomManager : MonoBehaviour
                 //No neighbor above
                 TryGenerateRoom(new Vector2Int(gridX, gridY + 1));
             }
-            //TryGenerateRoom(new Vector2Int(gridX - 1, gridY));
-            //TryGenerateRoom(new Vector2Int(gridX + 1, gridY));
-            //TryGenerateRoom(new Vector2Int(gridX, gridY + 1));
-            //TryGenerateRoom(new Vector2Int(gridX, gridY - 1));
+           
         }
-        else if (roomCount +1 < minRooms)
+        else if (roomCount < minRooms)
         {
             Debug.Log("not enough rooms, regenerate rooms");
             RegenerateRooms();
@@ -86,16 +86,7 @@ public class RoomManager : MonoBehaviour
         {
             Debug.Log($"Generation complete, {roomCount} rooms created!");
             generationComplete = true;
-
-            // spawns a final room/boss room/ distinct end room
-            
-            GameObject lastRoom = roomObjects.Last();
-            Vector2 lastRoomPos = new Vector2(lastRoom.transform.position.x, lastRoom.transform.position.y);
-            Vector2Int finalRoomIndex = new Vector2Int(Mathf.RoundToInt(lastRoomPos.x), Mathf.RoundToInt(lastRoomPos.y)); 
-
-            TryGenerateLastRoom(finalRoomIndex);
-
-
+            BossRoom();
         }
     }
 
@@ -133,7 +124,11 @@ public class RoomManager : MonoBehaviour
         roomGrid[x, y] = 1;
         roomCount++;
 
-        var newRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        //random room generation
+        int rndRoom = Random.Range(0, roomsPrefab.Count);
+        
+
+        var newRoom = Instantiate(roomsPrefab[rndRoom], GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         newRoom.name = $"Room-{roomCount}";
         roomObjects.Add(newRoom);
@@ -143,30 +138,6 @@ public class RoomManager : MonoBehaviour
         return true;
     }
 
-    
-
-    private bool TryGenerateLastRoom(Vector2Int roomIndex)
-    {
-        int x = roomIndex.x;
-        int y = roomIndex.y;
-
-        if (x >= gridSizeX || y >= gridSizeY || x < 0 || y < 0)
-            return false;
-        
-
-        roomQueue.Enqueue(roomIndex);
-        roomGrid[x, y] = 1;
-        roomCount++;
-
-        var newRoom = Instantiate(finalRoomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-        newRoom.GetComponent<Room>().RoomIndex = roomIndex;
-        newRoom.name = $"Last room-{roomCount}";
-        roomObjects.Add(newRoom);
-
-        OpenDoors(newRoom, x, y);
-
-        return true;
-    }
 
     private void RegenerateRooms()
     {
@@ -180,6 +151,41 @@ public class RoomManager : MonoBehaviour
         Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2);
         StartRoomGenerationFromRoom(initialRoomIndex);
     }
+
+
+
+    private void BossRoom()
+    {
+        if (roomObjects.Count == 0) return;
+
+        // get reference to the last room generated - gameObject and script
+        GameObject lastRoom = roomObjects[roomObjects.Count - 1];
+        Room lastRoomScript = lastRoom.GetComponent<Room>();
+
+        // get roomindex and position of the last room
+        Vector2Int gridIndex = lastRoomScript.RoomIndex;
+        Vector3 position = lastRoom.transform.position;
+
+        //spawn the bos prefab at the last rooms position and change its name 
+        GameObject bossRoom = Instantiate(finalRoomPrefab, position, Quaternion.identity);
+        bossRoom.name = "Boss-Room";
+        
+        // get the boss rooms script and change its grid index to the last rooms grid index
+        Room bossRoomScript = bossRoom.GetComponent<Room>();
+        bossRoomScript.RoomIndex = gridIndex;
+
+        //change the door layout based of the bossRoom roomindex
+        OpenDoors(bossRoom, gridIndex.x, gridIndex.y);
+
+        //spawn the last room for the boss room in list and destroy the last room 
+        roomObjects[roomObjects.Count - 1] = bossRoom;
+        Destroy(lastRoom);
+    }
+
+
+
+
+
 
 
     void OpenDoors(GameObject room, int x, int y)

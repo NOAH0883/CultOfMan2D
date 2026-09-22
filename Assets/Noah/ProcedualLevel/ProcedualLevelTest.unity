@@ -307,6 +307,12 @@ MonoBehaviour:
   minRooms: 10
   gridSizeX: 10
   gridSizeY: 10
+  roomsPrefab:
+  - {fileID: 874726753177932532, guid: 41b56f4e592169d49bf61be2a8554117, type: 3}
+  - {fileID: 874726753177932532, guid: 52c4290f591a77d428ed505f8d48b6c2, type: 3}
+  - {fileID: 874726753177932532, guid: 46264885c8f5e5748835c400cac73ed3, type: 3}
+  - {fileID: 874726753177932532, guid: 5d1336ee0dced344abb598d525227afc, type: 3}
+  - {fileID: 874726753177932532, guid: 2ebcfd9912681dc409a777b529803797, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
