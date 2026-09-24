@@ -1,9 +1,9 @@
-using NUnit.Framework;
+//using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
+//using System.Linq;
+//using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class RoomManager : MonoBehaviour
@@ -15,8 +15,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
 
-    int roomWidth = 20;
-    int roomHeight = 12;
+    int roomWidth = 18;
+    int roomHeight = 10;
 
     [SerializeField] int gridSizeX = 10;
     [SerializeField] int gridSizeY = 10;
@@ -101,6 +101,7 @@ public class RoomManager : MonoBehaviour
         initailRoom.name = $"Room-{roomCount}";
         initailRoom.GetComponent<Room>().RoomIndex = roomIndex;
         roomObjects.Add(initailRoom);
+        initailRoom.transform.SetParent(this.transform);
     }
 
 
@@ -111,14 +112,15 @@ public class RoomManager : MonoBehaviour
         
         if (x >= gridSizeX || y >= gridSizeY || x < 0 || y < 0)
             return false;
+
         if (roomCount >= maxRooms)
             return false;
 
         if(Random.value < 0.5 && roomIndex != Vector2Int.zero)
             return false;
 
-        if (CountAdjacentRooms(roomIndex) > 1)
-            return false;
+        //if (CountAdjacentRooms(roomIndex) > 1)
+        //    return false;
 
         roomQueue.Enqueue(roomIndex);
         roomGrid[x, y] = 1;
@@ -132,6 +134,7 @@ public class RoomManager : MonoBehaviour
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         newRoom.name = $"Room-{roomCount}";
         roomObjects.Add(newRoom);
+        newRoom.transform.SetParent(this.transform);
 
         OpenDoors(newRoom, x, y);
 
@@ -179,6 +182,7 @@ public class RoomManager : MonoBehaviour
 
         //spawn the last room for the boss room in list and destroy the last room 
         roomObjects[roomObjects.Count - 1] = bossRoom;
+        bossRoom.transform.SetParent(this.transform);
         Destroy(lastRoom);
     }
 
