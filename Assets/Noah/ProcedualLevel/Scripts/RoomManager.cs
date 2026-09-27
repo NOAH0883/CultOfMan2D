@@ -1,5 +1,8 @@
 //using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.Cinemachine;
+using Unity.VisualScripting;
+
 //using System.Linq;
 //using Unity.Mathematics;
 using UnityEngine;
@@ -33,9 +36,19 @@ public class RoomManager : MonoBehaviour
 
 
     [SerializeField] List<GameObject> roomsPrefab = new List<GameObject>();
+
+
+
+    [SerializeField] CinemachineConfiner2D cameraConfiner;
+    CompositeCollider2D cameraBounds;
+
+
             
     private void Start()
     {
+        cameraBounds = GetComponent<CompositeCollider2D>();
+        cameraConfiner.BoundingShape2D = null;
+
         roomGrid = new int[gridSizeX, gridSizeY];
         roomQueue = new Queue<Vector2Int>();
 
@@ -184,6 +197,9 @@ public class RoomManager : MonoBehaviour
         roomObjects[roomObjects.Count - 1] = bossRoom;
         bossRoom.transform.SetParent(this.transform);
         Destroy(lastRoom);
+
+        
+        cameraConfiner.BoundingShape2D = cameraBounds;
     }
 
 
