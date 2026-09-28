@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 65fdbcb0cfdc77447bf207c35f61a86c
+guid: 05c731d252a7e9f4fbf342415e64b53b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2134245727773611394
-    second: button_Sml_1b_0
+      213: 2208966237291076057
+    second: UI_BG_sub_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: button_Sml_1b_0
+      name: UI_BG_sub_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 37
-        height: 23
+        width: 93
+        height: 127
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e7aa8ac71d2a162e0800000000000000
-      internalID: -2134245727773611394
+      spriteID: 9d9d096d613d7ae10800000000000000
+      internalID: 2208966237291076057
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      button_Sml_1b_0: -2134245727773611394
+      UI_BG_sub_0: 2208966237291076057
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
