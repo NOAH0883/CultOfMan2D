@@ -1,69 +1,82 @@
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
+
 
 
 public class SceneLoader : MonoBehaviour
 {
-    VillageManager villageManager;
-    Player player;
     
+   
 
-    public void LoadHunting(string loadScene, Vector2 spawnPos)
+    public void LoadHunting(string loadScene)
+    {
+        StartCoroutine(LoadHuntingScene(loadScene));
+    }
+
+    public void LoadVillage()
+    {
+        //GameData.isDay = false;
+        StartCoroutine(LoadVillageScene());
+
+    }
+
+
+    IEnumerator LoadHuntingScene(string loadScene)
+    {
+
+        Scene villageScene = SceneManager.GetSceneByName("VIllage");
+        
+        AsyncOperation async = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
+
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+
+        
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(loadScene));
+
+
+        foreach (GameObject rootObj in villageScene.GetRootGameObjects())
+        {
+            rootObj.SetActive(false);
+            
+        }
+  
+    }
+
+
+
+    IEnumerator LoadVillageScene()
     {
         
-        player = UnityEngine.Object.FindAnyObjectByType<Player>();
-        villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
 
+        Scene activeScene = SceneManager.GetActiveScene();
 
-        for (int i = 0; i < villageManager.villagers.Count; i++)
+        Scene villageScene = SceneManager.GetSceneByName("VIllage");
+
+        
+
+        //turn on all the gameobjects in the village scene
+        foreach (GameObject rootObj in villageScene.GetRootGameObjects())
         {
-            villageManager.villagers[i].SetActive(false); // disable all villages , make sure that have dont destroy on load 
+            rootObj.SetActive(true);
+            
         }
 
-        player.transform.position = spawnPos;
+        SceneManager.UnloadSceneAsync(activeScene);
 
-        SceneManager.LoadScene(loadScene);
+        yield return null;
     }
 
-    public void LoadVillage(Vector2 spawnPos)
-    {
-        GameData.isDay = false;
-
-        player = UnityEngine.Object.FindAnyObjectByType<Player>();
-        villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
-
-        for (int i = 0; i < villageManager.villagers.Count; i++)
-        {
-            villageManager.villagers[i].SetActive(true); 
-        }
-
-        player.transform.position = spawnPos;
-        SceneManager.LoadScene("Village");
-    }
+  
 
 }
 
 
 
-    // go back to village
-    // move back all keep gameobject
-    //unload hunting scene
-    //re-activate village scene
-    // set time of day to allow for actions
-
-
-
-
-    //static variables 
-    //timeofday 
-    //foodamount
-    //number of villages 
-    //housing 
-    //wepon upgrades
 
 
 

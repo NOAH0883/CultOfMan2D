@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static IInteractable;
@@ -5,37 +6,31 @@ using static IInteractable;
 public class ExitHuntting : MonoBehaviour, Interactable
 {
     SceneLoader sceneloader;
+    
+    Vector2 spawnPos;
 
     void Start()
     {
-        //sceneloader = Object.FindAnyObjectByType<SceneLoader>();
+       sceneloader = GetComponent<SceneLoader>();
         
     }
     
 
 
     public void Interact()
-    {
-        
+    { 
         //move player back to the village
         backToVillage();
     }
 
 
+
     void backToVillage()
     {
-
-        // enable the village scene 
-        // move player to the  village scene
-        //remove the current scene - hunting scene
-        //make the village scene the current scene 
-
-
-
-        Debug.Log("Go back to village");
-        //Vector2 spawnPos = new Vector2(7, 0);
-        //sceneloader.LoadVillage(spawnPos);
-        
+        Debug.Log("Load village");
+        sceneloader.LoadVillage();
         
     }
+
+
 }
