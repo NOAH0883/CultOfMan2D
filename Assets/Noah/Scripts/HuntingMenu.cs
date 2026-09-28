@@ -57,7 +57,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     }
 
-    public void GrassLands()
+    public void GrassLands(string sceneToLoad)
     {
         closeMenu.action.Disable();
         closeMenu.action.performed -= OnCancel;
@@ -66,9 +66,9 @@ public class HuntingMenu : MonoBehaviour, Interactable
         huntingMenu.SetActive(false);
         Time.timeScale = 1f;
 
-        string sceneToLoad = "GrassLands";
-        Vector2 spawnPos = new Vector2(-7, 0);
-        sceneLoader.LoadHunting(sceneToLoad, spawnPos);
+       
+       
+        sceneLoader.LoadHunting(sceneToLoad);
     }
 
     public void GrassLands2()
@@ -83,8 +83,8 @@ public class HuntingMenu : MonoBehaviour, Interactable
             Time.timeScale = 1f;
 
             string sceneToLoad = "GrassLands2";
-            Vector2 spawnPos = new Vector2(-7, 0);
-            sceneLoader.LoadHunting(sceneToLoad, spawnPos);
+            
+            sceneLoader.LoadHunting(sceneToLoad);
         }
         
     }

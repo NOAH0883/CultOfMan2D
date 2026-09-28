@@ -6,17 +6,17 @@ public class DontDestroyOnLOad : MonoBehaviour
     public int objectIndex;
 
 
-    private void Awake()
-    {
-        if (dontDestroyObjs[objectIndex] == null)
-        {
-            dontDestroyObjs[objectIndex] = gameObject;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (dontDestroyObjs[objectIndex] != gameObject)
-        {
-            Destroy(gameObject);
-        }
+    //private void Awake()
+    //{
+    //    if (dontDestroyObjs[objectIndex] == null)
+    //    {
+    //        dontDestroyObjs[objectIndex] = gameObject;
+    //        DontDestroyOnLoad(gameObject);
+    //    }
+    //    else if (dontDestroyObjs[objectIndex] != gameObject)
+    //    {
+    //        Destroy(gameObject);
+    //    }
 
-    }
+    //}
 }

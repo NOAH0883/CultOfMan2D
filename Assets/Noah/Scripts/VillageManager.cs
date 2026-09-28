@@ -120,7 +120,7 @@ public class VillageManager : MonoBehaviour
             GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
 
             villagers.Add(villager);
-            DontDestroyOnLoad(villager);
+            //DontDestroyOnLoad(villager);
             GameData.population++;
         }
 
@@ -139,7 +139,7 @@ public class VillageManager : MonoBehaviour
         GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
         
         villagers.Add(villager);
-        DontDestroyOnLoad(villager);
+        //DontDestroyOnLoad(villager);
         
         Debug.Log(villagers.Count);
     }
@@ -164,7 +164,7 @@ public class VillageManager : MonoBehaviour
             GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
 
             villagers.Add(villager);
-            DontDestroyOnLoad(villager);
+           // DontDestroyOnLoad(villager);
             GameData.population++;
         }
     }
