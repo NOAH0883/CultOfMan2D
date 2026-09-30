@@ -18,7 +18,8 @@ public class ExitHuntting : MonoBehaviour, Interactable
 
 
     public void Interact()
-    { 
+    {
+        Debug.Log("Load scene");
         //move player back to the village
         backToVillage();
     }
@@ -27,7 +28,7 @@ public class ExitHuntting : MonoBehaviour, Interactable
 
     void backToVillage()
     {
-        Debug.Log("Load village");
+        
         sceneloader.LoadVillage();
         
     }

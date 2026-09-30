@@ -484,11 +484,9 @@ MonoBehaviour:
   gridSizeX: 10
   gridSizeY: 10
   roomsPrefab:
-  - {fileID: 874726753177932532, guid: 41b56f4e592169d49bf61be2a8554117, type: 3}
-  - {fileID: 874726753177932532, guid: 52c4290f591a77d428ed505f8d48b6c2, type: 3}
-  - {fileID: 874726753177932532, guid: 46264885c8f5e5748835c400cac73ed3, type: 3}
-  - {fileID: 874726753177932532, guid: 5d1336ee0dced344abb598d525227afc, type: 3}
   - {fileID: 874726753177932532, guid: 2ebcfd9912681dc409a777b529803797, type: 3}
+  - {fileID: 874726753177932532, guid: d54ef7f57f9c04749934d0f6e8cdc0fc, type: 3}
+  - {fileID: 874726753177932532, guid: 963415c4926d5d54493d8ebba9c8332a, type: 3}
   cameraConfiner: {fileID: 388012188}
 --- !u!66 &610347335
 CompositeCollider2D:
@@ -610,6 +608,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5545841852904674672, guid: e607276effccb79418e32188ba65584f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6075121062779126630, guid: e607276effccb79418e32188ba65584f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -624,6 +626,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6075121062779126630, guid: e607276effccb79418e32188ba65584f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1391725923}
+    - targetCorrespondingSourceObject: {fileID: 6075121062779126630, guid: e607276effccb79418e32188ba65584f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1391725926}
   m_SourcePrefab: {fileID: 100100000, guid: e607276effccb79418e32188ba65584f, type: 3}
 --- !u!1 &1391725920 stripped
 GameObject:
@@ -682,6 +687,18 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1391725926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391725920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfd905dcbfa4834484046991c550bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

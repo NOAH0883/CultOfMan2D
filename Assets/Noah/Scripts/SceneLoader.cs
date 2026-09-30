@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    
-   
 
     public void LoadHunting(string loadScene)
     {
@@ -42,9 +40,7 @@ public class SceneLoader : MonoBehaviour
         foreach (GameObject rootObj in villageScene.GetRootGameObjects())
         {
             rootObj.SetActive(false);
-            
-        }
-  
+        } 
     }
 
 
