@@ -1,4 +1,5 @@
 //using NUnit.Framework;
+using NavMeshPlus.Components;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
@@ -42,7 +43,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] CinemachineConfiner2D cameraConfiner;
     CompositeCollider2D cameraBounds;
 
-
+    [SerializeField] NavMeshSurface navMesh;
             
     private void Start()
     {
@@ -200,6 +201,9 @@ public class RoomManager : MonoBehaviour
 
         
         cameraConfiner.BoundingShape2D = cameraBounds;
+        navMesh.BuildNavMesh();
+        Debug.Log("Buildnavmesh");
+
     }
 
 
