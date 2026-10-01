@@ -105,6 +105,45 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -112,9 +151,9 @@ TextureImporter:
       name: Rocks_0
       rect:
         serializedVersion: 2
-        x: 80
-        y: 152
-        width: 112
+        x: 16
+        y: 159
+        width: 288
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -134,9 +173,9 @@ TextureImporter:
       name: Rocks_1
       rect:
         serializedVersion: 2
-        x: 80
-        y: 104
-        width: 112
+        x: 16
+        y: 111
+        width: 288
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -156,10 +195,10 @@ TextureImporter:
       name: Rocks_2
       rect:
         serializedVersion: 2
-        x: 16
-        y: 8
+        x: 320
+        y: 15
         width: 16
-        height: 187
+        height: 171
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,10 +217,10 @@ TextureImporter:
       name: Rocks_3
       rect:
         serializedVersion: 2
-        x: 48
-        y: 8
+        x: 352
+        y: 15
         width: 16
-        height: 187
+        height: 171
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

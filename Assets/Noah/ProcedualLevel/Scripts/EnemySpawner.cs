@@ -13,11 +13,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<GameObject> enemyPrefabs;
     [SerializeField] int spawnAmount;
     [SerializeField] float enemiesSpawned;
-    [SerializeField] int spawnClamp;
     [SerializeField] float range;
-    [SerializeField] GameObject spawnObject;
-    bool hasSpawned;
 
+    [SerializeField] GameObject spawnObject;
+    
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -49,7 +48,9 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemiesSpawned < spawnAmount)
+
+        // spawn amount is random number, food needed x 1.5 ( +/- either side)
+        if (enemiesSpawned < spawnAmount) 
         {
             Vector3 point;
             if (RandomPoint(transform.position, range, out point))
@@ -64,20 +65,4 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
-    public void SpawnEnemies()
-    {
-        //spawn amount = half of the food needed? 
-        // get a random number bettween spawnamount clamped either side
-        //make the random number the amount to spawn; 
-        
-        for (int i = 0; i < spawnAmount; ++i)
-        {
-            //get a prefab
-            //get random location on nave mesh 
-
-        }
-    }
-
-
-   
 }

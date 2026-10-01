@@ -706,7 +706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5545841852904674672, guid: e607276effccb79418e32188ba65584f, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6075121062779126630, guid: e607276effccb79418e32188ba65584f, type: 3}
       propertyPath: m_Name
@@ -842,9 +842,8 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 7253536107079626996, guid: e4b181a26defe144b932dbd24037ec9f, type: 3}
   - {fileID: 5153913994262023806, guid: 47d6142726f7a32499e31e38e17b6423, type: 3}
-  spawnAmount: 10
+  spawnAmount: 20
   enemiesSpawned: 0
-  spawnClamp: 0
   range: 70
   spawnObject: {fileID: 7253536107079626996, guid: e4b181a26defe144b932dbd24037ec9f, type: 3}
 --- !u!1660057539 &9223372036854775807

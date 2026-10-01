@@ -3195,7 +3195,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3404690018000076422, guid: 0a79a05d9f37b27479a7ec824b5d8e40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.51
+      value: -8.5
       objectReference: {fileID: 0}
     - target: {fileID: 3404690018000076422, guid: 0a79a05d9f37b27479a7ec824b5d8e40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3417,7 +3417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4596762426834754618, guid: 0530801fd6b41c242a2e5bf039b6f9e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.49
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 4596762426834754618, guid: 0530801fd6b41c242a2e5bf039b6f9e7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3625,6 +3625,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8317728045468323801}
     m_Modifications:
+    - target: {fileID: 1044436927312853058, guid: 9c818a22714d69942852d31cd23d1c88, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3623765660944245989, guid: 9c818a22714d69942852d31cd23d1c88, type: 3}
       propertyPath: m_Name
       value: WallBottom
@@ -3635,7 +3639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7087416452080038662, guid: 9c818a22714d69942852d31cd23d1c88, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.18
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7087416452080038662, guid: 9c818a22714d69942852d31cd23d1c88, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3711,6 +3715,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8317728045468323801}
     m_Modifications:
+    - target: {fileID: 1458684856160326383, guid: 94905f55e3cbf3f4a83d4b31eee493d9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2358843716277441156, guid: 94905f55e3cbf3f4a83d4b31eee493d9, type: 3}
       propertyPath: m_Name
       value: WallsTop
@@ -3721,7 +3729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2727351990261145439, guid: 94905f55e3cbf3f4a83d4b31eee493d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.9
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 2727351990261145439, guid: 94905f55e3cbf3f4a83d4b31eee493d9, type: 3}
       propertyPath: m_LocalPosition.z
