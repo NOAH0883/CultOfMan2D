@@ -1,29 +1,46 @@
 using System.Collections;
 using TMPro;
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.Timeline;
 
 public class AdamPlayerTest : MonoBehaviour
 {
     InputAction moveAction;
     InputAction dodgeAction;
     InputAction attackAction;
-    [SerializeField] private float playerSpeed;
-    [SerializeField] private float rollDistance;
+
+    // Hurtbox & dodging
     public GameObject playerHurtbox;
     public GameObject playerHurtboxPivot;
+    [SerializeField] private float rollDistance;
+    [SerializeField] private float rollTime;
+    [SerializeField] private float rollInvulnerability;
+
+
+    // Attacking
+    private PlayerHitbox playerHitboxScript;
     public GameObject playerHitbox;
+    public GameObject playerHitboxVisuals;
     public BoxCollider2D playerHitboxCollider;
-    private bool active;
+    [SerializeField] private bool weaponTesting = false;
     private bool canAttack;
     private bool attacking;
+    [SerializeField] private float attackTime;
+    [SerializeField] private float attackCooldown;
+    int comboCount = 0;
+    float comboTimer;
+
+    // Active
+    private bool active;
     private float actionTime;
-    private PlayerHitbox playerHitboxScript;
-    
+
+    // Movement & looking
     [SerializeField] TextMeshProUGUI directionText;
     Vector2 playerPos;
+    [SerializeField] private float playerSpeed;
     Vector2 lookInput = new Vector2 (0, 0);
     enum Direction
     {
@@ -40,10 +57,9 @@ public class AdamPlayerTest : MonoBehaviour
     enum PlayerLookDevice { Mouse, Joystick, Gamepad }
     PlayerLookDevice LookCurrentDevice;
 
-    [SerializeField] private float rollTime;
-    [SerializeField] private float rollInvulnerability;
+    
 
-    [SerializeField] private float attackTime;
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,6 +73,7 @@ public class AdamPlayerTest : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         attackAction.performed += ctx => OnLeftClick();
         playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
+        playerHitbox.SetActive(false);
 
         if (rollInvulnerability >= rollTime)
         {
@@ -72,11 +89,24 @@ public class AdamPlayerTest : MonoBehaviour
             Looking();
         }
         
+        if (attackCooldown > 0)
+        {
+            attackCooldown -= Time.deltaTime;
+        }
+
+        if (comboTimer > 0)
+        {
+            comboTimer -= Time.deltaTime;
+        }
+        else
+        {
+            comboCount = 0;
+        }
 
         if (active)
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
-            
+
             transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
             if (dodgeAction.WasPressedThisFrame())
             {
@@ -236,15 +266,40 @@ public class AdamPlayerTest : MonoBehaviour
 
     private void OnLeftClick()
     {
-        if (active && canAttack && GameData.hasWeapon)
+        if (active && canAttack && attackCooldown <= 0 && (GameData.hasWeapon || weaponTesting))
         {
             canAttack = false;
             attacking = true;
-            playerHitboxScript.damage = 5;
-            playerHitboxCollider.size = new Vector2 (3, 1);
-            playerHitboxCollider.offset = new Vector2 (2, 0);
+            Vector2 attackOffset = new Vector2(0, 0);
+            Vector2 attackSize = new Vector2(0, 0);
+            comboTimer = 0.5f;
+            comboCount++;
+
+            if (comboCount >= 3)
+            {
+                attackOffset = new Vector2(2, 0);
+                attackSize = new Vector2 (3, 1);
+                playerHitboxScript.damage = 10;
+                attackCooldown = 0.3f;
+                comboCount = 0;
+            } 
+            else
+            {
+                attackOffset = new Vector2(1.5f, 0);
+                attackSize = new Vector2(1, 2.5f);
+                playerHitboxScript.damage = 5;
+                attackCooldown = 0.2f;
+            }
+
+            playerHitboxCollider.offset = attackOffset;
+            playerHitboxCollider.size = attackSize;
+            playerHitboxVisuals.transform.localPosition = attackOffset;
+            playerHitboxVisuals.transform.localScale = attackSize;
+
             StartCoroutine(Attack());
             Debug.Log("Left click.");
+          
+            
         }
     }
 
