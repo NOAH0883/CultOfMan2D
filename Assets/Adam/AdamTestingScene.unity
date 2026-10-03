@@ -156,10 +156,11 @@ MonoBehaviour:
   playerHitbox: {fileID: 860904975}
   playerHitboxVisuals: {fileID: 1529718211}
   playerHitboxCollider: {fileID: 860904977}
-  weaponTesting: 1
+  testing: 1
   attackTime: 0.1
   attackCooldown: 0
   directionText: {fileID: 1079495716}
+  PlayerVisuals: {fileID: 1148681730}
   playerSpeed: 3
 --- !u!4 &146398933
 Transform:

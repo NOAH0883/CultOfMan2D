@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.Timeline;
+using UnityEngine.UIElements;
 
 public class AdamPlayerTest : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class AdamPlayerTest : MonoBehaviour
     public GameObject playerHitbox;
     public GameObject playerHitboxVisuals;
     public BoxCollider2D playerHitboxCollider;
-    [SerializeField] private bool weaponTesting = false;
+    [SerializeField] private bool testing = false;
     private bool canAttack;
     private bool attacking;
     [SerializeField] private float attackTime;
@@ -39,6 +40,8 @@ public class AdamPlayerTest : MonoBehaviour
 
     // Movement & looking
     [SerializeField] TextMeshProUGUI directionText;
+    public SpriteRenderer PlayerVisuals;
+    float angleDegrees;
     Vector2 playerPos;
     [SerializeField] private float playerSpeed;
     Vector2 lookInput = new Vector2 (0, 0);
@@ -87,6 +90,14 @@ public class AdamPlayerTest : MonoBehaviour
         if (canAttack)
         {
             Looking();
+            if (angleDegrees >= -90 && angleDegrees <= 90)
+            {
+                PlayerVisuals.flipX = false;
+            }
+            else
+            {
+                PlayerVisuals.flipX = true;
+            }
         }
         
         if (attackCooldown > 0)
@@ -197,9 +208,12 @@ public class AdamPlayerTest : MonoBehaviour
 
         if (relativePos.sqrMagnitude > 0.01f)
         {
-            float angleDegrees = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
+            angleDegrees = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
             angleDegrees = Mathf.Round(angleDegrees / 45f) * 45f;
-            //directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
+            if (testing)
+            {
+                directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
+            }
             playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angleDegrees);
         }
     }
@@ -266,7 +280,7 @@ public class AdamPlayerTest : MonoBehaviour
 
     private void OnLeftClick()
     {
-        if (active && canAttack && attackCooldown <= 0 && (GameData.hasWeapon || weaponTesting))
+        if (active && canAttack && attackCooldown <= 0 && (GameData.hasWeapon || testing))
         {
             canAttack = false;
             attacking = true;
