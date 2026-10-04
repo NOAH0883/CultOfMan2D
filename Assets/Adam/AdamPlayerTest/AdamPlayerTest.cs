@@ -229,12 +229,12 @@ public class AdamPlayerTest : MonoBehaviour
         if (relativePos.sqrMagnitude > 0.01f)
         {
             angleDegrees = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
-            int angle = Mathf.RoundToInt(angleDegrees / 45f) % 8;
+            float angle = Mathf.RoundToInt(angleDegrees / 45f) * 45f;
             if (testing)
             {
                 directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
             }
-            playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angleDegrees);
+            playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
     
