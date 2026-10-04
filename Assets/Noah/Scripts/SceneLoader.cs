@@ -24,7 +24,7 @@ public class SceneLoader : MonoBehaviour
     IEnumerator LoadHuntingScene(string loadScene)
     {
 
-        Scene villageScene = SceneManager.GetSceneByName("VIllage");
+        Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial");
         
         AsyncOperation async = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
 
@@ -51,7 +51,7 @@ public class SceneLoader : MonoBehaviour
 
         Scene activeScene = SceneManager.GetActiveScene();
 
-        Scene villageScene = SceneManager.GetSceneByName("VIllage");
+        Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial");
 
         
 
