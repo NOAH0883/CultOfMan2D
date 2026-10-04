@@ -1,7 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class HuntingCam : MonoBehaviour
 {
 
 
