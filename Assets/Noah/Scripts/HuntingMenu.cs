@@ -66,8 +66,6 @@ public class HuntingMenu : MonoBehaviour, Interactable
         huntingMenu.SetActive(false);
         Time.timeScale = 1f;
 
-       
-       
         sceneLoader.LoadHunting(sceneToLoad);
     }
 
