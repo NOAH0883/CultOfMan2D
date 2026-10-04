@@ -39,8 +39,10 @@ public class AdamPlayerTest : MonoBehaviour
     private float actionTime;
 
     // Movement & looking
+    public GameObject playerVisuals;
+    private PlayerVisualsScript playerVisualsScript;
     [SerializeField] TextMeshProUGUI directionText;
-    public SpriteRenderer PlayerVisuals;
+    public SpriteRenderer playerSprite;
     float angleDegrees;
     Vector2 playerPos;
     [SerializeField] private float playerSpeed;
@@ -76,6 +78,7 @@ public class AdamPlayerTest : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         attackAction.performed += ctx => OnLeftClick();
         playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
+        playerVisualsScript = playerVisuals.GetComponent<PlayerVisualsScript>();
         playerHitbox.SetActive(false);
 
         if (rollInvulnerability >= rollTime)
@@ -92,11 +95,19 @@ public class AdamPlayerTest : MonoBehaviour
             Looking();
             if (angleDegrees >= -90 && angleDegrees <= 90)
             {
-                PlayerVisuals.flipX = false;
+                playerSprite.flipX = false;
             }
             else
             {
-                PlayerVisuals.flipX = true;
+                playerSprite.flipX = true;
+            }
+            if (angleDegrees > 0)
+            {
+                playerVisualsScript.lookingUp = true;
+            }
+            else
+            {
+                playerVisualsScript.lookingUp = false;
             }
         }
         
