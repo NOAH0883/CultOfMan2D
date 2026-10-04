@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerVisualsScript : MonoBehaviour
 {
     public bool lookingUp;
+    public bool moving;
     private Animator anim;
 
     private void Start()
@@ -12,5 +13,6 @@ public class PlayerVisualsScript : MonoBehaviour
     private void Update()
     {
         anim.SetBool("lookingUp", lookingUp);
+        anim.SetBool("moving", moving);
     }
 }
