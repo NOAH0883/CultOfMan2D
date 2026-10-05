@@ -4,6 +4,7 @@ public class PlayerVisualsScript : MonoBehaviour
 {
     public bool lookingUp;
     public bool moving;
+    public bool rolling;
     private Animator anim;
 
     private void Start()
@@ -14,5 +15,6 @@ public class PlayerVisualsScript : MonoBehaviour
     {
         anim.SetBool("lookingUp", lookingUp);
         anim.SetBool("moving", moving);
+        anim.SetBool("rolling", rolling);
     }
 }

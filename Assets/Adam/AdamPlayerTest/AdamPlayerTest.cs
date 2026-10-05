@@ -90,24 +90,9 @@ public class AdamPlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canAttack)
+        if (active)
         {
-            if (angleDegrees >= -90 && angleDegrees <= 90)
-            {
-                playerSprite.flipX = false;
-            }
-            else
-            {
-                playerSprite.flipX = true;
-            }
-            if (angleDegrees > 0)
-            {
-                playerVisualsScript.lookingUp = true;
-            }
-            else
-            {
-                playerVisualsScript.lookingUp = false;
-            }
+            FlipCheck();
             Looking();
         }
         
@@ -151,6 +136,7 @@ public class AdamPlayerTest : MonoBehaviour
         }
         else
         {
+            playerVisualsScript.moving = false;
             actionTime -= Time.deltaTime;
             if (actionTime <= 0)
             {
@@ -244,20 +230,50 @@ public class AdamPlayerTest : MonoBehaviour
         Vector3 endPos = new Vector3(0, 0, 0);
 
         float angleDegrees = (Mathf.Atan2(moveValue.x, moveValue.y) * Mathf.Rad2Deg);
+        Debug.Log(angleDegrees);
         if (angleDegrees < 0) { angleDegrees += 360; }
         int angle = Mathf.RoundToInt(angleDegrees / 45f) % 8;
         CurrentDirection = (Direction)angle;
+        
 
         switch (CurrentDirection)
         {
-            case Direction.N: endPos = new Vector3(0, 1, 0); break;
-            case Direction.NE: endPos = new Vector3(1, 1, 0); break;
-            case Direction.E: endPos = new Vector3(1, 0, 0); break;
-            case Direction.SE: endPos = new Vector3(1, -1, 0); break;
-            case Direction.S: endPos = new Vector3(0, -1, 0); break;
-            case Direction.SW: endPos = new Vector3(-1, -1, 0); break;
-            case Direction.W: endPos = new Vector3(-1, 0, 0); break;
-            case Direction.NW: endPos = new Vector3(-1, 1, 0); break;
+            case Direction.N:
+                endPos = new Vector3(0, 1, 0);
+                playerVisualsScript.lookingUp = true;
+                break;
+            case Direction.NE:
+                endPos = new Vector3(1, 1, 0);
+                playerVisualsScript.lookingUp = true;
+                playerSprite.flipX = false;
+                break;
+            case Direction.E:
+                endPos = new Vector3(1, 0, 0);
+                playerSprite.flipX = false;
+                break;
+            case Direction.SE:
+                endPos = new Vector3(1, -1, 0);
+                playerVisualsScript.lookingUp = false;
+                playerSprite.flipX = false;
+                break;
+            case Direction.S:
+                endPos = new Vector3(0, -1, 0);
+                playerVisualsScript.lookingUp = false;
+                break;
+            case Direction.SW:
+                endPos = new Vector3(-1, -1, 0);
+                playerVisualsScript.lookingUp = false;
+                playerSprite.flipX = true;
+                break;
+            case Direction.W:
+                endPos = new Vector3(-1, 0, 0);
+                playerSprite.flipX = true;
+                break;
+            case Direction.NW:
+                endPos = new Vector3(-1, 1, 0);
+                playerVisualsScript.lookingUp = true;
+                playerSprite.flipX = true;
+                break;
             default: break;
         }
         endPos = startPos + (endPos.normalized * rollDistance);
@@ -271,7 +287,7 @@ public class AdamPlayerTest : MonoBehaviour
     {
         float elapsed = 0f;
         float iFrames = rollInvulnerability;
-
+        playerVisualsScript.rolling = true;
         Debug.Log("Start roll.");
         while (elapsed < rollTime)
         {
@@ -295,6 +311,7 @@ public class AdamPlayerTest : MonoBehaviour
         transform.position = endPos;
         playerHurtbox.SetActive(true);
         canAttack = true;
+        playerVisualsScript.rolling = false;
         Debug.Log("End roll.");
     }
 
@@ -352,5 +369,25 @@ public class AdamPlayerTest : MonoBehaviour
         Debug.Log("End attack.");
         canAttack = true;
         yield return null;
+    }
+
+    private void FlipCheck()
+    {
+        if (angleDegrees >= -90 && angleDegrees <= 90)
+        {
+            playerSprite.flipX = false;
+        }
+        else
+        {
+            playerSprite.flipX = true;
+        }
+        if (angleDegrees > 0)
+        {
+            playerVisualsScript.lookingUp = true;
+        }
+        else
+        {
+            playerVisualsScript.lookingUp = false;
+        }
     }
 }

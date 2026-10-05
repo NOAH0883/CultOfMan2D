@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerHurtbox: {fileID: 337528360}
   playerHurtboxPivot: {fileID: 888799138}
-  rollDistance: 2
-  rollTime: 0.3
+  rollDistance: 3
+  rollTime: 0.5
   rollInvulnerability: 0.2
   playerHitbox: {fileID: 860904975}
   playerHitboxVisuals: {fileID: 1529718211}
@@ -1366,6 +1366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   lookingUp: 0
   moving: 0
+  rolling: 0
 --- !u!1 &1529718211
 GameObject:
   m_ObjectHideFlags: 0
