@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 7495b856a6247ab4f8946adbd64d5f03
+guid: 27864c6c159af6f40b4cdbd1b12e408f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -168421969075237668
-    second: pixil-frame-0 (2)_0
+      213: 8785034863198750711
+    second: pixil-frame-0 (10)_0
   - first:
-      213: -249628310123516169
-    second: pixil-frame-0 (2)_1
+      213: -257425287549420936
+    second: pixil-frame-0 (10)_1
   - first:
-      213: 6950916264672091854
-    second: pixil-frame-0 (2)_2
+      213: 6014844175378922512
+    second: pixil-frame-0 (10)_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -145,11 +145,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixil-frame-0 (2)_0
+      name: pixil-frame-0 (10)_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 107
+        x: 1
+        y: 98
         width: 81
         height: 35
       alignment: 0
@@ -160,18 +160,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cdc06e88c15a9adf0800000000000000
-      internalID: -168421969075237668
+      spriteID: 7f74268b9a6bae970800000000000000
+      internalID: 8785034863198750711
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0 (2)_1
+      name: pixil-frame-0 (10)_1
       rect:
         serializedVersion: 2
-        x: 8
-        y: 61
+        x: 1
+        y: 55
         width: 81
         height: 35
       alignment: 0
@@ -182,18 +182,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7fee431ef54298cf0800000000000000
-      internalID: -249628310123516169
+      spriteID: 87af96b90117d6cf0800000000000000
+      internalID: -257425287549420936
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0 (2)_2
+      name: pixil-frame-0 (10)_2
       rect:
         serializedVersion: 2
-        x: 8
-        y: 16
+        x: 1
+        y: 10
         width: 81
         height: 35
       alignment: 0
@@ -204,8 +204,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eced343e38d967060800000000000000
-      internalID: 6950916264672091854
+      spriteID: 01cb9c4d8e4097350800000000000000
+      internalID: 6014844175378922512
       vertices: []
       indices: 
       edges: []
@@ -214,7 +214,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 542668dfbf111154b833d5679b9c42e1
+    spriteID: c72b469c99f7974458078a77c3ab9d70
     internalID: 0
     vertices: []
     indices: 
@@ -224,9 +224,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pixil-frame-0 (2)_0: -168421969075237668
-      pixil-frame-0 (2)_1: -249628310123516169
-      pixil-frame-0 (2)_2: 6950916264672091854
+      pixil-frame-0 (10)_0: 8785034863198750711
+      pixil-frame-0 (10)_1: -257425287549420936
+      pixil-frame-0 (10)_2: 6014844175378922512
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
