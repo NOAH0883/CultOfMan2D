@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
             {
 
                 interactableObject.Interact();
+                Debug.Log("interact");
 
             }
         }
