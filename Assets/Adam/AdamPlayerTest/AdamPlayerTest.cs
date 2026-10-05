@@ -39,8 +39,10 @@ public class AdamPlayerTest : MonoBehaviour
     private float actionTime;
 
     // Movement & looking
+    public GameObject playerVisuals;
+    private PlayerVisualsScript playerVisualsScript;
     [SerializeField] TextMeshProUGUI directionText;
-    public SpriteRenderer PlayerVisuals;
+    public SpriteRenderer playerSprite;
     float angleDegrees;
     Vector2 playerPos;
     [SerializeField] private float playerSpeed;
@@ -76,6 +78,7 @@ public class AdamPlayerTest : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         attackAction.performed += ctx => OnLeftClick();
         playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
+        playerVisualsScript = playerVisuals.GetComponent<PlayerVisualsScript>();
         playerHitbox.SetActive(false);
 
         if (rollInvulnerability >= rollTime)
@@ -89,15 +92,23 @@ public class AdamPlayerTest : MonoBehaviour
     {
         if (canAttack)
         {
-            Looking();
             if (angleDegrees >= -90 && angleDegrees <= 90)
             {
-                PlayerVisuals.flipX = false;
+                playerSprite.flipX = false;
             }
             else
             {
-                PlayerVisuals.flipX = true;
+                playerSprite.flipX = true;
             }
+            if (angleDegrees > 0)
+            {
+                playerVisualsScript.lookingUp = true;
+            }
+            else
+            {
+                playerVisualsScript.lookingUp = false;
+            }
+            Looking();
         }
         
         if (attackCooldown > 0)
@@ -119,6 +130,15 @@ public class AdamPlayerTest : MonoBehaviour
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
 
             transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
+            if (moveValue.sqrMagnitude > 0)
+            {
+                playerVisualsScript.moving = true;
+            }
+            else
+            {
+                playerVisualsScript.moving = false;
+            }
+
             if (dodgeAction.WasPressedThisFrame())
             {
                 active = false;
@@ -209,12 +229,12 @@ public class AdamPlayerTest : MonoBehaviour
         if (relativePos.sqrMagnitude > 0.01f)
         {
             angleDegrees = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
-            angleDegrees = Mathf.Round(angleDegrees / 45f) * 45f;
+            float angle = Mathf.RoundToInt(angleDegrees / 45f) * 45f;
             if (testing)
             {
                 directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
             }
-            playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angleDegrees);
+            playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
     
