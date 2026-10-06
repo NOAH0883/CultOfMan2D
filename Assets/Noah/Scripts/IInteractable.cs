@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class IInteractable : MonoBehaviour
 {
-   public interface Interactable
+    public interface Interactable
     {
         void Interact();
         

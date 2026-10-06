@@ -712,12 +712,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefabs:
-  - {fileID: 7253536107079626996, guid: e4b181a26defe144b932dbd24037ec9f, type: 3}
+  - {fileID: 7253536107079626996, guid: f7699b570d3e1c74486faa0ddca1e110, type: 3}
   - {fileID: 5153913994262023806, guid: 47d6142726f7a32499e31e38e17b6423, type: 3}
   spawnAmount: 20
   enemiesSpawned: 0
   range: 70
-  spawnObject: {fileID: 7253536107079626996, guid: e4b181a26defe144b932dbd24037ec9f, type: 3}
+  spawnObject: {fileID: 0}
 --- !u!1 &2056262612
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestPlayer
   playerSpeed: 5
+  playerHealth: 2
 --- !u!114 &2056262618
 MonoBehaviour:
   m_ObjectHideFlags: 0

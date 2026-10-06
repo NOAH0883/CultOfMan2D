@@ -1,5 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using static IDamageable;
+
 
 public class RamEnemy : MonoBehaviour
 {
@@ -10,15 +13,28 @@ public class RamEnemy : MonoBehaviour
     NavMeshAgent agent;
     SpriteRenderer sr;
 
+    Rigidbody2D rb;
+
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float enemySight;
 
-   
+    [SerializeField] float movementRange;
+
+    bool isMoving;
+    Vector2 movePos;
+
+    bool isAttacking;
+    Vector2 playerPos;
+    [SerializeField] Vector2 attackHitBox;
+    [SerializeField] float attackForce;
+    [SerializeField] float enemyDamage;
+    [SerializeField] float knockBackPower;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         sr = GetComponent<SpriteRenderer>();    
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -28,11 +44,31 @@ public class RamEnemy : MonoBehaviour
         switch (enemyStates)
         {
             case EnemyStates.idle:
-                
+                agent.isStopped = false;
+
+                if (!isMoving)
+                {
+                    Vector3 point;
+                    if (RandomPoint(transform.position, movementRange, out point))
+                    {
+                        Debug.DrawRay(point, Vector3.up, Color.red, 1.0f);
+                        movePos = point;
+
+                        StartCoroutine(Idle());
+                    }
+                }
+               
+
                 break;
 
             case EnemyStates.attack:
-                
+
+                agent.isStopped = true;
+
+                if(!isAttacking)
+                {
+                    StartCoroutine(Attack());
+                }
                 break;
 
             case EnemyStates.dead:
@@ -46,16 +82,93 @@ public class RamEnemy : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(transform.position, enemySight, playerLayer);
         if (hit != null)
         {
-            //can see player
-            sr.color = Color.red;
+            enemyStates = EnemyStates.attack;
+            playerPos = hit.transform.position;
         }
         else
         {
-            //cant see player
-            sr.color = Color.white;
+            enemyStates = EnemyStates.idle;
         }
     }
+    bool RandomPoint(Vector3 center, float range, out Vector3 result)
+    {
+        Vector3 randomPoint = center + Random.insideUnitSphere * range;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            result = hit.position;
+            return true;
+        }
+        result = Vector3.zero;
 
+        return false;
+    }
+
+    IEnumerator Idle()
+    {
+
+        isMoving = true;
+
+        agent.destination = movePos;
+
+        while (agent.remainingDistance > 1)
+        {
+            agent.destination = movePos;
+            yield return null;  
+        }
+
+
+        yield return new WaitForSeconds(5);
+
+        isMoving = false;
+
+    }
+
+    IEnumerator Attack()
+    {
+        agent.isStopped = true;
+        agent.ResetPath();
+        isAttacking =  true;
+
+        rb.linearVelocity = Vector3.zero;
+        sr.color = Color.red;
+        yield return new WaitForSeconds(1);
+       
+
+        Vector2 attackDir = playerPos - rb.position;
+        rb.AddForce(attackDir * attackForce, ForceMode2D.Impulse);
+
+        float attackDuration = 1;
+        float timer = 0f;
+        bool hasDamagedPlayer = false;
+
+        while (timer < attackDuration)
+        {
+            timer += Time.deltaTime;
+            Collider2D hit = Physics2D.OverlapBox(transform.position, attackHitBox, 0f, playerLayer);
+            if (hit != null && !hasDamagedPlayer)
+            {
+                if (hit.TryGetComponent<Damageable>(out Damageable damageableObject))
+                {
+                    Vector2 pos = rb.position;
+                    damageableObject.Damage(enemyDamage, pos, knockBackPower);
+                    hasDamagedPlayer = true;
+                }
+                
+            }
+            yield return null;
+        }
+
+  
+        rb.linearVelocity = Vector3.zero;
+        sr.color = Color.white;
+
+        yield return new WaitForSeconds(1);
+
+        isAttacking = false;
+
+
+    }
 
     private void OnDrawGizmosSelected()
     {

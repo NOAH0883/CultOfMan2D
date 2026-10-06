@@ -197,6 +197,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   enemySight: 2.5
+  movementRange: 5
+  attackHitBox: {x: 1, y: 1}
+  attackForce: 30
+  enemyDamage: 1
+  knockBackPower: 500
 --- !u!114 &8458197976213092504
 MonoBehaviour:
   m_ObjectHideFlags: 0
