@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using static IDamageable;
 
 
-public class RamEnemy : MonoBehaviour
+public class RamEnemy : MonoBehaviour, Damageable
 {
 
     enum EnemyStates { idle, attack, dead }
@@ -29,6 +29,11 @@ public class RamEnemy : MonoBehaviour
     [SerializeField] float attackForce;
     [SerializeField] float enemyDamage;
     [SerializeField] float knockBackPower;
+
+
+    [SerializeField] float enemyHealth;
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -82,11 +87,13 @@ public class RamEnemy : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(transform.position, enemySight, playerLayer);
         if (hit != null)
         {
+            
             enemyStates = EnemyStates.attack;
             playerPos = hit.transform.position;
         }
         else
         {
+            
             enemyStates = EnemyStates.idle;
         }
     }
@@ -106,7 +113,6 @@ public class RamEnemy : MonoBehaviour
 
     IEnumerator Idle()
     {
-
         isMoving = true;
 
         agent.destination = movePos;
@@ -117,11 +123,9 @@ public class RamEnemy : MonoBehaviour
             yield return null;  
         }
 
-
         yield return new WaitForSeconds(5);
 
         isMoving = false;
-
     }
 
     IEnumerator Attack()
@@ -138,23 +142,25 @@ public class RamEnemy : MonoBehaviour
         Vector2 attackDir = playerPos - rb.position;
         rb.AddForce(attackDir * attackForce, ForceMode2D.Impulse);
 
-        float attackDuration = 1;
+        float attackDuration = .5f;
         float timer = 0f;
         bool hasDamagedPlayer = false;
 
         while (timer < attackDuration)
         {
             timer += Time.deltaTime;
-            Collider2D hit = Physics2D.OverlapBox(transform.position, attackHitBox, 0f, playerLayer);
-            if (hit != null && !hasDamagedPlayer)
+
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, attackHitBox, 0f, Vector2.zero, 0f,playerLayer);
+            if (hit && !hasDamagedPlayer)
             {
-                if (hit.TryGetComponent<Damageable>(out Damageable damageableObject))
+                if (hit.collider.TryGetComponent<Damageable>(out Damageable damageableObject))
                 {
+
+                    rb.linearVelocity = Vector3.zero;
                     Vector2 pos = rb.position;
                     damageableObject.Damage(enemyDamage, pos, knockBackPower);
                     hasDamagedPlayer = true;
                 }
-                
             }
             yield return null;
         }
@@ -163,16 +169,48 @@ public class RamEnemy : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         sr.color = Color.white;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
 
         isAttacking = false;
 
 
     }
 
+
+    public void Damage(float damage, Vector2 hitPos, float knockBackPower)
+    {
+        StartCoroutine(KnockBack(knockBackPower, hitPos));
+
+        enemyHealth -= damage;
+
+        if (enemyHealth <= 0)
+            Destroy(gameObject);
+    }
+
+    IEnumerator KnockBack(float knockBackPower, Vector2 hitPos)
+    {
+
+       Debug.Log("--knockBackEnemy--");
+       Vector2 KnockBackDir = (rb.position - hitPos).normalized;
+        rb.linearVelocity = Vector3.zero;
+
+        rb.AddForce(KnockBackDir * knockBackPower, ForceMode2D.Impulse);
+        
+
+
+        yield return new WaitForSeconds(0.25f);
+        rb.linearVelocity = Vector3.zero;
+
+    }
+
+
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, enemySight);
+
+        Gizmos.DrawWireCube(transform.position, attackHitBox);
     }
 }

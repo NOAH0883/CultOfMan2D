@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3442780628588241578}
   - component: {fileID: 8991289320050500807}
   - component: {fileID: 8458197976213092504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ram
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -130,8 +130,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.7
+  m_Offset: {x: -0.005939772, y: 0.03365887}
+  m_Radius: 0.5534851
 --- !u!50 &2080906357089843135
 Rigidbody2D:
   serializedVersion: 5
@@ -198,10 +198,11 @@ MonoBehaviour:
     m_Bits: 128
   enemySight: 2.5
   movementRange: 5
-  attackHitBox: {x: 1, y: 1}
+  attackHitBox: {x: 1.27, y: 1.12}
   attackForce: 30
   enemyDamage: 1
-  knockBackPower: 500
+  knockBackPower: 10
+  enemyHealth: 2
 --- !u!114 &8458197976213092504
 MonoBehaviour:
   m_ObjectHideFlags: 0

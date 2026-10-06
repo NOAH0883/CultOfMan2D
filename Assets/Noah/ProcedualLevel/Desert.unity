@@ -902,6 +902,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TestPlayer
   playerSpeed: 5
   playerHealth: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &2056262618
 MonoBehaviour:
   m_ObjectHideFlags: 0
