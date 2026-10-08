@@ -32,6 +32,7 @@ public class RamEnemy : MonoBehaviour, Damageable
 
 
     [SerializeField] float enemyHealth;
+    [SerializeField] int foodAmount;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,7 +78,7 @@ public class RamEnemy : MonoBehaviour, Damageable
                 break;
 
             case EnemyStates.dead:
-
+                dead();
                 break;
         }
     }
@@ -87,13 +88,11 @@ public class RamEnemy : MonoBehaviour, Damageable
         Collider2D hit = Physics2D.OverlapCircle(transform.position, enemySight, playerLayer);
         if (hit != null)
         {
-            
             enemyStates = EnemyStates.attack;
             playerPos = hit.transform.position;
         }
         else
         {
-            
             enemyStates = EnemyStates.idle;
         }
     }
@@ -184,7 +183,12 @@ public class RamEnemy : MonoBehaviour, Damageable
         enemyHealth -= damage;
 
         if (enemyHealth <= 0)
+        {
+            GameData.food += foodAmount;
             Destroy(gameObject);
+        }
+            
+
     }
 
     IEnumerator KnockBack(float knockBackPower, Vector2 hitPos)
@@ -203,7 +207,16 @@ public class RamEnemy : MonoBehaviour, Damageable
 
     }
 
+    void dead()
+    {
+        //play death animation  - would be a corutine
+        //give the player food about 
 
+        //destory game object
+
+      
+
+    }
 
 
     private void OnDrawGizmosSelected()

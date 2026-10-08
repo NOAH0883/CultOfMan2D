@@ -203,6 +203,7 @@ MonoBehaviour:
   enemyDamage: 1
   knockBackPower: 10
   enemyHealth: 2
+  foodAmount: 3
 --- !u!114 &8458197976213092504
 MonoBehaviour:
   m_ObjectHideFlags: 0

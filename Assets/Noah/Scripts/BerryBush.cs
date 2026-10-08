@@ -7,7 +7,8 @@ public class BerryBush : MonoBehaviour, Interactable
     [SerializeField] int foodAmount;
     public void Interact()
     {
-        GameData.food += 1;
+        Debug.Log("Yay picked up carrot");
+        GameData.food += foodAmount;
 
         Destroy(gameObject);
         

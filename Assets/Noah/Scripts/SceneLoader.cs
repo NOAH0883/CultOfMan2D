@@ -23,6 +23,7 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadHuntingScene(string loadScene)
     {
+        GameData.isDay = true;
         GameObject player = GameObject.FindWithTag("Player");
         player.transform.position = new Vector2(0, 0);
 
@@ -50,6 +51,8 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadVillageScene()
     {
+
+        GameData.isDay = false;
         GameObject player = GameObject.FindWithTag("Player");
         player.transform.position = new Vector2(9, 0);
 

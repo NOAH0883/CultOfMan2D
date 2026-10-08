@@ -27,14 +27,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        if (GameData.isDay)
-        {
-
-            //EventSystem.current.SetSelectedGameObject(null);
-            //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
-
-            
-        }
+        
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
 
@@ -60,28 +53,34 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     public void GrassLands(string sceneToLoad)
     {
-        closeMenu.action.Disable();
-        closeMenu.action.performed -= OnCancel;
+        if(GameData.isDay)
+        {
+            closeMenu.action.Disable();
+            closeMenu.action.performed -= OnCancel;
 
 
-        huntingMenu.SetActive(false);
-        Time.timeScale = 1f;
+            huntingMenu.SetActive(false);
+            Time.timeScale = 1f;
 
-        sceneLoader.LoadHunting(sceneToLoad);
+            sceneLoader.LoadHunting(sceneToLoad);
+        }
+        
     }
 
     public void Desert(string sceneToLoad)
     {
-        closeMenu.action.Disable();
-        closeMenu.action.performed -= OnCancel;
+        if(GameData.population >= 10 & GameData.isDay)
+        {
+            closeMenu.action.Disable();
+            closeMenu.action.performed -= OnCancel;
 
 
-        huntingMenu.SetActive(false);
-        Time.timeScale = 1f;
+            huntingMenu.SetActive(false);
+            Time.timeScale = 1f;
 
-
-
-        sceneLoader.LoadHunting(sceneToLoad);
+            sceneLoader.LoadHunting(sceneToLoad);
+        }
+       
 
     }
 
