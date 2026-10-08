@@ -23,8 +23,12 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadHuntingScene(string loadScene)
     {
+        GameData.isDay = true;
+        GameObject player = GameObject.FindWithTag("Player");
+        player.transform.position = new Vector2(0, 0);
 
-        Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial");
+
+        Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial 1");
         
         AsyncOperation async = SceneManager.LoadSceneAsync(loadScene, LoadSceneMode.Additive);
 
@@ -47,11 +51,14 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadVillageScene()
     {
-        
+
+        GameData.isDay = false;
+        GameObject player = GameObject.FindWithTag("Player");
+        player.transform.position = new Vector2(9, 0);
 
         Scene activeScene = SceneManager.GetActiveScene();
 
-        Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial");
+        Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial 1");
 
         
 

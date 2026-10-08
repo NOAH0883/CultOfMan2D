@@ -8,18 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 0
-    path: Assets/Scenes/HuntingScenes/GrassLands.unity
-    guid: 28657cb8ee08bf344a4d75e98b418567
-  - enabled: 0
-    path: Assets/Scenes/HuntingScenes/GrassLands2.unity
-    guid: c7d85fc95f31b454c95dc9c7166b409e
   - enabled: 1
     path: Assets/Noah/ProcedualLevel/Grasslands.unity
     guid: 113298c51e2985a4f9f7eab73fa5f356
-  - enabled: 1
+  - enabled: 0
     path: Assets/Jack/Tutorial/Day1_tutorial.unity
     guid: 890957d45458f704ab3ba11ce4e0e543
+  - enabled: 1
+    path: Assets/Jack/Tutorial/Day1_tutorial 1.unity
+    guid: b32a929bae56d244298b393563cb3035
+  - enabled: 1
+    path: Assets/Noah/ProcedualLevel/Desert.unity
+    guid: 8bec4a1ce12c6dd45be52b062f9cc08a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7373aeaa2132c784982285ee2705ea4e, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

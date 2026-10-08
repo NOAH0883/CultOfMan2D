@@ -17,7 +17,7 @@ public class Sleep : MonoBehaviour, Interactable
 
     void Start()
     {
-        villageManager = Object.FindAnyObjectByType<VillageManager>();
+        GameData.isDay = true;
         Debug.Log("day");
         sleepani.SetActive(false);
     }
@@ -37,14 +37,16 @@ public class Sleep : MonoBehaviour, Interactable
 
     public void Interact()
     {
+        
+        
        if(!GameData.isDay && GameData.hasFeedVillage)
        {
             GameData.isDay = true;  
             GameData.hasFeedVillage = false;
             GameData.food = 0;
 
-            villageManager.OverNight();
-            StartCoroutine(SleepAni());
+            //villageManager.OverNight();
+            //StartCoroutine(SleepAni());
             //player the day cycle animation 
             // make new villages if needed
         }

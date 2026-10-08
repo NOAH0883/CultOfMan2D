@@ -39,15 +39,24 @@ public class RoomManager : MonoBehaviour
     [SerializeField] List<GameObject> roomsPrefab = new List<GameObject>();
 
 
-
-    [SerializeField] CinemachineConfiner2D cameraConfiner;
+    [SerializeField] GameObject cinemachineCam;
+    CinemachineConfiner2D cameraConfiner;
     CompositeCollider2D cameraBounds;
+    CinemachineCamera cam;
 
     [SerializeField] NavMeshSurface navMesh;
             
     private void Start()
     {
+
+        GameObject player = GameObject.FindWithTag("Player");
+        cam = cinemachineCam.GetComponent<CinemachineCamera>();
+        cam.Follow = player.transform;
+        
+
+        cameraConfiner = cinemachineCam.GetComponent<CinemachineConfiner2D>();
         cameraBounds = GetComponent<CompositeCollider2D>();
+
         cameraConfiner.BoundingShape2D = null;
 
         roomGrid = new int[gridSizeX, gridSizeY];

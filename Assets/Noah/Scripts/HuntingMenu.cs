@@ -21,24 +21,18 @@ public class HuntingMenu : MonoBehaviour, Interactable
     {
         huntingMenu.SetActive(false);
 
-        sceneLoader = Object.FindAnyObjectByType<SceneLoader>();
+        sceneLoader = GetComponent<SceneLoader>();
         
     }
 
     public void Interact()
     {
-        if (GameData.isDay)
-        {
+        
+        closeMenu.action.Enable();
+        closeMenu.action.performed += OnCancel;
 
-            //EventSystem.current.SetSelectedGameObject(null);
-            //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
-
-            closeMenu.action.Enable();
-            closeMenu.action.performed += OnCancel;
-
-            huntingMenu.SetActive(true);
-            Time.timeScale = 0f;
-        }
+        huntingMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     void OnCancel(InputAction.CallbackContext context)
@@ -59,19 +53,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     public void GrassLands(string sceneToLoad)
     {
-        closeMenu.action.Disable();
-        closeMenu.action.performed -= OnCancel;
-
-
-        huntingMenu.SetActive(false);
-        Time.timeScale = 1f;
-
-        sceneLoader.LoadHunting(sceneToLoad);
-    }
-
-    public void GrassLands2()
-    {
-        if (GameData.hasWeapon)
+        if(GameData.isDay)
         {
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
@@ -80,11 +62,26 @@ public class HuntingMenu : MonoBehaviour, Interactable
             huntingMenu.SetActive(false);
             Time.timeScale = 1f;
 
-            string sceneToLoad = "GrassLands2";
-            
             sceneLoader.LoadHunting(sceneToLoad);
         }
         
+    }
+
+    public void Desert(string sceneToLoad)
+    {
+        if(GameData.population >= 10 & GameData.isDay)
+        {
+            closeMenu.action.Disable();
+            closeMenu.action.performed -= OnCancel;
+
+
+            huntingMenu.SetActive(false);
+            Time.timeScale = 1f;
+
+            sceneLoader.LoadHunting(sceneToLoad);
+        }
+       
+
     }
 
 

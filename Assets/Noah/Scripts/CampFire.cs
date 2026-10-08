@@ -24,24 +24,20 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        
-        if (!GameData.isDay)
-        {
-            villageManager = UnityEngine.Object.FindAnyObjectByType<VillageManager>();
-            closeMenu.action.Enable();
-            closeMenu.action.performed += OnCancel;
+        GameData.hasFeedVillage = true;
+        closeMenu.action.Enable();
+        closeMenu.action.performed += OnCancel;
 
-            CampFireMenu.SetActive(true);
-            Time.timeScale = 0f;
-        }
+        CampFireMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
   
     void OnCancel (InputAction.CallbackContext context)  
     {
        if(context.performed)
-        {
-           
+       {
+            
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
 

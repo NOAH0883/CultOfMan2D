@@ -70,9 +70,6 @@ public class VillageManager : MonoBehaviour
     {
         villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
-        
-        
-        
 
         for (int i = 0; i < villagers.Count; i++)
         {
