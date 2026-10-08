@@ -21,7 +21,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
     {
         huntingMenu.SetActive(false);
 
-        sceneLoader = Object.FindAnyObjectByType<SceneLoader>();
+        sceneLoader = GetComponent<SceneLoader>();
         
     }
 
@@ -33,12 +33,13 @@ public class HuntingMenu : MonoBehaviour, Interactable
             //EventSystem.current.SetSelectedGameObject(null);
             //EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
 
-            closeMenu.action.Enable();
-            closeMenu.action.performed += OnCancel;
-
-            huntingMenu.SetActive(true);
-            Time.timeScale = 0f;
+            
         }
+        closeMenu.action.Enable();
+        closeMenu.action.performed += OnCancel;
+
+        huntingMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     void OnCancel(InputAction.CallbackContext context)
@@ -69,22 +70,19 @@ public class HuntingMenu : MonoBehaviour, Interactable
         sceneLoader.LoadHunting(sceneToLoad);
     }
 
-    public void GrassLands2()
+    public void Desert(string sceneToLoad)
     {
-        if (GameData.hasWeapon)
-        {
-            closeMenu.action.Disable();
-            closeMenu.action.performed -= OnCancel;
+        closeMenu.action.Disable();
+        closeMenu.action.performed -= OnCancel;
 
 
-            huntingMenu.SetActive(false);
-            Time.timeScale = 1f;
+        huntingMenu.SetActive(false);
+        Time.timeScale = 1f;
 
-            string sceneToLoad = "GrassLands2";
-            
-            sceneLoader.LoadHunting(sceneToLoad);
-        }
-        
+
+
+        sceneLoader.LoadHunting(sceneToLoad);
+
     }
 
 

@@ -169,7 +169,7 @@ public class RamEnemy : MonoBehaviour, Damageable
         rb.linearVelocity = Vector3.zero;
         sr.color = Color.white;
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         isAttacking = false;
 
