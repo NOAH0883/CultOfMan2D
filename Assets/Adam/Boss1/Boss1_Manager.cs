@@ -4,6 +4,7 @@ using UnityEngine;
 public class Boss1_Manager : MonoBehaviour
 {
     public float walkSpeed;
+    public float sprintSpeed;
     private CircleCollider2D circleCollider;
     [SerializeField] float aggroRadius;
     enum BossState
@@ -25,6 +26,14 @@ public class Boss1_Manager : MonoBehaviour
         state = BossState.IDLE;
         Boss1_Idle.walkSpeed = walkSpeed;
         Boss1_Active.walkSpeed = walkSpeed;
+        if (sprintSpeed > walkSpeed)
+        {
+            Boss1_Active.sprintSpeed = sprintSpeed;
+        }
+        else
+        {
+            Boss1_Active.sprintSpeed = walkSpeed;
+        }
     }
 
     // Update is called once per frame
@@ -43,7 +52,7 @@ public class Boss1_Manager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             state = BossState.ACTIVE;
-            Boss1_Active.walkSpeed = walkSpeed;
+            Boss1_Active.moveSpeed = walkSpeed;
             Boss1_Active.actionInterval = 3;
             circleCollider.radius = aggroRadius * 4;
             Debug.Log("Boss is active.");

@@ -750,6 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   walkSpeed: 1
+  sprintSpeed: 0
   aggroRadius: 2
   Boss1_Idle: {fileID: 472528058}
   Boss1_Active: {fileID: 472528057}
@@ -841,7 +842,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss1_Active
   actionInterval: 0
+  moveSpeed: 0
   walkSpeed: 0
+  sprintSpeed: 0
+  chargeAttackRange: 1
 --- !u!114 &472528058
 MonoBehaviour:
   m_ObjectHideFlags: 0
