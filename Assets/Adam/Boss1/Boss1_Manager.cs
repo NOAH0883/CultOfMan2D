@@ -12,6 +12,7 @@ public class Boss1_Manager : MonoBehaviour
     }
     private BossState state;
 
+    [SerializeField] private Boss1_Active Boss1_Active;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +26,8 @@ public class Boss1_Manager : MonoBehaviour
     {
         switch (state)
         {
+            case BossState.IDLE: break;
+            case BossState.ACTIVE: Boss1_Active.Boss1_ActiveUpdate(); break;
             default: break;
         }
     }
@@ -34,6 +37,8 @@ public class Boss1_Manager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             state = BossState.ACTIVE;
+            Boss1_Active.actionInterval = 3;
+            circleCollider.radius = aggroRadius * 4;
             Debug.Log("Boss is active.");
         }
     }
@@ -42,6 +47,7 @@ public class Boss1_Manager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             state = BossState.IDLE;
+            circleCollider.radius = aggroRadius;
             Debug.Log("Boss is idle.");
         }
     }

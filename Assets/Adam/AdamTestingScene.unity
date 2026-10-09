@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 146398931}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   playerHurtbox: {fileID: 337528360}
   playerHurtboxPivot: {fileID: 888799138}
+  dodging: 0
   rollDistance: 3
   rollTime: 0.5
   rollInvulnerability: 0.2
@@ -690,6 +691,7 @@ GameObject:
   - component: {fileID: 472528056}
   - component: {fileID: 472528055}
   - component: {fileID: 472528054}
+  - component: {fileID: 472528057}
   - component: {fileID: 472528053}
   m_Layer: 0
   m_Name: Boss1
@@ -747,6 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   aggroRadius: 2
+  Boss1_Active: {fileID: 472528057}
 --- !u!212 &472528055
 SpriteRenderer:
   serializedVersion: 2
@@ -821,6 +824,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &472528057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472528052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1eedc4c022c9d24388d20bec7b4bb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss1_Active
+  actionInterval: 0
 --- !u!1 &629279864
 GameObject:
   m_ObjectHideFlags: 0
