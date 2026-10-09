@@ -16,6 +16,7 @@ public class Boss1_Manager : MonoBehaviour
     [SerializeField] private Boss1_Idle Boss1_Idle;
     [SerializeField] private Boss1_Active Boss1_Active;
 
+    public int bossHP;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,6 +46,13 @@ public class Boss1_Manager : MonoBehaviour
             case BossState.ACTIVE: Boss1_Active.Boss1_ActiveUpdate(); break;
             default: break;
         }
+
+        if (bossHP <= 0)
+        {
+            state = BossState.DEAD;
+            Destroy(gameObject);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,5 +77,10 @@ public class Boss1_Manager : MonoBehaviour
             circleCollider.radius = aggroRadius;
             Debug.Log("Boss is idle.");
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        bossHP -= damage;
     }
 }

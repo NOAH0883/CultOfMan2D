@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 472528053}
   m_Layer: 0
   m_Name: Boss1
-  m_TagString: Untagged
+  m_TagString: Boss1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -750,10 +750,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   walkSpeed: 1
-  sprintSpeed: 0
+  sprintSpeed: 2
   aggroRadius: 2
   Boss1_Idle: {fileID: 472528058}
   Boss1_Active: {fileID: 472528057}
+  bossHP: 60
 --- !u!212 &472528055
 SpriteRenderer:
   serializedVersion: 2
@@ -845,7 +846,7 @@ MonoBehaviour:
   moveSpeed: 0
   walkSpeed: 0
   sprintSpeed: 0
-  chargeAttackRange: 1
+  chargeAttackRange: 5
 --- !u!114 &472528058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1747,7 +1748,7 @@ GameObject:
   - component: {fileID: 1822097395}
   m_Layer: 0
   m_Name: Boss1Hurtbox
-  m_TagString: Enemy
+  m_TagString: Boss1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
