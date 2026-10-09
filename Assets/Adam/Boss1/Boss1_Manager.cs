@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Boss1_Manager : MonoBehaviour
 {
-
+    public float walkSpeed;
     private CircleCollider2D circleCollider;
     [SerializeField] float aggroRadius;
     enum BossState
@@ -12,13 +12,19 @@ public class Boss1_Manager : MonoBehaviour
     }
     private BossState state;
 
+    [SerializeField] private Boss1_Idle Boss1_Idle;
     [SerializeField] private Boss1_Active Boss1_Active;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         circleCollider = GetComponent<CircleCollider2D>();
         circleCollider.radius = aggroRadius;
         state = BossState.IDLE;
+        Boss1_Idle.walkSpeed = walkSpeed;
+        Boss1_Active.walkSpeed = walkSpeed;
     }
 
     // Update is called once per frame
@@ -26,7 +32,7 @@ public class Boss1_Manager : MonoBehaviour
     {
         switch (state)
         {
-            case BossState.IDLE: break;
+            case BossState.IDLE: Boss1_Idle.Boss1_IdleUpdate(); break;
             case BossState.ACTIVE: Boss1_Active.Boss1_ActiveUpdate(); break;
             default: break;
         }
@@ -37,6 +43,7 @@ public class Boss1_Manager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             state = BossState.ACTIVE;
+            Boss1_Active.walkSpeed = walkSpeed;
             Boss1_Active.actionInterval = 3;
             circleCollider.radius = aggroRadius * 4;
             Debug.Log("Boss is active.");
@@ -47,6 +54,9 @@ public class Boss1_Manager : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             state = BossState.IDLE;
+            Boss1_Idle.walkSpeed = walkSpeed;
+            Boss1_Idle.idleTime = 0;
+            Boss1_Idle.CompareDistance();
             circleCollider.radius = aggroRadius;
             Debug.Log("Boss is idle.");
         }
