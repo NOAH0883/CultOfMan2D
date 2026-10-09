@@ -82,5 +82,12 @@ public class Boss1_Manager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         bossHP -= damage;
+        if (state != BossState.ACTIVE)
+        {
+            state = BossState.ACTIVE;
+            Boss1_Active.moveSpeed = walkSpeed;
+            Boss1_Active.actionInterval = 3;
+            circleCollider.radius = aggroRadius * 4;
+        }
     }
 }
