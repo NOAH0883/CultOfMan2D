@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f672159db3d31c4599938834209146f, type: 3}
+  m_Name: IncreaseDamage1
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradScriptableObj
+  upgradeName: Damage
+  destriptionText: Player damage +2
+  icon: {fileID: -6251451809504726511, guid: 2273f35c26260b14a9e6f2aa1e3bfcdb, type: 3}
+  cost: 0
+  healthBonus: 0
+  damageBonus: 2
+  newWeapon: {fileID: 0}

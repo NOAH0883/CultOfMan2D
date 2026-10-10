@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,12 +36,20 @@ public class CampFire : MonoBehaviour, Interactable
     [SerializeField] Button sacButton;
     bool canSac;
 
+    [Header("Text")]
     [SerializeField] TextMeshProUGUI popUIText;
     [SerializeField] TextMeshProUGUI foodUIText;
     [SerializeField] TextMeshProUGUI villagersFeedUIText;
 
+    [Header("Upgrades")]
+    [SerializeField] List<UpgradScriptableObj> upgradesList;
+    [SerializeField] TextMeshProUGUI upgradeNameText;
+    [SerializeField] TextMeshProUGUI upgradeDescriptionText;
+    [SerializeField] TextMeshProUGUI upgradeCostText;
+    [SerializeField] Image upgradeImageSprite;
 
 
+    [Header("Test")]
     [SerializeField] int foodTest;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -53,7 +62,8 @@ public class CampFire : MonoBehaviour, Interactable
 
     void Update()
     {
-        activeButtons();
+        ActiveButtons();
+        Upgrades();
     }
 
     public void Interact()
@@ -108,7 +118,7 @@ public class CampFire : MonoBehaviour, Interactable
 
 
 
-    void activeButtons()
+    void ActiveButtons()
     {
         //housing 
 
@@ -151,7 +161,6 @@ public class CampFire : MonoBehaviour, Interactable
         popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
 
 
-
         //Food
         foodUIText.text = GameData.food.ToString();
 
@@ -160,9 +169,33 @@ public class CampFire : MonoBehaviour, Interactable
     }
 
 
+    void Upgrades()
+    {
+
+        UpgradScriptableObj upgradScriptableObj = upgradesList[0];
+        upgradeNameText.text = upgradScriptableObj.upgradeName;
+        upgradeDescriptionText.text = upgradScriptableObj.destriptionText;
+        upgradeCostText.text = upgradScriptableObj.cost.ToString();
+        upgradeImageSprite.sprite = upgradScriptableObj.icon;
 
 
 
+        //if food is > cost || list is equal to null
+        //disable upgrade
+        //else
+        //enable upgrade
+
+
+        //when button is pressed
+        //give player the upgrades
+
+        // remove the weapon from the list
+    }
+
+    public void UpgradeTest()
+    {
+        upgradesList.RemoveAt(0);
+    }
 
 
 }
