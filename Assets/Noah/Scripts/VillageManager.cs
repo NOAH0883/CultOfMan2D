@@ -15,7 +15,7 @@ public class VillageManager : MonoBehaviour
 {
 
     [Header("Food")]
-    
+    int foodInPot;
     
     [SerializeField] int sacrificeAmount;
 
@@ -23,10 +23,11 @@ public class VillageManager : MonoBehaviour
     [SerializeField] GameObject villagerPrefab;
     public List<GameObject> villagers;
     [SerializeField] VillagerAI villagerScript;
+    public int villagersFeed;
 
 
     [Header("housing")]
-    [SerializeField] float housing;
+    public float housing;
     [SerializeField] float villagersToSpawn;
     [SerializeField] float villagerSpawnMax;
     [SerializeField] GameObject HousePrefab;
@@ -34,9 +35,6 @@ public class VillageManager : MonoBehaviour
     [Header("Spawner")]
     [SerializeField] List<GameObject> spawnPos;
 
-    
-    
-  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,7 +43,6 @@ public class VillageManager : MonoBehaviour
         GameData.isDay = true;
         GameData.hasFeedVillage = false;
         GameData.food = 0;
-
 
 
         GameData.hasWeapon = false;
@@ -122,9 +119,6 @@ public class VillageManager : MonoBehaviour
         }
 
     }
-
-
-
     
     private void SpawnVillagerStart()
     {
@@ -167,12 +161,29 @@ public class VillageManager : MonoBehaviour
     }
 
 
-    //public void SpawnHouse()
-    //{
-    //    housing += 5;
-    //    GameObject house = Instantiate(HousePrefab, transform.position, Quaternion.identity);
-    //}
+   
 
+
+
+    public void FeedVillagers()
+    {
+        foodInPot += 4;
+        GameData.food -= 4;
+        villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+
+
+        // sick villages = pop -= villagesFeed  -- for overnight stats  -- for feeding 
+
+
+    }
+    
+    public void upgradeHousing()
+    {
+        housing += 5;
+
+        //can build houses overnight
+        //housing increase for today +=5  -- for overnight stats
+    }
 
 
     public void Sacrifice()
