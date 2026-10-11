@@ -331,7 +331,7 @@ public class AdamPlayerTest : MonoBehaviour
 
             if (comboCount >= 3)
             {
-                attackOffset = new Vector2(2, 0);
+                attackOffset = new Vector2(1.5f, 0);
                 attackSize = new Vector2 (3, 1);
                 playerHitboxScript.damage = 10;
                 attackCooldown = 0.3f;
@@ -339,8 +339,8 @@ public class AdamPlayerTest : MonoBehaviour
             } 
             else
             {
-                attackOffset = new Vector2(1.5f, 0);
-                attackSize = new Vector2(1, 2.5f);
+                attackOffset = new Vector2(1, 0);
+                attackSize = new Vector2(1.5f, 2.5f);
                 playerHitboxScript.damage = 5;
                 attackCooldown = 0.2f;
             }
