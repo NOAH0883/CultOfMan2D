@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerHitbox : MonoBehaviour
 {
-    public int damage = 1;
+    public int damage;
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))

@@ -20,6 +20,7 @@ public class AdamPlayerTest : MonoBehaviour
     [SerializeField] private float rollDistance;
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
+    public int playerHealth;
 
 
     // Attacking
@@ -71,6 +72,7 @@ public class AdamPlayerTest : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerHealth = 100;
         active = true;
         canAttack = true;
         attacking = false;
@@ -390,6 +392,16 @@ public class AdamPlayerTest : MonoBehaviour
         else
         {
             playerVisualsScript.lookingUp = false;
+        }
+    }
+    public void TakeDamage(int damage)
+    {
+        playerHealth -= damage;
+        if (playerHealth <= 0)
+        {
+            //Return to base scene, lose all food
+            //Temporarily though, destroy player object.
+            Destroy(gameObject);
         }
     }
 }

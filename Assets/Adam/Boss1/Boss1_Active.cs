@@ -15,6 +15,7 @@ public class Boss1_Active : MonoBehaviour
     [SerializeField] private float chargeAttackRange;
     [SerializeField] private float meleeAttackRange;
     public GameObject boss1Hitbox;
+    public Boss1_Hitbox boss1HitboxScript;
     public BoxCollider2D boss1HitboxCollider;
     private bool attacking;
     private float attackWindup;
@@ -93,20 +94,23 @@ public class Boss1_Active : MonoBehaviour
             case 0:
                 attackOffset = new Vector2(2, 0);
                 attackDimensions = new Vector2(3.5f, 4);
-                attackWindup = 0.9f;
+                attackWindup = 0.4f;
                 attackActive = 0.2f;
+                boss1HitboxScript.damage = 10;
                 break;
             case 1:
                 attackOffset = new Vector2(0, 0);
                 attackDimensions = new Vector2(5, 4);
-                attackWindup = 0.4f;
+                attackWindup = 0.9f;
                 attackActive = 0.2f;
+                boss1HitboxScript.damage = 15;
                 break;
             case 2:
                 attackOffset = new Vector2(0, 0);
                 attackDimensions = new Vector2(2, 2);
                 attackWindup = 0.5f;
                 attackActive = 1.2f;
+                boss1HitboxScript.damage = 20;
                 break;
             default: break;
         }
@@ -126,6 +130,7 @@ public class Boss1_Active : MonoBehaviour
     {
         float elapsed = 0f;
         float totalTime = windup + active;
+        boss1HitboxScript.playerAttacked = false;
         Debug.Log("Start boss attack.");
 
         while (elapsed < totalTime && attacking)
