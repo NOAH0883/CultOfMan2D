@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -6,24 +7,37 @@ using static IInteractable;
 
 public class Sleep : MonoBehaviour, Interactable
 {
-    VillageManager villageManager;
+    [SerializeField] VillageManager villageManager;
     [SerializeField] GameObject sleepani;
 
 
-
+    [Header("Lighting")]
     [SerializeField] Light2D lighting;
     [SerializeField] Color dayColour;
     [SerializeField] Color nightColour;
 
+
+    [Header("Daily Summary")]
+    [SerializeField] GameObject dayStatsMenu;
+    [SerializeField] TextMeshProUGUI populationSumText;
+    [SerializeField] TextMeshProUGUI HousingSumText;
+    [SerializeField] TextMeshProUGUI sickVillSumText;
+    [SerializeField] TextMeshProUGUI deadVillSumText;
+    [SerializeField] TextMeshProUGUI sacVillSumText;
+
+
     void Start()
     {
         GameData.isDay = true;
-        Debug.Log("day");
+        
         sleepani.SetActive(false);
+        dayStatsMenu.SetActive(false);
     }
     
     void Update()
     {
+        DayStats();
+
         if (GameData.isDay)
         {
             lighting.color = dayColour;
@@ -37,20 +51,34 @@ public class Sleep : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        
-        
-       if(!GameData.isDay && GameData.hasFeedVillage)
+       if(!GameData.isDay)
        {
             GameData.isDay = true;  
-            GameData.hasFeedVillage = false;
             GameData.food = 0;
+            StartCoroutine(SleepAni());
 
-            //villageManager.OverNight();
-            //StartCoroutine(SleepAni());
-            //player the day cycle animation 
-            // make new villages if needed
-        }
+            //players health gets reset to max
 
+            villageManager.FeedVillagers();
+            villageManager.BuildHouses();
+       }
+
+    }
+
+
+
+
+    void DayStats()
+    {
+        
+        
+        populationSumText.text = (GameData.population - villageManager.popIncrease).ToString() + " + " + villageManager.popIncrease; // + pop increase
+        HousingSumText.text = (villageManager.housing - villageManager.housingIncrease).ToString() + " + " + villageManager.popIncrease; // + housing increase
+
+        sickVillSumText.text = villageManager.villagersSick.ToString();
+        deadVillSumText.text = villageManager.villagersDead.ToString();
+        
+        sacVillSumText.text = villageManager.villSac.ToString();
     }
 
 
@@ -59,6 +87,8 @@ public class Sleep : MonoBehaviour, Interactable
         sleepani.SetActive(true);
         yield return new WaitForSeconds(2f);
         sleepani.SetActive(false);
+        dayStatsMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
 

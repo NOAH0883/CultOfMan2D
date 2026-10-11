@@ -16,6 +16,7 @@ public class AdamPlayerTest : MonoBehaviour
     // Hurtbox & dodging
     public GameObject playerHurtbox;
     public GameObject playerHurtboxPivot;
+    public bool dodging;
     [SerializeField] private float rollDistance;
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
@@ -90,7 +91,7 @@ public class AdamPlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (active)
+        if (active && !attacking)
         {
             FlipCheck();
             Looking();
@@ -293,12 +294,12 @@ public class AdamPlayerTest : MonoBehaviour
         {
             if (iFrames > 0f)
             {
-                playerHurtbox.SetActive(false);
+                dodging = true;
                 iFrames -= Time.deltaTime;
             }
             else
             {
-                playerHurtbox.SetActive(true);
+                dodging = false;
             }
             elapsed += Time.deltaTime;
             float t = elapsed / rollTime;
@@ -309,7 +310,7 @@ public class AdamPlayerTest : MonoBehaviour
             yield return null;
         }
         transform.position = endPos;
-        playerHurtbox.SetActive(true);
+        dodging = false;
         canAttack = true;
         playerVisualsScript.rolling = false;
         Debug.Log("End roll.");
@@ -368,6 +369,7 @@ public class AdamPlayerTest : MonoBehaviour
         playerHitbox.SetActive(false);
         Debug.Log("End attack.");
         canAttack = true;
+        attacking = false;
         yield return null;
     }
 

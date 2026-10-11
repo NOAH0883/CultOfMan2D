@@ -1,3 +1,4 @@
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class PlayerHitbox : MonoBehaviour
@@ -10,6 +11,11 @@ public class PlayerHitbox : MonoBehaviour
             Debug.Log("Enemy hit for " + damage + " damage.");
             PassiveEnemy enemy = collision.GetComponent<PassiveEnemy>();
             enemy.TakeDamage(damage);
+        }
+        if (collision.CompareTag("Boss1"))
+        {
+            Boss1_Manager boss = collision.GetComponentInParent<Boss1_Manager>();
+            boss.TakeDamage(damage);
         }
         
     }
