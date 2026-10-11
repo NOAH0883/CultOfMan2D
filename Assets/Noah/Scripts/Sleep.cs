@@ -36,6 +36,8 @@ public class Sleep : MonoBehaviour, Interactable
     
     void Update()
     {
+        DayStats();
+
         if (GameData.isDay)
         {
             lighting.color = dayColour;
@@ -69,15 +71,14 @@ public class Sleep : MonoBehaviour, Interactable
     void DayStats()
     {
         
-        dayStatsMenu.SetActive(true);
-        populationSumText.text = GameData.population.ToString(); // + pop increase
-        //HousingSumText.text = VillageManager.housing.ToString(); // + housing increase
-        //HousingSumText.text = VillageManager.housing.ToString();
         
-        //sickVillSumText.text = number of villages that got sick in the day
-        //deadVillShText.text = number of villagers that die this day
-        //sacVillSumText.text = number of villagers that were saced this day
+        populationSumText.text = (GameData.population - villageManager.popIncrease).ToString() + " + " + villageManager.popIncrease; // + pop increase
+        HousingSumText.text = (villageManager.housing - villageManager.housingIncrease).ToString() + " + " + villageManager.popIncrease; // + housing increase
 
+        sickVillSumText.text = villageManager.villagersSick.ToString();
+        deadVillSumText.text = villageManager.villagersDead.ToString();
+        
+        sacVillSumText.text = villageManager.villSac.ToString();
     }
 
 
@@ -86,6 +87,8 @@ public class Sleep : MonoBehaviour, Interactable
         sleepani.SetActive(true);
         yield return new WaitForSeconds(2f);
         sleepani.SetActive(false);
+        dayStatsMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
 

@@ -5,9 +5,6 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
-using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
 
 
@@ -39,7 +36,11 @@ public class VillageManager : MonoBehaviour
     [SerializeField] List<GameObject> spawnPos;
 
 
-
+    public float villSac;
+    public float popIncrease;
+    public float housingIncrease;
+    public float villagersDead;
+    public float villagersSick;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -69,6 +70,8 @@ public class VillageManager : MonoBehaviour
 
     public void FeedVillagers()
     {
+        villagersDead = 0;
+        villagersSick = 0;
         villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
 
@@ -77,9 +80,9 @@ public class VillageManager : MonoBehaviour
             
             VillagerAI testVillager = villagers[i].GetComponent<VillagerAI>();
 
-            if (GameData.food >= testVillager.foodNeeded)
+            if (foodInPot >= testVillager.foodNeeded)
             {
-                GameData.food -= testVillager.foodNeeded;
+                foodInPot -= testVillager.foodNeeded;
                 testVillager.isSick = false;
                 
                 SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
@@ -95,6 +98,7 @@ public class VillageManager : MonoBehaviour
 
                 SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
                 sr.color = Color.green;
+                villagersSick++;
             }
             else
             {
@@ -102,6 +106,7 @@ public class VillageManager : MonoBehaviour
                 villagers.RemoveAt(i);
                 GameData.population--;
                 canSpawnVillagers = false;
+                villagersDead++;
             }
         }
     }
@@ -168,6 +173,7 @@ public class VillageManager : MonoBehaviour
 
             villagers.Add(villager);
             GameData.population++;
+            popIncrease++;
         }
     }
 
@@ -184,6 +190,7 @@ public class VillageManager : MonoBehaviour
     {
         housing += 5;
         housesToBuild++;
+        housingIncrease += 5;
     }
 
 
@@ -196,6 +203,7 @@ public class VillageManager : MonoBehaviour
 
         GameData.population--;
         GameData.food += sacrificeAmount;
+        villSac ++;
     }
 
 
