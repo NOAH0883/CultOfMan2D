@@ -2,11 +2,15 @@ using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using static IInteractable;
 
 public class Sleep : MonoBehaviour, Interactable
 {
+
+    [SerializeField] InputActionProperty closeMenu;
+
     [SerializeField] VillageManager villageManager;
     [SerializeField] GameObject sleepani;
 
@@ -61,7 +65,10 @@ public class Sleep : MonoBehaviour, Interactable
 
             villageManager.FeedVillagers();
             villageManager.BuildHouses();
-       }
+
+            closeMenu.action.Enable();
+            closeMenu.action.performed += OnCancel;
+        }
 
     }
 
@@ -90,6 +97,33 @@ public class Sleep : MonoBehaviour, Interactable
         dayStatsMenu.SetActive(true);
         Time.timeScale = 0f;
     }
+
+
+    void OnCancel(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+
+            closeMenu.action.Disable();
+            closeMenu.action.performed -= OnCancel;
+
+
+            //~~reset stats~~
+            villageManager.popIncrease = 0;
+            villageManager.housingIncrease = 0;
+            villageManager.villagersSick = 0;
+            villageManager.villagersDead = 0;
+            villageManager.villSac = 0;
+
+            // playerHealth reset
+
+            dayStatsMenu.SetActive(false);
+            Time.timeScale = 1f;
+
+        }
+
+    }
+
 
 
 }
