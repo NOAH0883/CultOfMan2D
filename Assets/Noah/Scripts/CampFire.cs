@@ -24,6 +24,7 @@ public class CampFire : MonoBehaviour, Interactable
     [SerializeField] Button housingButton;
 
     [Header("Feed")]
+    [SerializeField] TextMeshProUGUI feedText;
     [SerializeField] GameObject feedGreyOut;
     [SerializeField] Button feedButton;
 
@@ -47,6 +48,7 @@ public class CampFire : MonoBehaviour, Interactable
     [SerializeField] TextMeshProUGUI upgradeDescriptionText;
     [SerializeField] TextMeshProUGUI upgradeCostText;
     [SerializeField] Image upgradeImageSprite;
+    UpgradScriptableObj upgradScriptableObj;
 
 
     [Header("Test")]
@@ -102,21 +104,7 @@ public class CampFire : MonoBehaviour, Interactable
         
     }
 
-    public void UpgradeWeapon()
-    {
-        if(GameData.food>3 && !GameData.hasWeapon)
-        {
-            GameData.hasWeapon = true;
-            Debug.Log("Give playerWeapon");
-            GameData.food -= 3;
-        }
-        else
-        {
-            Debug.Log("Not enough food");
-        }
-    } 
-
-
+ 
 
     void ActiveButtons()
     {
@@ -133,19 +121,46 @@ public class CampFire : MonoBehaviour, Interactable
             housingButton.enabled = true;
             housingGreyOut.SetActive(false);
         }
-   
-        //sacrifice && feed
-        if (GameData.food < 5)
+
+
+        if (GameData.food > 4)
         {
-            feedButton.enabled = false;
-            feedGreyOut.SetActive(true);
-            canSac = true;
+            feedText.text = "-4 FOOD";
+            feedGreyOut.SetActive(false);
+            feedButton.enabled = true;
         }
         else
         {
-            feedGreyOut.SetActive(false);
-            feedButton.enabled = true; 
+
+            if(!GameData.isDay)
+            {
+                canSac = true;
+            }
+
+            if (GameData.food > 0)
+            {
+                feedText.text = "FILL";
+                feedGreyOut.SetActive(false);
+                feedButton.enabled = true;
+            }
+            else
+            {
+                feedButton.enabled = false;
+                feedGreyOut.SetActive(true);
+            }
         }
+
+
+        // if player has more than 4 food 
+        // turn on food button 
+        //else if 
+        //player has less than 4 food 
+        // if food is greater than 0
+        // button turns to fill 
+        //else if
+        //player <= 0 
+        // button get turned off 
+
 
 
         if (!GameData.isDay && canSac)
@@ -153,12 +168,14 @@ public class CampFire : MonoBehaviour, Interactable
             sacButtonVisual.SetActive(true);
             sacButton.enabled = true;
         }
+        else
+        {
+            sacButtonVisual.SetActive(false);
+            sacButton.enabled = false;
+        }
 
-
-
-
-        // Population
-        popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
+            // Population
+            popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
 
 
         //Food
@@ -172,28 +189,30 @@ public class CampFire : MonoBehaviour, Interactable
     void Upgrades()
     {
 
-        UpgradScriptableObj upgradScriptableObj = upgradesList[0];
+        upgradScriptableObj = upgradesList[0];
         upgradeNameText.text = upgradScriptableObj.upgradeName;
         upgradeDescriptionText.text = upgradScriptableObj.destriptionText;
         upgradeCostText.text = upgradScriptableObj.cost.ToString();
         upgradeImageSprite.sprite = upgradScriptableObj.icon;
 
 
+        if(GameData.food < upgradScriptableObj.cost)
+        {
+            upgradeGreyOut.SetActive(true);
+            upgradeButton.enabled = false;
+            //grey out upgrade 
+        }
+        else
+        {
+            upgradeGreyOut.SetActive(false);
+            upgradeButton.enabled = true;
+        }
 
-        //if food is > cost || list is equal to null
-        //disable upgrade
-        //else
-        //enable upgrade
-
-
-        //when button is pressed
-        //give player the upgrades
-
-        // remove the weapon from the list
     }
 
     public void UpgradeTest()
     {
+        GameData.food -= upgradScriptableObj.cost;
         upgradesList.RemoveAt(0);
     }
 

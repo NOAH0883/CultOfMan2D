@@ -4193,7 +4193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &386501886
 Transform:
   m_ObjectHideFlags: 0
@@ -6226,7 +6226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &704809612
 Transform:
   m_ObjectHideFlags: 0
@@ -15099,7 +15099,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1213088837}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100360185}
+        m_TargetAssemblyTypeName: CampFire, Assembly-CSharp
+        m_MethodName: Sacrifice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1213088837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16468,8 +16480,8 @@ Transform:
   m_GameObject: {fileID: 1440342775}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.64, y: 0.02, z: 0}
-  m_LocalScale: {x: 1, y: 1.3875, z: 1}
+  m_LocalPosition: {x: 10.64, y: -0.0259, z: 0}
+  m_LocalScale: {x: 1, y: 1.2956475, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1961790879}
