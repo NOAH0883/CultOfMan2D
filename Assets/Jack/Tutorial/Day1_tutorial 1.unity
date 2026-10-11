@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &2946082
 SpriteRenderer:
   serializedVersion: 2
@@ -205,11 +205,11 @@ Transform:
   m_GameObject: {fileID: 2946081}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: -1.3575397, z: 0}
+  m_LocalPosition: {x: -17.35, y: -4.05754, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1434178702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2946084
 BoxCollider2D:
@@ -365,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &18042938
 SpriteRenderer:
   serializedVersion: 2
@@ -434,11 +434,11 @@ Transform:
   m_GameObject: {fileID: 18042937}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.377, y: 3.2400002, z: 0}
+  m_LocalPosition: {x: -12.726999, y: 0.5400002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1434178702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &18042940
 BoxCollider2D:
@@ -5623,7 +5623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &579164561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14022,9 +14022,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sleep
   closeMenu:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
-      m_Name: 
+      m_Name: Close Menu
       m_Type: 0
       m_ExpectedControlType: 
       m_Id: 64c78715-faa6-4226-a964-ada7b042b8d6
@@ -14032,7 +14032,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   villageManager: {fileID: 1100360188}
   sleepani: {fileID: 1349499031}
   lighting: {fileID: 387204693}
@@ -14744,7 +14744,10 @@ MonoBehaviour:
   villagerScript: {fileID: 0}
   villagersFeed: 0
   housing: 0
-  housesGameObj: []
+  housesGameObj:
+  - {fileID: 18042937}
+  - {fileID: 2946081}
+  - {fileID: 1734918618}
   spawnPos:
   - {fileID: 234668145}
   - {fileID: 359605314}
@@ -16133,6 +16136,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432910173}
   m_CullTransparentMesh: 1
+--- !u!1 &1434178701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1434178702}
+  m_Layer: 0
+  m_Name: Tents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1434178702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434178701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.35, y: 2.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 18042939}
+  - {fileID: 2946083}
+  - {fileID: 1734918621}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1437067026
 GameObject:
   m_ObjectHideFlags: 0
@@ -18833,7 +18870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1734918619
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18948,11 +18985,11 @@ Transform:
   m_GameObject: {fileID: 1734918618}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.35, y: 2.7, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1434178702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1743105812
 GameObject:
@@ -22043,9 +22080,7 @@ SceneRoots:
   - {fileID: 140544424}
   - {fileID: 1041487986}
   - {fileID: 1100360184}
-  - {fileID: 18042939}
-  - {fileID: 2946083}
-  - {fileID: 1734918621}
+  - {fileID: 1434178702}
   - {fileID: 1023377597}
   - {fileID: 492984793}
   - {fileID: 1095350487}

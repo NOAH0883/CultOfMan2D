@@ -57,6 +57,11 @@ public class Sleep : MonoBehaviour, Interactable
     {
        if(!GameData.isDay)
        {
+            if(GameData.hasSacrificed)
+            {
+                GameData.hasSacrificed = false;
+            }
+
             GameData.isDay = true;  
             GameData.food = 0;
             StartCoroutine(SleepAni());
@@ -107,6 +112,19 @@ public class Sleep : MonoBehaviour, Interactable
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
 
+            if(villageManager.villSac > 1)
+            {
+                GameData.hasSacrificed = true;
+                GameData.dailyGoal = (float)(GameData.dailyGoal * 1.5);
+
+
+                //bool have sacrificed someone
+                // if the bool is true 
+                //food needed is 1.5x
+                //villagers food needed is increased by 1.5
+                //villages food 1.5x
+            }
+
 
             //~~reset stats~~
             villageManager.popIncrease = 0;
@@ -114,8 +132,8 @@ public class Sleep : MonoBehaviour, Interactable
             villageManager.villagersSick = 0;
             villageManager.villagersDead = 0;
             villageManager.villSac = 0;
-
             // playerHealth reset
+            
 
             dayStatsMenu.SetActive(false);
             Time.timeScale = 1f;

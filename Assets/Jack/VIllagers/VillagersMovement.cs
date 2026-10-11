@@ -42,7 +42,18 @@ public class VillagerAI : MonoBehaviour
 
     void Update()
     {
-        stateTimer += Time.deltaTime;
+
+        if (GameData.hasSacrificed)
+        {
+            foodNeeded = 3;
+        }
+        else
+        {
+            foodNeeded = 2;
+        }
+
+
+            stateTimer += Time.deltaTime;
 
         if (stateTimer >= targetStateTime)
         {

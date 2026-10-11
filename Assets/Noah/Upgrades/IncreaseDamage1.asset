@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeName: Damage
   destriptionText: Player damage +2
   icon: {fileID: -6251451809504726511, guid: 2273f35c26260b14a9e6f2aa1e3bfcdb, type: 3}
-  cost: 0
+  cost: 5
   healthBonus: 0
   damageBonus: 2
   newWeapon: {fileID: 0}
