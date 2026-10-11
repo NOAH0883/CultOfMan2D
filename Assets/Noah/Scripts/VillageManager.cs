@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.SceneManagement;
 using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
@@ -24,24 +25,27 @@ public class VillageManager : MonoBehaviour
     public List<GameObject> villagers;
     [SerializeField] VillagerAI villagerScript;
     public int villagersFeed;
+    bool canSpawnVillagers;
 
 
     [Header("housing")]
     public float housing;
-    [SerializeField] float villagersToSpawn;
-    [SerializeField] float villagerSpawnMax;
-    [SerializeField] GameObject HousePrefab;
+    float housesToBuild;
+    [SerializeField] List<GameObject> housesGameObj;
+    
+
 
     [Header("Spawner")]
     [SerializeField] List<GameObject> spawnPos;
 
 
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameData.spawnVillagers = false;
+        
         GameData.isDay = true;
-        GameData.hasFeedVillage = false;
         GameData.food = 0;
 
 
@@ -63,7 +67,7 @@ public class VillageManager : MonoBehaviour
 
     
 
-    public void Test()
+    public void FeedVillagers()
     {
         villagers = villagers.OrderByDescending(go => go.GetComponent<VillagerAI>().isSick).ToList(); // sort the list so that the sick villagers get feed first
 
@@ -80,14 +84,14 @@ public class VillageManager : MonoBehaviour
                 
                 SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
                 sr.color = Color.white;
-                GameData.spawnVillagers = true;
+                canSpawnVillagers = true;
                 continue;
             }
 
             if (testVillager.isSick != true)
             {
                 testVillager.isSick = true;
-                GameData.spawnVillagers = false;
+                canSpawnVillagers = false;
 
                 SpriteRenderer sr = testVillager.GetComponent<SpriteRenderer>();
                 sr.color = Color.green;
@@ -97,28 +101,45 @@ public class VillageManager : MonoBehaviour
                 Destroy(villagers[i]);
                 villagers.RemoveAt(i);
                 GameData.population--;
-                GameData.spawnVillagers = false;
+                canSpawnVillagers = false;
             }
         }
     }
 
-    
-    public void OverNight()
+
+    public void BuildHouses()
     {
-
-        if(GameData.population < housing && GameData.spawnVillagers)
+        if(housesToBuild > 0)
         {
-            Debug.Log("SpawnVillager");
-            int randSpawn = Random.Range(0, spawnPos.Count);
-            Transform spawnPoint = spawnPos[randSpawn].transform;
-            GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
-
-            villagers.Add(villager);
-            //DontDestroyOnLoad(villager);
-            GameData.population++;
+            for (int i = 0; i < housesToBuild; i++)
+            {
+                housesGameObj[0].SetActive(true);
+                housesGameObj.RemoveAt(0);
+            }
         }
+    }
+
+    public void SpawnVillages()
+    {
+       if (canSpawnVillagers && housesGameObj != null)
+       {
+            if (housing - GameData.population >=2)
+            {
+                float villagersToSpawn = Random.Range(0, 3);
+                SpawnVillager(villagersToSpawn);
+            }
+            else if(housing - GameData.population > 0)
+            {
+                float villagersToSpawn = 1;
+                SpawnVillager(villagersToSpawn);
+            }
+       }
 
     }
+
+
+
+   
     
     private void SpawnVillagerStart()
     {
@@ -137,52 +158,32 @@ public class VillageManager : MonoBehaviour
 
 
     
-    public void SpawnVillager()
+    void SpawnVillager(float villagersToSpawn)
     {
-        
-        villagersToSpawn = housing - GameData.population;
-        
-        if (villagersToSpawn > 3)
-            villagersToSpawn = 3;
-
-        float rnd = Random.Range(1, villagersToSpawn);
-
-
-        for (int i = 0; i < rnd; i++)
+        for (int i = 0; i < villagersToSpawn; i++)
         {
             int randSpawn = Random.Range(0, spawnPos.Count);
             Transform spawnPoint = spawnPos[randSpawn].transform;
             GameObject villager = Instantiate(villagerPrefab, spawnPoint.position, Quaternion.identity);
 
             villagers.Add(villager);
-           // DontDestroyOnLoad(villager);
             GameData.population++;
         }
     }
 
 
-   
 
-
-
-    public void FeedVillagers()
+    public void FoodInPot()
     {
         foodInPot += 4;
         GameData.food -= 4;
         villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
-
-
-        // sick villages = pop -= villagesFeed  -- for overnight stats  -- for feeding 
-
-
     }
     
     public void upgradeHousing()
     {
         housing += 5;
-
-        //can build houses overnight
-        //housing increase for today +=5  -- for overnight stats
+        housesToBuild++;
     }
 
 

@@ -68,7 +68,7 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        GameData.hasFeedVillage = true;
+        
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
 
