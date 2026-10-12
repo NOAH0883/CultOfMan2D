@@ -12,6 +12,8 @@ public class AdamPlayerTest : MonoBehaviour
     InputAction moveAction;
     InputAction dodgeAction;
 
+    [SerializeField] LayerMask notPlayer;
+
     // Hurtbox & dodging
     public GameObject playerHurtbox;
     public GameObject playerHurtboxPivot;
@@ -277,7 +279,22 @@ public class AdamPlayerTest : MonoBehaviour
                 break;
             default: break;
         }
+
         endPos = startPos + (endPos.normalized * rollDistance);
+       
+        RaycastHit2D hit = Physics2D.Raycast(startPos, (endPos - startPos) / rollDistance, rollDistance, notPlayer);
+        //Debug.DrawRay(startPos, endPos - startPos, Color.red, 1f);
+        if (hit)
+        {
+            //Debug.DrawRay(startPos, hit.transform.position, Color.blue, 1f);
+            Vector3 rollEndPos = ((endPos - startPos) / rollDistance) * (rollDistance - hit.distance + 0.5f);
+            Debug.Log("Distance: " + hit.distance);
+            Debug.Log("Roll difference: " + rollEndPos);
+            Debug.Log("Old endPos: " + endPos);
+            endPos -= rollEndPos;
+            Debug.Log("New endPos: " + endPos);
+            Debug.DrawRay(startPos, rollEndPos, Color.green, 1f);
+        }
 
         Debug.Log("Current Direction Number: " + CurrentDirection);
         StartCoroutine(DodgeRoll(startPos, endPos, rollTime));
