@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5696290688761967458}
   - component: {fileID: 4385047880972683333}
   - component: {fileID: 3534573822411767754}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerHurtbox
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -117,13 +117,13 @@ GameObject:
   - component: {fileID: 8979210872238880805}
   - component: {fileID: 3890573280672022009}
   - component: {fileID: 510533541614160346}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8979210872238880805
 Transform:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5554005489466802609}
   - component: {fileID: 2350387409418585734}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerHitboxVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 0ca1528b48cb3a8449f9b047db7ce82a, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.19607843}
@@ -301,7 +301,10 @@ GameObject:
   - component: {fileID: 8792161648966902287}
   - component: {fileID: 5286812512038369619}
   - component: {fileID: 6070306426199552858}
-  m_Layer: 0
+  - component: {fileID: 4661903198749942579}
+  - component: {fileID: 3659114033305631504}
+  - component: {fileID: 5837984615805230339}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -385,6 +388,48 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &4661903198749942579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748735002312635805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870656faa6c8d634388dcb9bb869e975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerUI
+  foodNeededText: {fileID: 0}
+--- !u!114 &3659114033305631504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748735002312635805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1062c896237d17e479a5cab6c761ef0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  interactionDis: 1
+  input: {fileID: 0}
+--- !u!114 &5837984615805230339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748735002312635805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abfd905dcbfa4834484046991c550bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &6789485990676748988
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +442,7 @@ GameObject:
   - component: {fileID: 3600609709718389068}
   - component: {fileID: 2711971936850217310}
   - component: {fileID: 3372033373909771976}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +511,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2311659948842064771, guid: 399e5ba95c0735e48a9077958c150997, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -525,7 +570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8463771040345093035}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerHitboxPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
