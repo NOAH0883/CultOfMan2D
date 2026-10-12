@@ -11,7 +11,6 @@ public class AdamPlayerTest : MonoBehaviour
 {
     InputAction moveAction;
     InputAction dodgeAction;
-    InputAction attackAction;
 
     // Hurtbox & dodging
     public GameObject playerHurtbox;
@@ -78,8 +77,6 @@ public class AdamPlayerTest : MonoBehaviour
         attacking = false;
         moveAction = InputSystem.actions.FindAction("Move");
         dodgeAction = InputSystem.actions.FindAction("Dodge");
-        attackAction = InputSystem.actions.FindAction("Attack");
-        attackAction.performed += ctx => OnLeftClick();
         playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
         playerVisualsScript = playerVisuals.GetComponent<PlayerVisualsScript>();
         playerHitbox.SetActive(false);
@@ -116,7 +113,7 @@ public class AdamPlayerTest : MonoBehaviour
         if (active)
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
-
+            playerVisualsScript.lookValue = angleDegrees;
             transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
             if (moveValue.sqrMagnitude > 0)
             {
@@ -234,6 +231,7 @@ public class AdamPlayerTest : MonoBehaviour
 
         float angleDegrees = (Mathf.Atan2(moveValue.x, moveValue.y) * Mathf.Rad2Deg);
         Debug.Log(angleDegrees);
+        playerVisualsScript.lookValue = angleDegrees;
         if (angleDegrees < 0) { angleDegrees += 360; }
         int angle = Mathf.RoundToInt(angleDegrees / 45f) % 8;
         CurrentDirection = (Direction)angle;
@@ -318,7 +316,7 @@ public class AdamPlayerTest : MonoBehaviour
         Debug.Log("End roll.");
     }
 
-    private void OnLeftClick()
+    void OnAttack(InputValue inputValue)
     {
         if (active && canAttack && attackCooldown <= 0 && (GameData.hasWeapon || testing))
         {
