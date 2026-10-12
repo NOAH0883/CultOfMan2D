@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.Timeline;
 using UnityEngine.UIElements;
+using static IDamageable;
 
-public class AdamPlayerTest : MonoBehaviour
+public class AdamPlayerTest : MonoBehaviour, Damageable
 {
     InputAction moveAction;
     InputAction dodgeAction;
@@ -15,18 +16,18 @@ public class AdamPlayerTest : MonoBehaviour
     [SerializeField] LayerMask notPlayer;
 
     // Hurtbox & dodging
-    public GameObject playerHurtbox;
-    public GameObject playerHurtboxPivot;
+    private Rigidbody2D rb;
     public bool dodging;
     [SerializeField] private float rollDistance;
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
-    public int playerHealth;
+    public float playerHealth;
 
-
+    [Header("Attacking")]
     // Attacking
     private PlayerHitbox playerHitboxScript;
     public GameObject playerHitbox;
+    public GameObject playerHitboxPivot;
     public GameObject playerHitboxVisuals;
     public BoxCollider2D playerHitboxCollider;
     [SerializeField] private bool testing = false;
@@ -73,12 +74,12 @@ public class AdamPlayerTest : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerHealth = 100;
         active = true;
         canAttack = true;
         attacking = false;
         moveAction = InputSystem.actions.FindAction("Move");
         dodgeAction = InputSystem.actions.FindAction("Dodge");
+        rb = GetComponent<Rigidbody2D>();
         playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
         playerVisualsScript = playerVisuals.GetComponent<PlayerVisualsScript>();
         playerHitbox.SetActive(false);
@@ -222,7 +223,7 @@ public class AdamPlayerTest : MonoBehaviour
             //{
             //    directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
             //}
-            playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angle);
+            playerHitboxPivot.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
     
@@ -409,14 +410,34 @@ public class AdamPlayerTest : MonoBehaviour
             playerVisualsScript.lookingUp = false;
         }
     }
-    public void TakeDamage(int damage)
+
+    public void Damage(float damage, Vector2 hitPos, float knockBackPower)
     {
+        StartCoroutine(KnockBack(knockBackPower, hitPos));
+
         playerHealth -= damage;
+
         if (playerHealth <= 0)
         {
-            //Return to base scene, lose all food
-            //Temporarily though, destroy player object.
             Destroy(gameObject);
         }
+
+
+    }
+
+    IEnumerator KnockBack(float knockBackPower, Vector2 hitPos)
+    {
+
+        Debug.Log("--knockBackEnemy--");
+        Vector2 KnockBackDir = (rb.position - hitPos).normalized;
+        rb.linearVelocity = Vector3.zero;
+
+        rb.AddForce(KnockBackDir * knockBackPower, ForceMode2D.Impulse);
+
+
+
+        yield return new WaitForSeconds(0.25f);
+        rb.linearVelocity = Vector3.zero;
+
     }
 }

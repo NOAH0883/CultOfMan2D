@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   damage: 1
+  knockBackPower: 0
 --- !u!1 &6688009784518725664
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,14 +240,13 @@ MonoBehaviour:
   notPlayer:
     serializedVersion: 2
     m_Bits: 1
-  playerHurtbox: {fileID: 0}
-  playerHurtboxPivot: {fileID: 7878549484437589006}
   dodging: 0
   rollDistance: 3
   rollTime: 0.5
   rollInvulnerability: 0.4
-  playerHealth: 100
+  playerHealth: 5
   playerHitbox: {fileID: 5499841324760769587}
+  playerHitboxPivot: {fileID: 7878549484437589006}
   playerHitboxVisuals: {fileID: 6688009784518725664}
   playerHitboxCollider: {fileID: 3890573280672022009}
   testing: 0

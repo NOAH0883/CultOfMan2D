@@ -13,7 +13,7 @@ public class Boss1_Hitbox : MonoBehaviour
             {
                 Debug.Log("Player hit for " + damage + " damage.");
                 playerAttacked = true;
-                player.TakeDamage(damage);
+                //player.TakeDamage(damage);
             }
             
         }
