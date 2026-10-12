@@ -11,7 +11,6 @@ public class AdamPlayerTest : MonoBehaviour
 {
     InputAction moveAction;
     InputAction dodgeAction;
-    InputAction attackAction;
 
     // Hurtbox & dodging
     public GameObject playerHurtbox;
@@ -78,8 +77,6 @@ public class AdamPlayerTest : MonoBehaviour
         attacking = false;
         moveAction = InputSystem.actions.FindAction("Move");
         dodgeAction = InputSystem.actions.FindAction("Dodge");
-        attackAction = InputSystem.actions.FindAction("Attack");
-        attackAction.performed += ctx => OnLeftClick();
         playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
         playerVisualsScript = playerVisuals.GetComponent<PlayerVisualsScript>();
         playerHitbox.SetActive(false);
@@ -318,7 +315,7 @@ public class AdamPlayerTest : MonoBehaviour
         Debug.Log("End roll.");
     }
 
-    private void OnLeftClick()
+    void OnAttack(InputValue inputValue)
     {
         if (active && canAttack && attackCooldown <= 0 && (GameData.hasWeapon || testing))
         {
