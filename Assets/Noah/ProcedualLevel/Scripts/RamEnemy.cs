@@ -193,8 +193,9 @@ public class RamEnemy : MonoBehaviour, Damageable
 
     IEnumerator KnockBack(float knockBackPower, Vector2 hitPos)
     {
+        agent.isStopped = true;
+        Debug.Log("--knockBackEnemy--");
 
-       Debug.Log("--knockBackEnemy--");
        Vector2 KnockBackDir = (rb.position - hitPos).normalized;
         rb.linearVelocity = Vector3.zero;
 
@@ -204,7 +205,7 @@ public class RamEnemy : MonoBehaviour, Damageable
 
         yield return new WaitForSeconds(0.25f);
         rb.linearVelocity = Vector3.zero;
-
+        agent.isStopped = false;
     }
 
     void dead()
