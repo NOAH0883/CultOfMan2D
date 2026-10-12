@@ -17,9 +17,8 @@ public class Sleep : MonoBehaviour, Interactable
 
     [Header("Lighting")]
     [SerializeField] Light2D lighting;
-    [SerializeField] Color dayColour;
-    [SerializeField] Color nightColour;
-
+    [SerializeField] GameObject campfireOn;
+    
 
     [Header("Daily Summary")]
     [SerializeField] GameObject dayStatsMenu;
@@ -44,11 +43,17 @@ public class Sleep : MonoBehaviour, Interactable
 
         if (GameData.isDay)
         {
-            lighting.color = dayColour;
+            lighting.intensity = 1;
+            campfireOn.SetActive(false);
+            
         }
         else
         {
-            lighting.color = nightColour;
+            lighting.intensity = 0.01f;
+            campfireOn.SetActive(true);
+            
+
+
         }
 
     }
