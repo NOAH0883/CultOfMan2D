@@ -113,7 +113,7 @@ public class AdamPlayerTest : MonoBehaviour
         if (active)
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
-
+            playerVisualsScript.lookValue = angleDegrees;
             transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
             if (moveValue.sqrMagnitude > 0)
             {
@@ -231,6 +231,7 @@ public class AdamPlayerTest : MonoBehaviour
 
         float angleDegrees = (Mathf.Atan2(moveValue.x, moveValue.y) * Mathf.Rad2Deg);
         Debug.Log(angleDegrees);
+        playerVisualsScript.lookValue = angleDegrees;
         if (angleDegrees < 0) { angleDegrees += 360; }
         int angle = Mathf.RoundToInt(angleDegrees / 45f) % 8;
         CurrentDirection = (Direction)angle;
