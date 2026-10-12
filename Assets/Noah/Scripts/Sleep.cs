@@ -39,7 +39,7 @@ public class Sleep : MonoBehaviour, Interactable
     
     void Update()
     {
-        DayStats();
+        
 
         if (GameData.isDay)
         {
@@ -49,10 +49,8 @@ public class Sleep : MonoBehaviour, Interactable
         }
         else
         {
-            lighting.intensity = 0.01f;
+            lighting.intensity = 0.03f;
             campfireOn.SetActive(true);
-            
-
 
         }
 
@@ -67,8 +65,7 @@ public class Sleep : MonoBehaviour, Interactable
                 GameData.hasSacrificed = false;
             }
 
-            GameData.isDay = true;  
-            GameData.food = 0;
+
             StartCoroutine(SleepAni());
 
             //players health gets reset to max
@@ -88,7 +85,6 @@ public class Sleep : MonoBehaviour, Interactable
     void DayStats()
     {
         
-        
         populationSumText.text = (GameData.population - villageManager.popIncrease).ToString() + " + " + villageManager.popIncrease; // + pop increase
         HousingSumText.text = (villageManager.housing - villageManager.housingIncrease).ToString() + " + " + villageManager.popIncrease; // + housing increase
 
@@ -104,6 +100,8 @@ public class Sleep : MonoBehaviour, Interactable
         sleepani.SetActive(true);
         yield return new WaitForSeconds(2f);
         sleepani.SetActive(false);
+        
+        DayStats();
         dayStatsMenu.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -137,8 +135,10 @@ public class Sleep : MonoBehaviour, Interactable
             villageManager.villagersSick = 0;
             villageManager.villagersDead = 0;
             villageManager.villSac = 0;
+            GameData.food = 0;
+            GameData.isDay = true;
             // playerHealth reset
-            
+
 
             dayStatsMenu.SetActive(false);
             Time.timeScale = 1f;
