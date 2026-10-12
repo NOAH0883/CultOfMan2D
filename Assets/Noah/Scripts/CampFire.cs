@@ -123,32 +123,50 @@ public class CampFire : MonoBehaviour, Interactable
         }
 
 
-        if (GameData.food > 4)
+        if (GameData.food >= 4 && !GameData.isDay)
         {
             feedText.text = "-4 FOOD";
             feedGreyOut.SetActive(false);
             feedButton.enabled = true;
         }
+        else if (GameData.food > 0 && !GameData.isDay)
+        {
+            feedText.text = "Fill";
+            feedGreyOut.SetActive(false);
+            feedButton.enabled = true;
+        }
         else
         {
-
-            if(!GameData.isDay)
-            {
-                canSac = true;
-            }
-
-            if (GameData.food > 0)
-            {
-                feedText.text = "FILL";
-                feedGreyOut.SetActive(false);
-                feedButton.enabled = true;
-            }
-            else
-            {
-                feedButton.enabled = false;
-                feedGreyOut.SetActive(true);
-            }
+            feedGreyOut.SetActive(true);
+            feedButton.enabled = false;
         }
+
+        //if (GameData.food > 4)
+        //{
+        //    feedText.text = "-4 FOOD";
+        //    feedGreyOut.SetActive(false);
+        //    feedButton.enabled = true;
+        //}
+        //else
+        //{
+
+        //    if(!GameData.isDay)
+        //    {
+        //        canSac = true;
+        //    }
+
+        //    if (GameData.food > 0)
+        //    {
+        //        feedText.text = "FILL";
+        //        feedGreyOut.SetActive(false);
+        //        feedButton.enabled = true;
+        //    }
+        //    else
+        //    {
+        //        feedButton.enabled = false;
+        //        feedGreyOut.SetActive(true);
+        //    }
+        //}
 
 
         // if player has more than 4 food 
@@ -174,8 +192,8 @@ public class CampFire : MonoBehaviour, Interactable
             sacButton.enabled = false;
         }
 
-            // Population
-            popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
+        // Population
+        popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
 
 
         //Food

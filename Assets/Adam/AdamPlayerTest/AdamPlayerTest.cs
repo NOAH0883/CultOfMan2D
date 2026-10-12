@@ -6,25 +6,28 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.Timeline;
 using UnityEngine.UIElements;
+using static IDamageable;
 
-public class AdamPlayerTest : MonoBehaviour
+public class AdamPlayerTest : MonoBehaviour, Damageable
 {
     InputAction moveAction;
     InputAction dodgeAction;
-    InputAction attackAction;
+
+    [SerializeField] LayerMask notPlayer;
 
     // Hurtbox & dodging
-    public GameObject playerHurtbox;
-    public GameObject playerHurtboxPivot;
+    private Rigidbody2D rb;
     public bool dodging;
     [SerializeField] private float rollDistance;
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
+    public float playerHealth;
 
-
+    [Header("Attacking")]
     // Attacking
     private PlayerHitbox playerHitboxScript;
     public GameObject playerHitbox;
+    public GameObject playerHitboxPivot;
     public GameObject playerHitboxVisuals;
     public BoxCollider2D playerHitboxCollider;
     [SerializeField] private bool testing = false;
@@ -76,8 +79,7 @@ public class AdamPlayerTest : MonoBehaviour
         attacking = false;
         moveAction = InputSystem.actions.FindAction("Move");
         dodgeAction = InputSystem.actions.FindAction("Dodge");
-        attackAction = InputSystem.actions.FindAction("Attack");
-        attackAction.performed += ctx => OnLeftClick();
+        rb = GetComponent<Rigidbody2D>();
         playerHitboxScript = playerHitbox.GetComponent<PlayerHitbox>();
         playerVisualsScript = playerVisuals.GetComponent<PlayerVisualsScript>();
         playerHitbox.SetActive(false);
@@ -114,7 +116,7 @@ public class AdamPlayerTest : MonoBehaviour
         if (active)
         {
             Vector2 moveValue = moveAction.ReadValue<Vector2>();
-
+            playerVisualsScript.lookValue = angleDegrees;
             transform.position += new Vector3(moveValue.x, moveValue.y, 0) * playerSpeed * Time.deltaTime;
             if (moveValue.sqrMagnitude > 0)
             {
@@ -217,11 +219,11 @@ public class AdamPlayerTest : MonoBehaviour
         {
             angleDegrees = Mathf.Atan2(relativePos.y, relativePos.x) * Mathf.Rad2Deg;
             float angle = Mathf.RoundToInt(angleDegrees / 45f) * 45f;
-            if (testing)
-            {
-                directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
-            }
-            playerHurtboxPivot.transform.rotation = Quaternion.Euler(0, 0, angle);
+            //if (testing)
+            //{
+            //    directionText.text = "Angle: " + angleDegrees + " | Device: " + LookCurrentDevice;
+            //}
+            playerHitboxPivot.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
     
@@ -232,6 +234,7 @@ public class AdamPlayerTest : MonoBehaviour
 
         float angleDegrees = (Mathf.Atan2(moveValue.x, moveValue.y) * Mathf.Rad2Deg);
         Debug.Log(angleDegrees);
+        playerVisualsScript.lookValue = angleDegrees;
         if (angleDegrees < 0) { angleDegrees += 360; }
         int angle = Mathf.RoundToInt(angleDegrees / 45f) % 8;
         CurrentDirection = (Direction)angle;
@@ -277,7 +280,22 @@ public class AdamPlayerTest : MonoBehaviour
                 break;
             default: break;
         }
+
         endPos = startPos + (endPos.normalized * rollDistance);
+       
+        RaycastHit2D hit = Physics2D.Raycast(startPos, (endPos - startPos) / rollDistance, rollDistance, notPlayer);
+        //Debug.DrawRay(startPos, endPos - startPos, Color.red, 1f);
+        if (hit)
+        {
+            //Debug.DrawRay(startPos, hit.transform.position, Color.blue, 1f);
+            Vector3 rollEndPos = ((endPos - startPos) / rollDistance) * (rollDistance - hit.distance + 0.5f);
+            Debug.Log("Distance: " + hit.distance);
+            Debug.Log("Roll difference: " + rollEndPos);
+            Debug.Log("Old endPos: " + endPos);
+            endPos -= rollEndPos;
+            Debug.Log("New endPos: " + endPos);
+            Debug.DrawRay(startPos, rollEndPos, Color.green, 1f);
+        }
 
         Debug.Log("Current Direction Number: " + CurrentDirection);
         StartCoroutine(DodgeRoll(startPos, endPos, rollTime));
@@ -316,7 +334,7 @@ public class AdamPlayerTest : MonoBehaviour
         Debug.Log("End roll.");
     }
 
-    private void OnLeftClick()
+    void OnAttack(InputValue inputValue)
     {
         if (active && canAttack && attackCooldown <= 0 && (GameData.hasWeapon || testing))
         {
@@ -329,7 +347,7 @@ public class AdamPlayerTest : MonoBehaviour
 
             if (comboCount >= 3)
             {
-                attackOffset = new Vector2(2, 0);
+                attackOffset = new Vector2(1.5f, 0);
                 attackSize = new Vector2 (3, 1);
                 playerHitboxScript.damage = 10;
                 attackCooldown = 0.3f;
@@ -337,8 +355,8 @@ public class AdamPlayerTest : MonoBehaviour
             } 
             else
             {
-                attackOffset = new Vector2(1.5f, 0);
-                attackSize = new Vector2(1, 2.5f);
+                attackOffset = new Vector2(1, 0);
+                attackSize = new Vector2(1.5f, 2.5f);
                 playerHitboxScript.damage = 5;
                 attackCooldown = 0.2f;
             }
@@ -391,5 +409,35 @@ public class AdamPlayerTest : MonoBehaviour
         {
             playerVisualsScript.lookingUp = false;
         }
+    }
+
+    public void Damage(float damage, Vector2 hitPos, float knockBackPower)
+    {
+        StartCoroutine(KnockBack(knockBackPower, hitPos));
+
+        playerHealth -= damage;
+
+        if (playerHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+
+    }
+
+    IEnumerator KnockBack(float knockBackPower, Vector2 hitPos)
+    {
+
+        Debug.Log("--knockBackEnemy--");
+        Vector2 KnockBackDir = (rb.position - hitPos).normalized;
+        rb.linearVelocity = Vector3.zero;
+
+        rb.AddForce(KnockBackDir * knockBackPower, ForceMode2D.Impulse);
+
+
+
+        yield return new WaitForSeconds(0.25f);
+        rb.linearVelocity = Vector3.zero;
+
     }
 }

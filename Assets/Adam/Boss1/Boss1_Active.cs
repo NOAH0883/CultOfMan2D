@@ -14,7 +14,12 @@ public class Boss1_Active : MonoBehaviour
     
     [SerializeField] private float chargeAttackRange;
     [SerializeField] private float meleeAttackRange;
+    public GameObject boss1HitboxVisuals;
+    public SpriteRenderer b1HSprite;
+    public GameObject boss1IndicatorVisuals;
+    public SpriteRenderer b1ISprite;
     public GameObject boss1Hitbox;
+    public Boss1_Hitbox boss1HitboxScript;
     public BoxCollider2D boss1HitboxCollider;
     private bool attacking;
     private float attackWindup;
@@ -31,6 +36,8 @@ public class Boss1_Active : MonoBehaviour
     private void Start()
     {
         boss1Hitbox.SetActive(false);
+        boss1HitboxVisuals.SetActive(false);
+        boss1IndicatorVisuals.SetActive(false);
         player = GameObject.FindWithTag("Player");
     }
 
@@ -93,20 +100,23 @@ public class Boss1_Active : MonoBehaviour
             case 0:
                 attackOffset = new Vector2(2, 0);
                 attackDimensions = new Vector2(3.5f, 4);
-                attackWindup = 0.9f;
+                attackWindup = 0.4f;
                 attackActive = 0.2f;
+                boss1HitboxScript.damage = 10;
                 break;
             case 1:
                 attackOffset = new Vector2(0, 0);
                 attackDimensions = new Vector2(5, 4);
-                attackWindup = 0.4f;
+                attackWindup = 0.9f;
                 attackActive = 0.2f;
+                boss1HitboxScript.damage = 15;
                 break;
             case 2:
                 attackOffset = new Vector2(0, 0);
                 attackDimensions = new Vector2(2, 2);
                 attackWindup = 0.5f;
                 attackActive = 1.2f;
+                boss1HitboxScript.damage = 20;
                 break;
             default: break;
         }
@@ -118,6 +128,10 @@ public class Boss1_Active : MonoBehaviour
 
         boss1HitboxCollider.offset = attackOffset;
         boss1HitboxCollider.size = attackDimensions;
+        boss1HitboxVisuals.transform.localPosition = attackOffset;
+        boss1HitboxVisuals.transform.localScale = Vector3.zero;
+        boss1IndicatorVisuals.transform.localPosition = attackOffset;
+        boss1IndicatorVisuals.transform.localScale = attackDimensions;
 
         StartCoroutine(Attack(attack, attackWindup, attackActive));
     }
@@ -126,11 +140,20 @@ public class Boss1_Active : MonoBehaviour
     {
         float elapsed = 0f;
         float totalTime = windup + active;
+        boss1HitboxScript.playerAttacked = false;
         Debug.Log("Start boss attack.");
 
         while (elapsed < totalTime && attacking)
         {
+            boss1HitboxVisuals.SetActive(true);
+            boss1IndicatorVisuals.SetActive(true);
+            Vector3 tempVec3 = boss1IndicatorVisuals.transform.localScale / windup;
+            
             elapsed += Time.deltaTime;
+            if (boss1HitboxVisuals.transform.localScale.sqrMagnitude < boss1IndicatorVisuals.transform.localScale.sqrMagnitude)
+            {
+                boss1HitboxVisuals.transform.localScale += tempVec3 * Time.deltaTime;
+            }
             if (attackType == 2 && elapsed < windup)
             {
                 direction = (player.transform.position - transform.position).normalized;
@@ -146,6 +169,8 @@ public class Boss1_Active : MonoBehaviour
             yield return null;
         }
         boss1Hitbox.SetActive(false);
+        boss1HitboxVisuals.SetActive(false);
+        boss1IndicatorVisuals.SetActive(false);
         Debug.Log("Finished boss attack.");
         attacking = false;
         yield return null;

@@ -181,9 +181,19 @@ public class VillageManager : MonoBehaviour
 
     public void FoodInPot()
     {
-        foodInPot += 4;
-        GameData.food -= 4;
-        villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+        if (GameData.food >= 4)
+        {
+            foodInPot += 4;
+            GameData.food -= 4;
+            villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+        }
+        else
+        {
+            foodInPot += GameData.food;
+            GameData.food = 0;
+            villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+        }
+        
     }
     
     public void upgradeHousing()
