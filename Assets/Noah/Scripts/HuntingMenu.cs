@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,6 +14,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
     [SerializeField] GameObject firstButtonInMenu;
     [SerializeField] InputActionProperty closeMenu;
     SceneLoader sceneLoader;
+    GameObject lastSelected;
    
 
 
@@ -25,14 +27,41 @@ public class HuntingMenu : MonoBehaviour, Interactable
         
     }
 
+    private void Update()
+    {
+        keepSelected();
+    }
+
     public void Interact()
     {
-        
+        StartCoroutine(WaitFrame());
+
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
 
         huntingMenu.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+
+    IEnumerator WaitFrame()
+    {
+        yield return 0;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButtonInMenu.gameObject);
+    }
+
+    void keepSelected()
+    {
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            lastSelected = EventSystem.current.currentSelectedGameObject;
+        }
+        else if (lastSelected != null)
+        {
+
+            EventSystem.current.SetSelectedGameObject(lastSelected);
+        }
     }
 
     void OnCancel(InputAction.CallbackContext context)

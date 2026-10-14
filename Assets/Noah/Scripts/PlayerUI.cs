@@ -25,16 +25,26 @@ public class PlayerUI : MonoBehaviour
         GameData.dailyGoal = GameData.population * 2;
         foodNeededText.text = "Food " + GameData.food.ToString() + " / " + GameData.dailyGoal.ToString();
 
+        //I = 0  - - - player health = 5
+        //if I < player health
+        //make full sprite
+        //if I > player health 
+        //make empty sprite
+
+
         for (int i = 0; i < hearts.Length; i++)
         {
-            if(i < playerController.playerHealth)
+            if(i <= playerController.playerHealth)
             {
-                hearts[i].sprite =fullHeart;
+                
+                hearts[i].sprite = fullHeart;
+
             }
-            if(i < playerController.playerHealth)
+            else if(i >= playerController.playerHealth)
             {
                 hearts[i].sprite = emptyHeart;
             }
+            
             if (i < playerController.playerMaxHealth)
             {
                 hearts[i].enabled = true;

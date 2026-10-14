@@ -1,9 +1,10 @@
 
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static IInteractable;
@@ -14,7 +15,8 @@ public class CampFire : MonoBehaviour, Interactable
 
     [SerializeField] GameObject CampFireMenu;
     [SerializeField] InputActionProperty closeMenu;
-    
+    [SerializeField] EventSystem eventSystem;
+    GameObject lastSelected;
 
     VillageManager villageManager;
 
@@ -49,7 +51,7 @@ public class CampFire : MonoBehaviour, Interactable
     [SerializeField] TextMeshProUGUI upgradeCostText;
     [SerializeField] Image upgradeImageSprite;
     UpgradScriptableObj upgradScriptableObj;
-    GameObject player;
+    [SerializeField]GameObject player;
     AdamPlayerTest playerScript;
     PlayerHitbox playerWeapon;
 
@@ -66,23 +68,23 @@ public class CampFire : MonoBehaviour, Interactable
         sacButton.enabled = false;
 
         
-        if (player != null)
-        {
-            player = GameObject.FindWithTag("Player");
-        }
+        
 
         playerScript = player.GetComponent<AdamPlayerTest>();
-        playerWeapon = player.GetComponentInChildren<PlayerHitbox>();
+        
     }
 
     void Update()
     {
         ActiveButtons();
         Upgrades();
+        keepSelected();
     }
 
     public void Interact()
     {
+        StartCoroutine(WaitFrame());
+
         if(!GameData.isDay && GameData.food < GameData.dailyGoal)
         {
             canSac = true;
@@ -97,12 +99,44 @@ public class CampFire : MonoBehaviour, Interactable
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
 
+
         CampFireMenu.SetActive(true);
 
         Time.timeScale = 0f;
     }
 
-  
+    IEnumerator WaitFrame()
+    {
+        yield return 0;
+
+
+        if (feedButton.IsActive())
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(feedButton.gameObject);
+        }
+        else if (sacButton.IsActive())
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(sacButton.gameObject);
+        }
+        
+    }
+
+    void keepSelected()
+    {
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            lastSelected = EventSystem.current.currentSelectedGameObject;
+        }
+        else if (lastSelected != null)
+        {
+            
+            EventSystem.current.SetSelectedGameObject(lastSelected);
+        }
+    }
+
+
     void OnCancel (InputAction.CallbackContext context)  
     {
        if(context.performed)
@@ -246,12 +280,11 @@ public class CampFire : MonoBehaviour, Interactable
     public void UpgradeTest()
     {
         GameData.food -= upgradScriptableObj.cost;
-       
 
-       
 
-        playerScript.playerHealth += upgradScriptableObj.healthBonus;
-        playerWeapon.damage += upgradScriptableObj.damageBonus;
+
+        playerScript.playerHitboxScript.damage += upgradScriptableObj.damageBonus;
+        playerScript.playerMaxHealth += upgradScriptableObj.healthBonus;
 
         upgradesList.RemoveAt(0);
     }
