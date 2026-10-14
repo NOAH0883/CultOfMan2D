@@ -26,7 +26,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
 
     [Header("Attacking")]
     // Attacking
-    private PlayerHitbox playerHitboxScript;
+    public  PlayerHitbox playerHitboxScript;
     public GameObject playerHitbox;
     public GameObject playerHitboxPivot;
     public GameObject playerHitboxVisuals;
