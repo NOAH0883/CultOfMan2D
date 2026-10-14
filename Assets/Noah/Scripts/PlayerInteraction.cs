@@ -1,42 +1,27 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.Windows;
 using static IInteractable;
 
 public class Player : MonoBehaviour
 {
 
-
-    //[SerializeField] float playerSpeed;
-    //private Vector2 movementInput;
-    //private Rigidbody2D rb;
+    
+   
     [SerializeField] LayerMask interactionLayer;
     [SerializeField] float interactionDis;
 
-    
-   
     [SerializeField] PlayerInput input;
 
+    
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         input = GetComponent<PlayerInput>();
-        //rb = GetComponent<Rigidbody2D>();
+        
     }
 
-    //void OnMove(InputValue inputValue)
-    //{
-    //    movementInput = inputValue.Get<Vector2>();
-    //}
-
-
-    //void FixedUpdate()
-    //{
-    //    rb.MovePosition(rb.position + movementInput * playerSpeed * Time.deltaTime);
-    //}
 
 
     void OnInteract(InputValue inputValue)
@@ -47,16 +32,14 @@ public class Player : MonoBehaviour
         {
             if (hit.TryGetComponent<Interactable>(out Interactable interactableObject))
             {
-
+                SoundManager.PlaySound(SoundType.interact);
+                
                 interactableObject.Interact();
                 Debug.Log("interact");
 
             }
         }
-        else
-        {
-            return;
-        }
+        
     }
 
 

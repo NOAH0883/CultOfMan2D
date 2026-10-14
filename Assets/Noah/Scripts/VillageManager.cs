@@ -109,12 +109,13 @@ public class VillageManager : MonoBehaviour
                 villagersDead++;
             }
         }
+        VIllagerSpawnAmount();
     }
 
 
     public void BuildHouses()
     {
-        if(housesToBuild > 0)
+        if(housesToBuild > 0 && housesGameObj.Count > 0)
         {
             for (int i = 0; i < housesToBuild; i++)
             {
@@ -124,18 +125,18 @@ public class VillageManager : MonoBehaviour
         }
     }
 
-    public void SpawnVillages()
+    void VIllagerSpawnAmount()
     {
-       if (canSpawnVillagers && housesGameObj != null)
+       if (canSpawnVillagers)
        {
             if (housing - GameData.population >=2)
             {
-                float villagersToSpawn = Random.Range(0, 3);
+                int villagersToSpawn = Random.Range(1, 3);
                 SpawnVillager(villagersToSpawn);
             }
             else if(housing - GameData.population > 0)
             {
-                float villagersToSpawn = 1;
+                int villagersToSpawn = 1;
                 SpawnVillager(villagersToSpawn);
             }
        }
@@ -163,7 +164,7 @@ public class VillageManager : MonoBehaviour
 
 
     
-    void SpawnVillager(float villagersToSpawn)
+    void SpawnVillager(int villagersToSpawn)
     {
         for (int i = 0; i < villagersToSpawn; i++)
         {

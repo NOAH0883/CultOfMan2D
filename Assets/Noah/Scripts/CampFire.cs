@@ -60,6 +60,8 @@ public class CampFire : MonoBehaviour, Interactable
         CampFireMenu.SetActive(false);
         villageManager = GetComponent<VillageManager>();
         
+        sacButtonVisual.SetActive(false);
+        sacButton.enabled = false;
     }
 
     void Update()
@@ -70,11 +72,22 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void Interact()
     {
+        if(!GameData.isDay && GameData.food < GameData.dailyGoal)
+        {
+            canSac = true;
+        }
         
+        if (!GameData.isDay && canSac)
+        {
+            sacButtonVisual.SetActive(true);
+            sacButton.enabled = true;
+        }
+
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
 
         CampFireMenu.SetActive(true);
+
         Time.timeScale = 0f;
     }
 
@@ -181,16 +194,7 @@ public class CampFire : MonoBehaviour, Interactable
 
 
 
-        if (!GameData.isDay && canSac)
-        {
-            sacButtonVisual.SetActive(true);
-            sacButton.enabled = true;
-        }
-        else
-        {
-            sacButtonVisual.SetActive(false);
-            sacButton.enabled = false;
-        }
+     
 
         // Population
         popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
@@ -232,6 +236,9 @@ public class CampFire : MonoBehaviour, Interactable
     {
         GameData.food -= upgradScriptableObj.cost;
         upgradesList.RemoveAt(0);
+        // if there is no reference to the player
+        //get the player
+        //add to player stats by upgrade
     }
 
 

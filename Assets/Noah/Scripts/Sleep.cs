@@ -86,7 +86,7 @@ public class Sleep : MonoBehaviour, Interactable
     {
         
         populationSumText.text = (GameData.population - villageManager.popIncrease).ToString() + " + " + villageManager.popIncrease; // + pop increase
-        HousingSumText.text = (villageManager.housing - villageManager.housingIncrease).ToString() + " + " + villageManager.popIncrease; // + housing increase
+        HousingSumText.text = (villageManager.housing - villageManager.housingIncrease).ToString() + " + " + villageManager.housingIncrease; // + housing increase
 
         sickVillSumText.text = villageManager.villagersSick.ToString();
         deadVillSumText.text = villageManager.villagersDead.ToString();
