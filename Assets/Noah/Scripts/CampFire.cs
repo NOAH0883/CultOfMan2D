@@ -14,7 +14,7 @@ public class CampFire : MonoBehaviour, Interactable
 
     [SerializeField] GameObject CampFireMenu;
     [SerializeField] InputActionProperty closeMenu;
-   
+    
 
     VillageManager villageManager;
 
@@ -49,7 +49,9 @@ public class CampFire : MonoBehaviour, Interactable
     [SerializeField] TextMeshProUGUI upgradeCostText;
     [SerializeField] Image upgradeImageSprite;
     UpgradScriptableObj upgradScriptableObj;
-
+    GameObject player;
+    AdamPlayerTest playerScript;
+    PlayerHitbox playerWeapon;
 
     [Header("Test")]
     [SerializeField] int foodTest;
@@ -62,6 +64,15 @@ public class CampFire : MonoBehaviour, Interactable
         
         sacButtonVisual.SetActive(false);
         sacButton.enabled = false;
+
+        
+        if (player != null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+
+        playerScript = player.GetComponent<AdamPlayerTest>();
+        playerWeapon = player.GetComponentInChildren<PlayerHitbox>();
     }
 
     void Update()
@@ -235,10 +246,14 @@ public class CampFire : MonoBehaviour, Interactable
     public void UpgradeTest()
     {
         GameData.food -= upgradScriptableObj.cost;
+       
+
+       
+
+        playerScript.playerHealth += upgradScriptableObj.healthBonus;
+        playerWeapon.damage += upgradScriptableObj.damageBonus;
+
         upgradesList.RemoveAt(0);
-        // if there is no reference to the player
-        //get the player
-        //add to player stats by upgrade
     }
 
 

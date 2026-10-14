@@ -13,7 +13,7 @@ public class Sleep : MonoBehaviour, Interactable
 
     [SerializeField] VillageManager villageManager;
     [SerializeField] GameObject sleepani;
-
+    [SerializeField] AdamPlayerTest playerScript;
 
     [Header("Lighting")]
     [SerializeField] Light2D lighting;
@@ -35,6 +35,8 @@ public class Sleep : MonoBehaviour, Interactable
         
         sleepani.SetActive(false);
         dayStatsMenu.SetActive(false);
+
+        
     }
     
     void Update()
@@ -138,7 +140,8 @@ public class Sleep : MonoBehaviour, Interactable
             GameData.food = 0;
             GameData.isDay = true;
             // playerHealth reset
-
+            
+            playerScript.playerHealth = 0;
 
             dayStatsMenu.SetActive(false);
             Time.timeScale = 1f;
