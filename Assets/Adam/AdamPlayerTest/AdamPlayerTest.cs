@@ -22,6 +22,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
     public float playerHealth;
+    public float playerMaxHealth;
 
     [Header("Attacking")]
     // Attacking
@@ -74,6 +75,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerMaxHealth = playerHealth;
         active = true;
         canAttack = true;
         attacking = false;

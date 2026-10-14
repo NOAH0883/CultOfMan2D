@@ -141,7 +141,7 @@ public class Sleep : MonoBehaviour, Interactable
             GameData.isDay = true;
             // playerHealth reset
             
-            playerScript.playerHealth = 0;
+            playerScript.playerHealth = playerScript.playerMaxHealth;
 
             dayStatsMenu.SetActive(false);
             Time.timeScale = 1f;

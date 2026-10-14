@@ -123,6 +123,10 @@ public class VillageManager : MonoBehaviour
                 housesGameObj.RemoveAt(0);
             }
         }
+        else
+        {
+            return;
+        }
     }
 
     void VIllagerSpawnAmount()
