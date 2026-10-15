@@ -245,6 +245,8 @@ MonoBehaviour:
   rollTime: 0.5
   rollInvulnerability: 0.4
   playerHealth: 5
+  playerMaxHealth: 0
+  playerHitboxScript: {fileID: 0}
   playerHitbox: {fileID: 5499841324760769587}
   playerHitboxPivot: {fileID: 7878549484437589006}
   playerHitboxVisuals: {fileID: 6688009784518725664}
@@ -299,6 +301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerUI
   foodNeededText: {fileID: 0}
+  fullHeart: {fileID: 0}
+  emptyHeart: {fileID: 0}
+  hearts: []
 --- !u!114 &3659114033305631504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +489,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2311659948842064771, guid: 399e5ba95c0735e48a9077958c150997, type: 3}
+  m_Sprite: {fileID: -8868272330977153355, guid: a96a02eb43ce0ea40b18ab9049654ab4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -18,6 +18,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
     // Hurtbox & dodging
     private Rigidbody2D rb;
     public bool dodging;
+    private bool dodgeIsActive;
     [SerializeField] private float rollDistance;
     [SerializeField] private float rollTime;
     [SerializeField] private float rollInvulnerability;
@@ -308,9 +309,10 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
     {
         float elapsed = 0f;
         float iFrames = rollInvulnerability;
+        dodgeIsActive = true;
         playerVisualsScript.rolling = true;
         Debug.Log("Start roll.");
-        while (elapsed < rollTime)
+        while (elapsed < rollTime && dodgeIsActive)
         {
             if (iFrames > 0f)
             {
@@ -329,7 +331,11 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
             transform.position = Vector3.Lerp(startPos, endPos, easeOutT);
             yield return null;
         }
-        transform.position = endPos;
+        if (elapsed >= rollTime)
+        {
+            transform.position = endPos;
+        }
+        
         dodging = false;
         canAttack = true;
         playerVisualsScript.rolling = false;
@@ -351,7 +357,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
             {
                 attackOffset = new Vector2(1.5f, 0);
                 attackSize = new Vector2 (3, 1);
-                playerHitboxScript.damage = 10;
+                playerHitboxScript.damage = 3;
                 attackCooldown = 0.3f;
                 comboCount = 0;
             } 
@@ -359,7 +365,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
             {
                 attackOffset = new Vector2(1, 0);
                 attackSize = new Vector2(1.5f, 2.5f);
-                playerHitboxScript.damage = 5;
+                playerHitboxScript.damage = 1;
                 attackCooldown = 0.2f;
             }
 
@@ -429,7 +435,9 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
 
     IEnumerator KnockBack(float knockBackPower, Vector2 hitPos)
     {
-
+        active = false;
+        dodgeIsActive = false;
+        actionTime = 0.4f;
         Debug.Log("--knockBackEnemy--");
         Vector2 KnockBackDir = (rb.position - hitPos).normalized;
         rb.linearVelocity = Vector3.zero;
@@ -439,6 +447,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
 
 
         yield return new WaitForSeconds(0.25f);
+        active = true;
         rb.linearVelocity = Vector3.zero;
 
     }
