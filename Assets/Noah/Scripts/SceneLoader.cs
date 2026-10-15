@@ -90,7 +90,6 @@ public class SceneLoader : MonoBehaviour
     IEnumerator LoadVillageScene()
     {
 
-       
 
         Scene activeScene = SceneManager.GetActiveScene();
         Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial 1");

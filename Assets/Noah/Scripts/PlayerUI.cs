@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +15,14 @@ public class PlayerUI : MonoBehaviour
 
     [SerializeField] Image[] hearts;
 
+    [SerializeField] GameObject KockedOutMenu;
+
+    SceneLoader sceneLoader;
+
     private void Start()
     {
-        playerController = GetComponentInParent<AdamPlayerTest>();  
+        playerController = GetComponentInParent<AdamPlayerTest>();
+        sceneLoader = FindAnyObjectByType<SceneLoader>();
     }
 
     // Update is called once per frame
@@ -24,12 +31,6 @@ public class PlayerUI : MonoBehaviour
 
         GameData.dailyGoal = GameData.population * 2;
         foodNeededText.text = "Food " + GameData.food.ToString() + " / " + GameData.dailyGoal.ToString();
-
-        //I = 0  - - - player health = 5
-        //if I < player health
-        //make full sprite
-        //if I > player health 
-        //make empty sprite
 
 
         for (int i = 0; i < hearts.Length; i++)
@@ -54,7 +55,30 @@ public class PlayerUI : MonoBehaviour
                 hearts[i].enabled = false;
             }  
         }
+    }
 
+    public void playerKnockedOut()
+    {
+        Time.timeScale = 0;
+        StartCoroutine(KnockedOutVisual());
+        
+    }
+
+    IEnumerator KnockedOutVisual()
+    {
+        Time.timeScale = 0;
+        GameData.food /= 2;
+        KockedOutMenu.SetActive(true); 
+        yield return new WaitForSecondsRealtime(3f);
+        KockedOutMenu.SetActive(false);
+        Time.timeScale = 1;
+
+        sceneLoader.LoadVillage();
+        
 
     }
+
+
+
+
 }

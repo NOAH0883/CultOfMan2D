@@ -427,10 +427,10 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
 
         if (playerHealth <= 0)
         {
-            Destroy(gameObject);
+            PlayerUI playerUi = GetComponentInChildren<PlayerUI>();
+            playerUi.playerKnockedOut();
+
         }
-
-
     }
 
     IEnumerator KnockBack(float knockBackPower, Vector2 hitPos)
