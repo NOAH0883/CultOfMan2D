@@ -14,18 +14,24 @@ public class Boss1_Idle : MonoBehaviour
     public float idleTime;
     [SerializeField] private float waitTime;
 
+    public GameObject boss1Visuals;
+    private Boss1_VisualsScript boss1VisualsScript;
+    public SpriteRenderer Boss1Sprite;
+
     void Start()
     {
         movingToPos = 0;
         startPosition = transform.position;
         patrolPos1 = startPosition + patrolPos1;
         patrolPos2 = startPosition + patrolPos2;
+        boss1VisualsScript = boss1Visuals.GetComponent<Boss1_VisualsScript>();
     }
 
     public void Boss1_IdleUpdate()
     {
         if (idleTime <= 0)
         {
+            boss1VisualsScript.moving = true;
             Vector3 direction = Vector3.zero;
             switch (movingToPos)
             {
@@ -56,10 +62,12 @@ public class Boss1_Idle : MonoBehaviour
                 Debug.Log("movingToPos = 1.");
             }
 
+            if (direction.x < 0) { Boss1Sprite.flipX = true; } else { Boss1Sprite.flipX = false; }
             transform.position += direction * walkSpeed * Time.deltaTime;
         }
         else
         {
+            boss1VisualsScript.moving = false;
             if (patrolPos1 != startPosition && patrolPos2 != startPosition)
             {
                 idleTime -= Time.deltaTime;

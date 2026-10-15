@@ -31,6 +31,9 @@ public class Boss1_Active : MonoBehaviour
     public GameObject Boss1Visuals;
     public SpriteRenderer Boss1Sprite;
 
+    public GameObject boss1Visuals;
+    private Boss1_VisualsScript boss1VisualsScript;
+
     GameObject player;
 
     private void Start()
@@ -39,6 +42,7 @@ public class Boss1_Active : MonoBehaviour
         boss1HitboxVisuals.SetActive(false);
         boss1IndicatorVisuals.SetActive(false);
         player = GameObject.FindWithTag("Player");
+        boss1VisualsScript = boss1Visuals.GetComponent<Boss1_VisualsScript>();
     }
 
     public void Boss1_ActiveUpdate()
@@ -48,6 +52,7 @@ public class Boss1_Active : MonoBehaviour
             direction = Vector3.zero;
             direction = (player.transform.position - transform.position).normalized;
             if (direction.x < 0) { Boss1Sprite.flipX = true; } else { Boss1Sprite.flipX = false; }
+            boss1VisualsScript.moving = true;
             transform.position += direction * moveSpeed * Time.deltaTime;
             actionInterval -= Time.deltaTime;
         }
@@ -58,17 +63,19 @@ public class Boss1_Active : MonoBehaviour
             Debug.Log("Player pos: " + player.transform.position + " || Boss pos: " + transform.position + "\nDistance: " + distCheck);
             if (Vector3.Distance(transform.position, player.transform.position) > chargeAttackRange)
             {
+                boss1VisualsScript.charging = true;
                 moveSpeed = sprintSpeed;
                 actionInterval = 1;
             }
             else
             {
+                boss1VisualsScript.moving = false;
+                boss1VisualsScript.charging = false;
                 moveSpeed = walkSpeed;
                 DetermineAttack();
                 actionInterval = 3;
                 Debug.Log("Taking action.");
             }
-                
         }
     }
 
@@ -151,7 +158,15 @@ public class Boss1_Active : MonoBehaviour
             boss1HitboxVisuals.SetActive(true);
             boss1IndicatorVisuals.SetActive(true);
             Vector3 tempVec3 = boss1IndicatorVisuals.transform.localScale / windup;
-            
+
+            switch (attackType)
+            {
+                case 0: boss1VisualsScript.swiping = true; break;
+                case 1: boss1VisualsScript.slamming = true; break;
+                case 2: break;
+                default: break;
+            }
+
             elapsed += Time.deltaTime;
             if (boss1HitboxVisuals.transform.localScale.sqrMagnitude < boss1IndicatorVisuals.transform.localScale.sqrMagnitude)
             {
@@ -166,6 +181,7 @@ public class Boss1_Active : MonoBehaviour
                 boss1Hitbox.SetActive(true);
                 if (attackType == 2)
                 {
+                    boss1VisualsScript.charging = true;
                     transform.position += direction * chargeSpeed * Time.deltaTime;
                 }
             }
@@ -174,6 +190,9 @@ public class Boss1_Active : MonoBehaviour
         boss1Hitbox.SetActive(false);
         boss1HitboxVisuals.SetActive(false);
         boss1IndicatorVisuals.SetActive(false);
+        boss1VisualsScript.charging = false;
+        boss1VisualsScript.swiping = false;
+        boss1VisualsScript.slamming = false;
         Debug.Log("Finished boss attack.");
         attacking = false;
         yield return null;
