@@ -1,6 +1,6 @@
 
 using System.Collections;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,15 +10,27 @@ public class SceneLoader : MonoBehaviour
 {
 
 
-
-
     public void LoadHunting(string loadScene)
     {
+        TutorialManager tutorialManager = FindAnyObjectByType<TutorialManager>();
+        if (tutorialManager != null)
+        {
+            tutorialManager.nextTutorial();
+            
+        }
+
         StartCoroutine(LoadHuntingScene(loadScene));
     }
 
     public void LoadVillage()
     {
+        TutorialManager tutorialManager = FindAnyObjectByType<TutorialManager>();
+        if (tutorialManager != null)
+        {
+            tutorialManager.nextTutorial();
+            
+
+        }
         //GameData.isDay = false;
         StartCoroutine(LoadVillageScene());
     }
@@ -30,12 +42,7 @@ public class SceneLoader : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         player.transform.position = new Vector2(0, 0);
 
-        TutorialManager tutorialManager = player.GetComponentInChildren<TutorialManager>();
-        if (tutorialManager != null)
-        {
-            tutorialManager.nextTutorial();
-            Time.timeScale = 0f;
-        }
+        
 
         Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial 1");
         
@@ -68,13 +75,7 @@ public class SceneLoader : MonoBehaviour
         Scene activeScene = SceneManager.GetActiveScene();
         Scene villageScene = SceneManager.GetSceneByName("Day1_tutorial 1");
 
-        TutorialManager tutorialManager = player.GetComponentInChildren<TutorialManager>();
-        if (tutorialManager != null)
-        {
-            tutorialManager.nextTutorial();
-            Time.timeScale = 0f;
-
-        }
+        
 
         //turn on all the gameobjects in the village scene
         foreach (GameObject rootObj in villageScene.GetRootGameObjects())

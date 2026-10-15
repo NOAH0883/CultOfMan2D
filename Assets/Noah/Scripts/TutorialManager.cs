@@ -23,7 +23,7 @@ public class TutorialManager : MonoBehaviour
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
         tutorialVisuals[tutorialindex].SetActive(true);
-        Time.timeScale = 0;
+       
 
 
     }
@@ -32,17 +32,14 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
 
-        if (tutorialindex >= tutorialVisuals.Count)
-        {
-            for (int i = 0; i < tutorialVisuals.Count; i++)
-            {
-                Destroy(tutorialVisuals[i]);   
-            }
-            Destroy(gameObject);
-        }
-
-
-        
+    //    if (tutorialindex >= tutorialVisuals.Count)
+    //    {
+    //        for (int i = 0; i < tutorialVisuals.Count; i++)
+    //        {
+    //            Destroy(tutorialVisuals[i]);   
+    //        }
+    //        Destroy(gameObject);
+    //    }
     }
 
   
@@ -52,7 +49,8 @@ public class TutorialManager : MonoBehaviour
         if (context.performed)
         {
             tutorialVisuals[tutorialindex].SetActive(false);
-            Time.timeScale = 1;
+            
+            Debug.Log(Time.timeScale);
         }
 
     }
@@ -69,8 +67,5 @@ public class TutorialManager : MonoBehaviour
 
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
-        Time.timeScale = 0;
-
-
     }
 }
