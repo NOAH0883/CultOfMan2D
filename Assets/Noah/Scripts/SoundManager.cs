@@ -1,10 +1,17 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
 public enum SoundType
 { 
     interact,
+    upgrade,
+    feedPot,
+    sacrifice,
+    hit,
+    enemyDead,
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -33,9 +40,13 @@ public class SoundManager : MonoBehaviour
 
    
 
+
+
     public static void PlaySound(SoundType sound,float volume = 1f)
     {
         Instance.audioSource.PlayOneShot(Instance.soundList[(int)sound], volume);
-        Debug.Log("==Play Sound" + sound);
+        
     }
+
+
 }

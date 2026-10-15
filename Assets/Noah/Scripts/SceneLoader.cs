@@ -25,13 +25,11 @@ public class SceneLoader : MonoBehaviour
     public void LoadVillage()
     {
         TutorialManager tutorialManager = FindAnyObjectByType<TutorialManager>();
-        if (tutorialManager != null)
+        if (tutorialManager != null && tutorialManager.tutorialDone)
         {
             tutorialManager.nextTutorial();
-            
-
         }
-        //GameData.isDay = false;
+        
         StartCoroutine(LoadVillageScene());
     }
 

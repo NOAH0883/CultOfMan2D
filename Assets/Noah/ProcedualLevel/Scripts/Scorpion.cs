@@ -35,6 +35,7 @@ public class Scorpion : MonoBehaviour, Damageable
 
 
     float moveSpeed;
+    Animator animator;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,6 +44,7 @@ public class Scorpion : MonoBehaviour, Damageable
         agent = GetComponent<NavMeshAgent>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();    
         moveSpeed = agent.speed;
     }
 
@@ -139,10 +141,11 @@ public class Scorpion : MonoBehaviour, Damageable
 
         while (agent.remainingDistance > 1)
         {
+            animator.SetBool("IsWalking", true);
             agent.destination = movePos;
             yield return null;
         }
-
+        animator.SetBool("IsWalking", false);
         yield return new WaitForSeconds(5);
 
         isMoving = false;
@@ -154,7 +157,7 @@ public class Scorpion : MonoBehaviour, Damageable
         agent.isStopped = true;
         agent.ResetPath();
         isAttacking = true;
-
+        animator.SetBool("IsWalking", false);
 
         sr.color = Color.red;
         yield return new WaitForSeconds(1);
@@ -183,10 +186,12 @@ public class Scorpion : MonoBehaviour, Damageable
 
         while (agent.remainingDistance > 1)
         {
+            animator.SetBool("IsWalking", true);
             agent.destination = movePos;
             yield return null;
         }
 
+        animator.SetBool("IsWalking", false);
         yield return new WaitForSeconds(0.5f);
 
         agent.speed = normalSpeed;
@@ -199,12 +204,14 @@ public class Scorpion : MonoBehaviour, Damageable
 
     public void Damage(float damage, Vector2 hitPos, float knockBackPower)
     {
+        SoundManager.PlaySound(SoundType.hit);
         StartCoroutine(KnockBack(knockBackPower, hitPos));
 
         enemyHealth -= damage;
 
         if (enemyHealth <= 0)
         {
+            SoundManager.PlaySound(SoundType.enemyDead);
             GameData.food += foodAmount;
             Destroy(gameObject);
         }

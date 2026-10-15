@@ -12,7 +12,11 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] InputActionProperty closeMenu;
 
-    
+    public bool tutorialDone;
+
+
+    [SerializeField] GameObject campFireArrow;
+    [SerializeField] GameObject huntingArrow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,23 +27,32 @@ public class TutorialManager : MonoBehaviour
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
         tutorialVisuals[tutorialindex].SetActive(true);
-       
-
-
+        tutorialDone = false;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-    //    if (tutorialindex >= tutorialVisuals.Count)
-    //    {
-    //        for (int i = 0; i < tutorialVisuals.Count; i++)
-    //        {
-    //            Destroy(tutorialVisuals[i]);   
-    //        }
-    //        Destroy(gameObject);
-    //    }
+        if(GameData.isDay)
+        {
+            huntingArrow.SetActive(true);
+            campFireArrow.SetActive(false);
+        }
+        else
+        {
+            huntingArrow.SetActive(false);
+            campFireArrow.SetActive(true);
+        }
+
+
+        if (tutorialDone)
+        {
+            for (int i = 0; i < tutorialVisuals.Count; i++)
+            {
+                Destroy(tutorialVisuals[i]);
+            }
+        }
     }
 
   
@@ -50,7 +63,11 @@ public class TutorialManager : MonoBehaviour
         {
             tutorialVisuals[tutorialindex].SetActive(false);
             
-            Debug.Log(Time.timeScale);
+            if (tutorialindex >= tutorialVisuals.Count)
+            {
+                tutorialDone = true;
+            }
+            
         }
 
     }

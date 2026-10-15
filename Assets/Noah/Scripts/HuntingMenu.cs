@@ -33,7 +33,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
         huntingMenu.SetActive(false);
 
         sceneLoader = GetComponent<SceneLoader>();
-        
+
         desertButton.enabled = false;
         desertOverlay.SetActive(true);
 
@@ -113,7 +113,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     public void Desert(string sceneToLoad)
     {
-        if(GameData.population >= 10 & GameData.isDay)
+        if (GameData.population >= 10 & GameData.isDay)
         {
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
@@ -124,13 +124,12 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
             sceneLoader.LoadHunting(sceneToLoad);
         }
-       
 
     }
 
     void ActiveButtons()
     {
-        if(!GameData.isDay)
+        if (!GameData.isDay)
         {
             grasslandsButton.enabled = false;
             grasslandsOverlay.SetActive(true);
@@ -138,17 +137,17 @@ public class HuntingMenu : MonoBehaviour, Interactable
             desertButton.enabled = false;
             desertOverlay.SetActive(true);
         }
-        else 
+        else
         {
             grasslandsButton.enabled = true;
             grasslandsOverlay.SetActive(false);
         }
-        if(GameData.isDay && GameData.population >= 10)
+        if (GameData.isDay && GameData.population >= 10)
         {
             desertButton.enabled = true;
             desertOverlay.SetActive(false);
         }
-        
+
 
     }
 
