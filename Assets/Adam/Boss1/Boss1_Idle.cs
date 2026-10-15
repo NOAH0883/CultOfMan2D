@@ -31,6 +31,7 @@ public class Boss1_Idle : MonoBehaviour
     {
         if (idleTime <= 0)
         {
+            boss1VisualsScript.charging = false;
             boss1VisualsScript.moving = true;
             Vector3 direction = Vector3.zero;
             switch (movingToPos)
@@ -67,6 +68,7 @@ public class Boss1_Idle : MonoBehaviour
         }
         else
         {
+            boss1VisualsScript.charging = false;
             boss1VisualsScript.moving = false;
             if (patrolPos1 != startPosition && patrolPos2 != startPosition)
             {
