@@ -1,13 +1,13 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance;
 using UnityEngine.SceneManagement;
 using static IInteractable;
 
 public class ExitHuntting : MonoBehaviour, Interactable
 {
     SceneLoader sceneloader;
-    
-    Vector2 spawnPos;
+    [SerializeField] bool village;
 
     void Start()
     {
@@ -19,12 +19,21 @@ public class ExitHuntting : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        Debug.Log("Load scene");
-        //move player back to the village
-        backToVillage();
+        if (village)
+        {
+            backToVillage();
+        }
+        else if (!village)
+        {
+            ToBossRoom();
+        }
+
     }
 
-
+    void ToBossRoom()
+    {
+        sceneloader.LoadBoss();
+    }
 
     void backToVillage()
     {
