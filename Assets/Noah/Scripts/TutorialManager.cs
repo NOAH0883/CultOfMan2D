@@ -12,7 +12,7 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] InputActionProperty closeMenu;
 
-    bool menuOpen = false;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +23,9 @@ public class TutorialManager : MonoBehaviour
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
         tutorialVisuals[tutorialindex].SetActive(true);
+        Time.timeScale = 0;
+
+
     }
 
     // Update is called once per frame
@@ -31,6 +34,10 @@ public class TutorialManager : MonoBehaviour
 
         if (tutorialindex >= tutorialVisuals.Count)
         {
+            for (int i = 0; i < tutorialVisuals.Count; i++)
+            {
+                Destroy(tutorialVisuals[i]);   
+            }
             Destroy(gameObject);
         }
 
@@ -45,7 +52,7 @@ public class TutorialManager : MonoBehaviour
         if (context.performed)
         {
             tutorialVisuals[tutorialindex].SetActive(false);
-            Time.timeScale = 1f;
+            Time.timeScale = 1;
         }
 
     }
@@ -53,10 +60,8 @@ public class TutorialManager : MonoBehaviour
 
     public void nextTutorial()
     {
-        if (tutorialindex >= tutorialVisuals.Count)
-        {
-            Destroy(gameObject);
-        }
+        Debug.Log("==New Tutorial==");
+        
 
         tutorialVisuals[tutorialindex].SetActive(false);
         tutorialindex++;
@@ -64,8 +69,8 @@ public class TutorialManager : MonoBehaviour
 
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
-        
+        Time.timeScale = 0;
 
-        Time.timeScale = 1f;
+
     }
 }

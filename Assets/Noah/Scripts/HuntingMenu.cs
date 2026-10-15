@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,7 +16,15 @@ public class HuntingMenu : MonoBehaviour, Interactable
     [SerializeField] InputActionProperty closeMenu;
     SceneLoader sceneLoader;
     GameObject lastSelected;
-   
+
+
+    [Header("buttons")]
+    [SerializeField] Button grasslandsButton;
+    [SerializeField] GameObject grasslandsOverlay;
+    [SerializeField] Button desertButton;
+    [SerializeField] GameObject desertOverlay;
+
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,16 +34,22 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
         sceneLoader = GetComponent<SceneLoader>();
         
+        desertButton.enabled = false;
+        desertOverlay.SetActive(true);
+
     }
 
     private void Update()
     {
         keepSelected();
+        
     }
 
     public void Interact()
     {
         StartCoroutine(WaitFrame());
+
+        ActiveButtons();
 
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
@@ -113,13 +128,29 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     }
 
+    void ActiveButtons()
+    {
+        if(!GameData.isDay)
+        {
+            grasslandsButton.enabled = false;
+            grasslandsOverlay.SetActive(true);
+
+            desertButton.enabled = false;
+            desertOverlay.SetActive(true);
+        }
+        else 
+        {
+            grasslandsButton.enabled = true;
+            grasslandsOverlay.SetActive(false);
+        }
+        if(GameData.isDay && GameData.population >= 10)
+        {
+            desertButton.enabled = true;
+            desertOverlay.SetActive(false);
+        }
+        
+
+    }
 
 
-
-
-    //GameObject dayCycleMenu
-    //dayCycleMenu.Setative(True)
-    //rotation
-    //when rotation is done
-    //gameObject.setActive(False)
 }
