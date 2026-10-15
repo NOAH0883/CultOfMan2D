@@ -13,6 +13,7 @@ using static IInteractable;
 public class CampFire : MonoBehaviour, Interactable
 {
 
+
     [SerializeField] GameObject CampFireMenu;
     [SerializeField] InputActionProperty closeMenu;
     [SerializeField] EventSystem eventSystem;
@@ -279,15 +280,15 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void UpgradeTest()
     {
+
+        SoundManager.PlaySound(SoundType.upgrade);
+
         GameData.food -= upgradScriptableObj.cost;
-
-
 
         playerScript.playerHitboxScript.damage += upgradScriptableObj.damageBonus;
         playerScript.playerMaxHealth += upgradScriptableObj.healthBonus;
 
         upgradesList.RemoveAt(0);
     }
-
-
+  
 }

@@ -34,6 +34,8 @@ public class RamEnemy : MonoBehaviour, Damageable
     [SerializeField] float enemyHealth;
     [SerializeField] int foodAmount;
     
+    private Animator animator;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,6 +43,7 @@ public class RamEnemy : MonoBehaviour, Damageable
         agent = GetComponent<NavMeshAgent>();
         sr = GetComponent<SpriteRenderer>();    
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();    
     }
 
     void Update()
@@ -90,10 +93,12 @@ public class RamEnemy : MonoBehaviour, Damageable
         {
             enemyStates = EnemyStates.attack;
             playerPos = hit.transform.position;
+            animator.SetBool("IsWalking", false);
         }
         else
         {
             enemyStates = EnemyStates.idle;
+            animator.SetBool("IsWalking", true);
         }
     }
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
@@ -113,15 +118,19 @@ public class RamEnemy : MonoBehaviour, Damageable
     IEnumerator Idle()
     {
         isMoving = true;
+        
+
 
         agent.destination = movePos;
 
         while (agent.remainingDistance > 1)
         {
+            animator.SetBool("IsWalking", true);
             agent.destination = movePos;
             yield return null;  
         }
 
+        animator.SetBool("IsWalking", false);
         yield return new WaitForSeconds(5);
 
         isMoving = false;
@@ -129,6 +138,8 @@ public class RamEnemy : MonoBehaviour, Damageable
 
     IEnumerator Attack()
     {
+       
+
         agent.isStopped = true;
         agent.ResetPath();
         isAttacking =  true;
@@ -181,10 +192,12 @@ public class RamEnemy : MonoBehaviour, Damageable
         StartCoroutine(KnockBack(knockBackPower, hitPos));
 
         enemyHealth -= damage;
+        SoundManager.PlaySound(SoundType.hit);
 
         if (enemyHealth <= 0)
         {
             GameData.food += foodAmount;
+            SoundManager.PlaySound(SoundType.enemyDead);
             Destroy(gameObject);
         }
             

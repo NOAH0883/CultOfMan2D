@@ -3497,9 +3497,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 843870691237956830}
     m_Modifications:
+    - target: {fileID: 664368186114078907, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: village
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 706860371116135019, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
       propertyPath: m_Name
       value: ExitLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233244316953640091, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.2456
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233244316953640091, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.2456
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233244316953640091, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.2456
       objectReference: {fileID: 0}
     - target: {fileID: 3233244316953640091, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3542,8 +3558,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3666622330920397212, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8952609166386484394, guid: 48e5ede8aee505b4b98eea36da01b8cd, type: 3}
+    - target: {fileID: 3666622330920397212, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666622330920397212, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666622330920397212, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3666622330920397212, guid: 3c7201d718e4481449cba4d8e08b7098, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

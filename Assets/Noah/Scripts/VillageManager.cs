@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 
@@ -23,6 +24,7 @@ public class VillageManager : MonoBehaviour
     [SerializeField] VillagerAI villagerScript;
     public int villagersFeed;
     bool canSpawnVillagers;
+    [SerializeField] GameObject bloodVisual;
 
 
     [Header("housing")]
@@ -55,6 +57,7 @@ public class VillageManager : MonoBehaviour
         GameData.isDay = true;
         GameData.population = 3;
         gameObject.SetActive(true);
+        bloodVisual.SetActive(false);
 
         for (int i = 0; i < GameData.population; i++)
         {
@@ -198,7 +201,7 @@ public class VillageManager : MonoBehaviour
             GameData.food = 0;
             villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
         }
-        
+        SoundManager.PlaySound(SoundType.feedPot);
     }
     
     public void upgradeHousing()
@@ -206,6 +209,9 @@ public class VillageManager : MonoBehaviour
         housing += 5;
         housesToBuild++;
         housingIncrease += 5;
+        GameData.food -= 5;
+
+        
     }
 
 
@@ -219,7 +225,11 @@ public class VillageManager : MonoBehaviour
         GameData.population--;
         GameData.food += sacrificeAmount;
         villSac ++;
-    }
 
+       
+        bloodVisual.SetActive(true);
+        SoundManager.PlaySound(SoundType.sacrifice);
+    }
+   
 
 }

@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,11 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] InputActionProperty closeMenu;
 
-    
+    public bool tutorialDone;
+
+
+    [SerializeField] GameObject campFireArrow;
+    [SerializeField] GameObject huntingArrow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,23 +28,33 @@ public class TutorialManager : MonoBehaviour
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
         tutorialVisuals[tutorialindex].SetActive(true);
-       
-
-
+        tutorialDone = false;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-    //    if (tutorialindex >= tutorialVisuals.Count)
-    //    {
-    //        for (int i = 0; i < tutorialVisuals.Count; i++)
-    //        {
-    //            Destroy(tutorialVisuals[i]);   
-    //        }
-    //        Destroy(gameObject);
-    //    }
+        if(GameData.isDay)
+        {
+            huntingArrow.SetActive(true);
+            campFireArrow.SetActive(false);
+        }
+        else
+        {
+            huntingArrow.SetActive(false);
+            campFireArrow.SetActive(true);
+        }
+        
+       
+
+        if (tutorialDone)
+        {
+            for (int i = 0; i < tutorialVisuals.Count; i++)
+            {
+                Destroy(tutorialVisuals[i]);
+            }
+        }
     }
 
   
@@ -49,8 +64,12 @@ public class TutorialManager : MonoBehaviour
         if (context.performed)
         {
             tutorialVisuals[tutorialindex].SetActive(false);
-            
-            Debug.Log(Time.timeScale);
+
+            if (tutorialindex >= tutorialVisuals.Count)
+            {
+                tutorialDone = true;
+            }
+
         }
 
     }
@@ -59,13 +78,22 @@ public class TutorialManager : MonoBehaviour
     public void nextTutorial()
     {
         Debug.Log("==New Tutorial==");
-        
 
-        tutorialVisuals[tutorialindex].SetActive(false);
-        tutorialindex++;
-        tutorialVisuals[tutorialindex].SetActive(true);
+       
 
-        closeMenu.action.Enable();
+        if (tutorialindex < 3)
+        {
+            tutorialVisuals[tutorialindex].SetActive(false);
+            tutorialindex++;
+            tutorialVisuals[tutorialindex].SetActive(true);
+        }
+        else
+        {
+            tutorialDone = true;
+        }
+
+
+            closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
     }
 }

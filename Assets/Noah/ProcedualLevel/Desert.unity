@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   roomPrefab: {fileID: 0}
-  finalRoomPrefab: {fileID: 874726753177932532, guid: f08ea84ecf227c04aaccb96b827be31b, type: 3}
+  finalRoomPrefab: {fileID: 874726753177932532, guid: cdcb02f467004774c9e7ed936399cfd8, type: 3}
   startRoomPrefab: {fileID: 874726753177932532, guid: f08ea84ecf227c04aaccb96b827be31b, type: 3}
   maxRooms: 15
   minRooms: 10

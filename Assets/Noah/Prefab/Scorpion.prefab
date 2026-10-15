@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8459698229365329578}
   - component: {fileID: 922677198652744581}
   - component: {fileID: 5637816141386922906}
+  - component: {fileID: 6749405372187092232}
   m_Layer: 8
   m_Name: Scorpion
   m_TagString: Enemy
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5215486796406550636, guid: a1d6b03a2aec6a3459aa9febf7d46b5b, type: 3}
+  m_Sprite: {fileID: -4530670122045351285, guid: e50598f87faf4014e9a9894932ce4779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -214,3 +215,25 @@ MonoBehaviour:
   bulletSpeed: 3
   enemyHealth: 5
   foodAmount: 4
+--- !u!95 &6749405372187092232
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4086886818445828775}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 343071e7a8005ef45aa0b1253a0e48e7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
