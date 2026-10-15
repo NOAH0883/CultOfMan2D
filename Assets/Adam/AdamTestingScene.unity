@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 472528058}
   - component: {fileID: 472528057}
   - component: {fileID: 472528053}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss1
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ MonoBehaviour:
   aggroRadius: 3
   Boss1_Idle: {fileID: 472528058}
   Boss1_Active: {fileID: 472528057}
-  bossHP: 500
+  bossHP: 50
 --- !u!4 &472528056
 Transform:
   m_ObjectHideFlags: 0
@@ -763,7 +763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 713312654}
   - component: {fileID: 713312655}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss1HitboxIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,7 +1186,7 @@ GameObject:
   - component: {fileID: 1147648932}
   - component: {fileID: 1147648933}
   - component: {fileID: 1147648934}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss1Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1267,6 +1267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   damage: 1
+  knockBackPower: 5
   playerAttacked: 0
 --- !u!1 &1542915661
 GameObject:
@@ -1278,7 +1279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1542915662}
   - component: {fileID: 1542915663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss1HitboxVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1369,7 +1370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1817785890}
   - component: {fileID: 1817785889}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss1Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,7 +1553,7 @@ GameObject:
   - component: {fileID: 1822097393}
   - component: {fileID: 1822097394}
   - component: {fileID: 1822097395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss1Hurtbox
   m_TagString: Boss1
   m_Icon: {fileID: 0}
@@ -1741,6 +1742,10 @@ PrefabInstance:
     - target: {fileID: 4661903198749942579, guid: 2eddf3325b6b2624bb84cf3231dc8068, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286812512038369619, guid: 2eddf3325b6b2624bb84cf3231dc8068, type: 3}
+      propertyPath: testing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5286812512038369619, guid: 2eddf3325b6b2624bb84cf3231dc8068, type: 3}
       propertyPath: directionText

@@ -102,21 +102,24 @@ public class Boss1_Active : MonoBehaviour
                 attackDimensions = new Vector2(3.5f, 4);
                 attackWindup = 0.4f;
                 attackActive = 0.2f;
-                boss1HitboxScript.damage = 10;
+                boss1HitboxScript.damage = 1;
+                boss1HitboxScript.knockBackPower = 10;
                 break;
             case 1:
                 attackOffset = new Vector2(0, 0);
                 attackDimensions = new Vector2(5, 4);
                 attackWindup = 0.9f;
                 attackActive = 0.2f;
-                boss1HitboxScript.damage = 15;
+                boss1HitboxScript.damage = 2;
+                boss1HitboxScript.knockBackPower = 10;
                 break;
             case 2:
                 attackOffset = new Vector2(0, 0);
                 attackDimensions = new Vector2(2, 2);
                 attackWindup = 0.5f;
                 attackActive = 1.2f;
-                boss1HitboxScript.damage = 20;
+                boss1HitboxScript.damage = 2;
+                boss1HitboxScript.knockBackPower = 15;
                 break;
             default: break;
         }

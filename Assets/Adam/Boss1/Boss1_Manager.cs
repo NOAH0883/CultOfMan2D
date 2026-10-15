@@ -1,7 +1,8 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using static IDamageable;
 
-public class Boss1_Manager : MonoBehaviour
+public class Boss1_Manager : MonoBehaviour, Damageable
 {
     public float walkSpeed;
     public float sprintSpeed;
@@ -16,7 +17,7 @@ public class Boss1_Manager : MonoBehaviour
     [SerializeField] private Boss1_Idle Boss1_Idle;
     [SerializeField] private Boss1_Active Boss1_Active;
 
-    public int bossHP;
+    public float bossHP;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -79,15 +80,16 @@ public class Boss1_Manager : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void Damage(float damage, Vector2 hitPos, float knockBackPower)
     {
+
         bossHP -= damage;
-        if (state != BossState.ACTIVE)
+
+        if (bossHP <= 0)
         {
-            state = BossState.ACTIVE;
-            Boss1_Active.moveSpeed = walkSpeed;
-            Boss1_Active.actionInterval = 3;
-            circleCollider.radius = aggroRadius * 4;
+            Destroy(gameObject);
         }
+
+
     }
 }
