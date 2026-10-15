@@ -87,6 +87,7 @@ public class Boss1_Manager : MonoBehaviour, Damageable
 
         if (bossHP <= 0)
         {
+            //Add win screen here
             Destroy(gameObject);
         }
 
