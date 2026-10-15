@@ -22,7 +22,8 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         playerController = GetComponentInParent<AdamPlayerTest>();
-        sceneLoader = FindAnyObjectByType<SceneLoader>();
+        
+        KockedOutMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -59,6 +60,7 @@ public class PlayerUI : MonoBehaviour
 
     public void playerKnockedOut()
     {
+
         Time.timeScale = 0;
         StartCoroutine(KnockedOutVisual());
         
@@ -68,11 +70,16 @@ public class PlayerUI : MonoBehaviour
     {
         Time.timeScale = 0;
         GameData.food /= 2;
+        if(GameData.food < 0)
+        {
+            GameData.food = 0;
+        }
         KockedOutMenu.SetActive(true); 
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(5f);
         KockedOutMenu.SetActive(false);
         Time.timeScale = 1;
 
+        sceneLoader = FindAnyObjectByType<SceneLoader>();
         sceneLoader.LoadVillage();
         
 

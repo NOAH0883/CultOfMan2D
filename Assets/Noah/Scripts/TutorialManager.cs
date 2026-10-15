@@ -44,7 +44,8 @@ public class TutorialManager : MonoBehaviour
             huntingArrow.SetActive(false);
             campFireArrow.SetActive(true);
         }
-
+        
+       
 
         if (tutorialDone)
         {
@@ -62,12 +63,12 @@ public class TutorialManager : MonoBehaviour
         if (context.performed)
         {
             tutorialVisuals[tutorialindex].SetActive(false);
-            
+
             if (tutorialindex >= tutorialVisuals.Count)
             {
                 tutorialDone = true;
             }
-            
+
         }
 
     }
@@ -76,7 +77,11 @@ public class TutorialManager : MonoBehaviour
     public void nextTutorial()
     {
         Debug.Log("==New Tutorial==");
-        
+
+        if (tutorialindex >= tutorialVisuals.Count)
+        {
+            tutorialDone = true;
+        }
 
         tutorialVisuals[tutorialindex].SetActive(false);
         tutorialindex++;
