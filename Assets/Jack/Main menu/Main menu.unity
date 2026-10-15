@@ -582,6 +582,11 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &1452848677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3238455078162483542, guid: 99101d987f5dd0c47aecc362310f824a, type: 3}
+  m_PrefabInstance: {fileID: 2086122952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1452848678 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9011029520905716534, guid: 99101d987f5dd0c47aecc362310f824a, type: 3}
@@ -708,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   startButton: {fileID: 30399349}
+  mainStory: {fileID: 1452848677}
   closeMenu:
     m_UseReference: 1
     m_Action:

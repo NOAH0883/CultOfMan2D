@@ -48,9 +48,9 @@ public class MainMenu : MonoBehaviour
         {
 
             closeMenu.action.Disable();
-            closeMenu.action.performed -= OnCancel;
+            closeMenu.action.performed-= OnCancel;
 
-            SceneManager.LoadScene("Day1_tutorial 1");
+            SceneManager.LoadScene("MainGame_Village");
         }
 
     }

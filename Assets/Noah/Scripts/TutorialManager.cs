@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -78,16 +79,21 @@ public class TutorialManager : MonoBehaviour
     {
         Debug.Log("==New Tutorial==");
 
-        if (tutorialindex >= tutorialVisuals.Count)
+       
+
+        if (tutorialindex < 3)
+        {
+            tutorialVisuals[tutorialindex].SetActive(false);
+            tutorialindex++;
+            tutorialVisuals[tutorialindex].SetActive(true);
+        }
+        else
         {
             tutorialDone = true;
         }
 
-        tutorialVisuals[tutorialindex].SetActive(false);
-        tutorialindex++;
-        tutorialVisuals[tutorialindex].SetActive(true);
 
-        closeMenu.action.Enable();
+            closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
     }
 }

@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Jack/Main menu/Main menu.unity
+    guid: 2064e0d56296d3a4885f56b079137394
+  - enabled: 1
+    path: Assets/Noah/MainGame_Village.unity
+    guid: e498c03b25985cf4cb791437be9ba359
+  - enabled: 0
     path: Assets/Jack/Tutorial/Day1_tutorial 1.unity
     guid: b32a929bae56d244298b393563cb3035
   - enabled: 1
@@ -20,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Noah/Boss.unity
     guid: 68a1cdbf3084fb14db7330678f439f51
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 0
     path: Assets/Jack/Tutorial/Day1_tutorial.unity
     guid: 890957d45458f704ab3ba11ce4e0e543
