@@ -148,6 +148,8 @@ public class Boss1_Active : MonoBehaviour
 
     IEnumerator Attack(int attackType, float windup, float active)
     {
+
+        SoundManager.PlaySound(SoundType.bossAttack, 0.5f);
         float elapsed = 0f;
         float totalTime = windup + active;
         boss1HitboxScript.playerAttacked = false;

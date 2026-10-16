@@ -30,7 +30,7 @@ public class VillageManager : MonoBehaviour
 
     [Header("housing")]
     public float housing;
-    float housesToBuild;
+    public float housesToBuild;
     [SerializeField] List<GameObject> housesGameObj;
     
 
@@ -56,6 +56,7 @@ public class VillageManager : MonoBehaviour
     {
         
         GameData.isDay = true;
+        GameData.tutorialDone = false;
         GameData.food = 0;
 
 
@@ -252,6 +253,7 @@ public class VillageManager : MonoBehaviour
         housesToBuild++;
         housingIncrease += 5;
         GameData.food -= 10;
+        SoundManager.PlaySound (SoundType.buildHouse);
 
         
     }
@@ -270,7 +272,7 @@ public class VillageManager : MonoBehaviour
         villSac ++;
 
        GameData.hasSacrificed = true;
-       SoundManager.PlaySound(SoundType.sacrifice);
+       SoundManager.PlaySound(SoundType.sacrifice, 0.7f);
 
 
         

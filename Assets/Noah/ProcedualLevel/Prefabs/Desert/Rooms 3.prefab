@@ -3439,7 +3439,7 @@ PrefabInstance:
       objectReference: {fileID: -1746790574, guid: e9537fc4237be6a488971ec87d50aba4, type: 3}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -3487,6 +3487,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 843870691237956830}
     m_Modifications:
+    - target: {fileID: 3607419939035763337, guid: 94812f01095663240a3ff2dadce21cd1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5480554289724763610, guid: 94812f01095663240a3ff2dadce21cd1, type: 3}
       propertyPath: m_Name
       value: DesertTree2
@@ -3967,7 +3971,7 @@ PrefabInstance:
       objectReference: {fileID: -1746790574, guid: e9537fc4237be6a488971ec87d50aba4, type: 3}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -4061,7 +4065,7 @@ PrefabInstance:
       objectReference: {fileID: -1746790574, guid: e9537fc4237be6a488971ec87d50aba4, type: 3}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -4109,6 +4113,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 843870691237956830}
     m_Modifications:
+    - target: {fileID: 1007127401650758989, guid: d5f529e17baae1440a99976fb14de2bc, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2289576532083278862, guid: d5f529e17baae1440a99976fb14de2bc, type: 3}
       propertyPath: m_Name
       value: DesertTree
@@ -4217,7 +4225,7 @@ PrefabInstance:
       objectReference: {fileID: -1746790574, guid: e9537fc4237be6a488971ec87d50aba4, type: 3}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name

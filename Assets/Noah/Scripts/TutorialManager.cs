@@ -1,77 +1,127 @@
-using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TutorialManager : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> tutorialVisuals;
+    [SerializeField] private InputActionProperty closeMenu;
 
-     
-    [SerializeField] List<GameObject> tutorialVisuals;
-    int tutorialindex;
+    private int tutorialIndex = 0;
+    private bool tutorialOpen;
 
-    [SerializeField] InputActionProperty closeMenu;
-
-   
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        tutorialOpen = true;
         GameData.tutorialDone = false;
         DontDestroyOnLoad(gameObject);
-        tutorialindex = 0;
+
+        tutorialIndex = 0;
         Time.timeScale = 0;
 
+        // Enable action and subscribe ONCE here
         closeMenu.action.Enable();
         closeMenu.action.performed += OnCancel;
-        tutorialVisuals[tutorialindex].SetActive(true);
-        
+
+        // Ensure only the first visual is active
+        InitializeTutorialVisuals();
     }
 
-    
-    //void Update()
-    //{
+    void Awake()
+    {
+        
+        DontDestroyOnLoad(gameObject);
+    }
 
-    //    if (tutorialDone)
-    //    {
-    //        for (int i = 0; i < tutorialVisuals.Count; i++)
-    //        {
-    //            Destroy(tutorialVisuals[i]);
-    //        }
-    //    }
-    //}
-
-  
+    private void InitializeTutorialVisuals()
+    {
+        for (int i = 0; i < tutorialVisuals.Count; i++)
+        {
+            if (tutorialVisuals[i] != null)
+            {
+                tutorialVisuals[i].SetActive(i == 0);
+            }
+        }
+    }
 
     void OnCancel(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        // Close the current tutorial screen
+        if (tutorialIndex >= 0 && tutorialIndex < tutorialVisuals.Count)
         {
-
-            if(tutorialindex >= 2)
+            if (tutorialVisuals[tutorialIndex] != null)
             {
-                GameData.tutorialDone = true;
-                Destroy(gameObject);
+                tutorialVisuals[tutorialIndex].SetActive(false);
             }
+        }
 
-            tutorialVisuals[tutorialindex].SetActive(false);
+        tutorialOpen = false;
+        Time.timeScale = 1;
 
-            Time.timeScale = 1;
+        // If this was the last tutorial slide, finish up and destroy
+        if (tutorialIndex >= tutorialVisuals.Count - 1)
+        {
+            GameData.tutorialDone = true;
+            StartCoroutine(RemoveTutorial());
         }
     }
 
 
-    public void nextTutorial()
+    IEnumerator RemoveTutorial()
     {
-        Debug.Log("==New Tutorial==");
-        Time.timeScale = 0;
-        tutorialVisuals[tutorialindex].SetActive(false);
-        tutorialindex++;
-        tutorialVisuals[tutorialindex].SetActive(true);
+        yield return new WaitForEndOfFrame();
+        Destroy(gameObject);
+    }
 
-        closeMenu.action.Enable();
-        closeMenu.action.performed += OnCancel;
+    public void NextTutorial()
+    {
+        // Check if we can actually advance
+        if (tutorialIndex + 1 >= tutorialVisuals.Count) return;
+
+        Debug.Log("== New Tutorial Screen ==");
+        Time.timeScale = 0;
+        tutorialOpen = true;
+
+        // Turn off current visual
+        if (tutorialVisuals[tutorialIndex] != null)
+        {
+            tutorialVisuals[tutorialIndex].SetActive(false);
+        }
+
+        // Advance index and turn on next visual
+        tutorialIndex++;
+
+        if (tutorialVisuals[tutorialIndex] != null)
+        {
+            tutorialVisuals[tutorialIndex].SetActive(true);
+        }
+
+        // NO subscription here anymore! The input action is already listening.
+    }
+
+    private void OnDestroy()
+    {
+        // Safe unsubscription cleanup when object is destroyed
+        if (closeMenu.action != null)
+        {
+            closeMenu.action.performed -= OnCancel;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (closeMenu.action != null)
+        {
+            closeMenu.action.Disable();
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (closeMenu.action != null)
+        {
+            closeMenu.action.Enable();
+        }
     }
 }

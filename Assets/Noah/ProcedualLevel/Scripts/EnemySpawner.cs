@@ -5,6 +5,7 @@ using Unity.Loading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -19,7 +20,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject spawnObject;
 
     [SerializeField] GameObject loadingScreen;
-    
+    [SerializeField] GameObject HuntingTutorial;
+    [SerializeField] private InputActionProperty closeMenu;
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {
@@ -47,6 +49,9 @@ public class EnemySpawner : MonoBehaviour
     {
         loadingScreen.SetActive(false);
         enemiesSpawned = 0;
+
+        closeMenu.action.Disable();
+        closeMenu.action.Enable();
     }
 
     // Update is called once per frame
@@ -57,6 +62,7 @@ public class EnemySpawner : MonoBehaviour
         if (enemiesSpawned < spawnAmount) 
         {
             Time.timeScale = 0;
+
             loadingScreen.SetActive(true);
             Vector3 point;
             if (RandomPoint(transform.position, range, out point))
@@ -70,10 +76,42 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 1;
             loadingScreen.SetActive(false);
+            Time.timeScale = 1;
+            if (GameData.tutorialDone)
+            {
+                
+                Time.timeScale = 1;
+            }
+            else
+            {
+                //HuntingTutorial.SetActive(true);
+                //closeMenu.action.performed -= OnCancel;
+                //closeMenu.action.performed += OnCancel;
+            }
+
+
+              
         }
-        
+
+
+
+        void OnCancel(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+
+                //closeMenu.action.Disable();
+                closeMenu.action.performed -= OnCancel;
+
+
+                HuntingTutorial.SetActive(true);
+                Time.timeScale = 1f;
+                GameData.tutorialDone = true;
+            }
+
+        }
+
     }
 
 }

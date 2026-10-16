@@ -3168,6 +3168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4806089224690990201, guid: 4a5eda71f354c654280e598d5643eec7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3342,7 +3346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -3429,6 +3433,10 @@ PrefabInstance:
     - target: {fileID: 2726127588858755186, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -3741,6 +3749,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 843870691237956830}
     m_Modifications:
+    - target: {fileID: 661644623407150210, guid: f74818830f9891c4a8dd0d56cde464f6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4401429435713780035, guid: f74818830f9891c4a8dd0d56cde464f6, type: 3}
       propertyPath: m_Name
       value: Bush (1)
@@ -3827,6 +3839,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 843870691237956830}
     m_Modifications:
+    - target: {fileID: 661644623407150210, guid: f74818830f9891c4a8dd0d56cde464f6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4401429435713780035, guid: f74818830f9891c4a8dd0d56cde464f6, type: 3}
       propertyPath: m_Name
       value: Bush
@@ -3957,6 +3973,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 6189377126893514821, guid: 2587aaaed1f2276418814596a138166a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4041,7 +4061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -4095,7 +4115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4647047289266358829, guid: 8cd9d84a395b1f440b02432e28c48ebe, type: 3}
       propertyPath: m_SortingOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8956756243714286883, guid: 8cd9d84a395b1f440b02432e28c48ebe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4219,6 +4239,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
       value: Tree1
@@ -4309,6 +4333,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4806089224690990201, guid: 4a5eda71f354c654280e598d5643eec7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4361,7 +4389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3921255170978419985, guid: 94b30e694dfcfcc46bed32f6e73061e9, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4476846511939978917, guid: 94b30e694dfcfcc46bed32f6e73061e9, type: 3}
       propertyPath: m_Name

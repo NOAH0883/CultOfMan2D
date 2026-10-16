@@ -29,6 +29,8 @@ public class Sleep : MonoBehaviour, Interactable
     [SerializeField] TextMeshProUGUI sacVillSumText;
 
 
+    bool sleeping;
+
     void Start()
     {
         GameData.isDay = true;
@@ -41,7 +43,7 @@ public class Sleep : MonoBehaviour, Interactable
         sleepani.SetActive(false);
         dayStatsMenu.SetActive(false);
 
-        
+        sleeping = false;
     }
     
     void Update()
@@ -70,8 +72,9 @@ public class Sleep : MonoBehaviour, Interactable
 
     public void Interact()
     {
-       if(!GameData.isDay)
+       if(!GameData.isDay && !sleeping)
        {
+           sleeping = true;
            if (villageManager.villSac <= 0)
            {
                GameData.hasSacrificed = false;
@@ -139,13 +142,16 @@ public class Sleep : MonoBehaviour, Interactable
             villageManager.villagersSick = 0;
             villageManager.villagersDead = 0;
             villageManager.villSac = 0;
+            villageManager.housesToBuild = 0;
             GameData.food = 0;
             GameData.isDay = true;
+
             // playerHealth reset
             
             playerScript.playerHealth = playerScript.playerMaxHealth;
 
             dayStatsMenu.SetActive(false);
+            sleeping = false;
             Time.timeScale = 1f;
 
         }

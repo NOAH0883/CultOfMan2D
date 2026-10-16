@@ -12,6 +12,9 @@ public enum SoundType
     sacrifice,
     hit,
     enemyDead,
+    playerAttack,
+    bossAttack,
+    buildHouse,
 }
 
 [RequireComponent(typeof(AudioSource))]

@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -60,9 +61,18 @@ public class CampFire : MonoBehaviour, Interactable
     [Header("Test")]
     [SerializeField] int foodTest;
 
+
+
+    [SerializeField] GameObject campfireTutorial;
+    bool firstTimeMenu;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        firstTimeMenu = false;
+
+        campfireTutorial.SetActive(false);
         CampFireMenu.SetActive(false);
         villageManager = GetComponent<VillageManager>();
         
@@ -102,24 +112,34 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void Interact()
     {
+
+        
+        closeMenu.action.performed += OnCancel;
+
+
+        if(!firstTimeMenu && !GameData.isDay)
+        {
+            Debug.Log("===================================Load tutorial for campfire");
+            campfireTutorial.SetActive(true);
+        }
+        else
+        {
+            CampFireMenu.SetActive(true);
+        }
+
         StartCoroutine(WaitFrame());
 
-        if(!GameData.isDay && GameData.food < GameData.dailyGoal)
+        if (!GameData.isDay && GameData.food < GameData.dailyGoal)
         {
             canSac = true;
         }
-        
+
         if (!GameData.isDay && canSac)
         {
             sacButtonVisual.SetActive(true);
             sacButton.enabled = true;
         }
-
-        closeMenu.action.Enable();
-        closeMenu.action.performed += OnCancel;
-
-
-        CampFireMenu.SetActive(true);
+        
 
         Time.timeScale = 0f;
     }
@@ -146,14 +166,32 @@ public class CampFire : MonoBehaviour, Interactable
     {
         if (EventSystem.current.currentSelectedGameObject != null)
         {
-            lastSelected = EventSystem.current.currentSelectedGameObject;
+            // Only update if it's a completely new object
+            if (EventSystem.current.currentSelectedGameObject != lastSelected)
+            {
+                lastSelected = EventSystem.current.currentSelectedGameObject;
+            }
         }
+        // 2. If selection becomes null, safely restore the last one
         else if (lastSelected != null)
         {
-            
+            StartCoroutine(RestoreSelectionRoutine());
+        }
+    }
+
+    private IEnumerator RestoreSelectionRoutine()
+    {
+        // Wait until the very end of the current frame 
+        // This stops Unity from glitching or getting stuck in a loop
+        yield return new WaitForEndOfFrame();
+
+        // Double check it's still null before restoring
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
             EventSystem.current.SetSelectedGameObject(lastSelected);
         }
     }
+
 
 
     void OnCancel (InputAction.CallbackContext context)  
@@ -161,12 +199,21 @@ public class CampFire : MonoBehaviour, Interactable
        if(context.performed)
        {
             
-            closeMenu.action.Disable();
-            closeMenu.action.performed -= OnCancel;
+            if(!firstTimeMenu)
+            {
+                campfireTutorial.SetActive(false);
+                closeMenu.action.performed -= OnCancel;
+                firstTimeMenu = true;
+                Interact();
+            }
+            else
+            {
+                closeMenu.action.performed -= OnCancel;
 
 
-            CampFireMenu.SetActive(false);
-            Time.timeScale = 1f;
+                CampFireMenu.SetActive(false);
+                Time.timeScale = 1f;
+            }
             
         }
             
@@ -251,8 +298,6 @@ public class CampFire : MonoBehaviour, Interactable
 
 
 
-     
-
         // Population
         popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
 
@@ -268,21 +313,35 @@ public class CampFire : MonoBehaviour, Interactable
     void Upgrades()
     {
 
-        upgradScriptableObj = upgradesList[0];
-        upgradeNameText.text = upgradScriptableObj.upgradeName;
-        upgradeDescriptionText.text = upgradScriptableObj.destriptionText;
-        upgradeCostText.text = upgradScriptableObj.cost.ToString();
-        upgradeImageSprite.sprite = upgradScriptableObj.icon;
-
-
-        if(GameData.food < upgradScriptableObj.cost || upgradesList[0] == null)
+        if (upgradesList == null || upgradesList.Count == 0)
         {
+            
+            upgradScriptableObj = null;
+            upgradeNameText.text = null;
+            upgradeDescriptionText.text = null;
+            upgradeCostText.text = null;
+            upgradeImageSprite.sprite = null;
             upgradeGreyOut.SetActive(true);
             upgradeButton.enabled = false;
-            //grey out upgrade 
+            return; 
+        }
+
+        
+        upgradScriptableObj = upgradesList[0];
+
+        if (GameData.food < upgradScriptableObj.cost)
+        {
+            
+            upgradeGreyOut.SetActive(true);
+            upgradeButton.enabled = false;
         }
         else
         {
+            
+            upgradeNameText.text = upgradScriptableObj.upgradeName;
+            upgradeDescriptionText.text = upgradScriptableObj.destriptionText;
+            upgradeCostText.text = upgradScriptableObj.cost.ToString();
+            upgradeImageSprite.sprite = upgradScriptableObj.icon;
             upgradeGreyOut.SetActive(false);
             upgradeButton.enabled = true;
         }
@@ -291,8 +350,7 @@ public class CampFire : MonoBehaviour, Interactable
 
     public void UpgradeTest()
     {
-
-        SoundManager.PlaySound(SoundType.upgrade);
+        SoundManager.PlaySound(SoundType.upgrade, 0.7f);
 
         GameData.food -= upgradScriptableObj.cost;
 
@@ -300,7 +358,14 @@ public class CampFire : MonoBehaviour, Interactable
         playerScript.playerMaxHealth += upgradScriptableObj.healthBonus;
 
         upgradesList.RemoveAt(0);
-        
     }
-  
+
+
+
+    private void OnDisable()
+    {
+        closeMenu.action.Disable();
+        closeMenu.action.performed -= OnCancel;
+    }
+
 }

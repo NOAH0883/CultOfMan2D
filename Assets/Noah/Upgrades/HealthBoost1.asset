@@ -15,7 +15,7 @@ MonoBehaviour:
   upgradeName: Health
   destriptionText: Player health +2
   icon: {fileID: -6528892960639380785, guid: 4388af0b15c57bd4e9172d33fe4ff1d0, type: 3}
-  cost: 5
+  cost: 3
   healthBonus: 2
   damageBonus: 0
   newWeapon: {fileID: 0}

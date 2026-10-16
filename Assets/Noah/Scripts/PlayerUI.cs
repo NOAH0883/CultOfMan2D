@@ -20,12 +20,17 @@ public class PlayerUI : MonoBehaviour
 
     SceneLoader sceneLoader;
 
+    bool knockedOut;
+
     private void Start()
     {
         playerController = GetComponentInParent<AdamPlayerTest>();
         
         KockedOutMenu.SetActive(false);
-        bloodVisual.SetActive(false);   
+        bloodVisual.SetActive(false);
+
+
+        knockedOut = false;
     }
 
     // Update is called once per frame
@@ -50,7 +55,7 @@ public class PlayerUI : MonoBehaviour
 
         for (int i = 0; i < hearts.Length; i++)
         {
-            if(i <= playerController.playerHealth)
+            if(i < playerController.playerHealth)
             {
                 
                 hearts[i].sprite = fullHeart;
@@ -74,15 +79,23 @@ public class PlayerUI : MonoBehaviour
 
     public void playerKnockedOut()
     {
-
+        
         Time.timeScale = 0;
-        StartCoroutine(KnockedOutVisual());
+        if(knockedOut == false)
+        {
+            StartCoroutine(KnockedOutVisual());
+        }
+
+        
         
     }
 
     IEnumerator KnockedOutVisual()
     {
+        knockedOut = true;
         Time.timeScale = 0;
+
+        Debug.Log("=========================" + Time.timeScale);
         GameData.food /= 2;
         if(GameData.food < 0)
         {
@@ -93,6 +106,7 @@ public class PlayerUI : MonoBehaviour
         KockedOutMenu.SetActive(false);
         Time.timeScale = 1;
 
+        knockedOut = false;
         sceneLoader = FindAnyObjectByType<SceneLoader>();
         sceneLoader.LoadVillage();
         

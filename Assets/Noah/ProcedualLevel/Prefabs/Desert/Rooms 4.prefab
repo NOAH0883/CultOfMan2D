@@ -3237,7 +3237,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1687734918, guid: e9537fc4237be6a488971ec87d50aba4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3472,7 +3472,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1007127401650758989, guid: d5f529e17baae1440a99976fb14de2bc, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2289576532083278862, guid: d5f529e17baae1440a99976fb14de2bc, type: 3}
       propertyPath: m_Name
@@ -3818,6 +3818,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 843870691237956830}
     m_Modifications:
+    - target: {fileID: 3607419939035763337, guid: 94812f01095663240a3ff2dadce21cd1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5480554289724763610, guid: 94812f01095663240a3ff2dadce21cd1, type: 3}
       propertyPath: m_Name
       value: DesertTree2 (1)
@@ -3970,6 +3974,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 843870691237956830}
     m_Modifications:
+    - target: {fileID: 3607419939035763337, guid: 94812f01095663240a3ff2dadce21cd1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5480554289724763610, guid: 94812f01095663240a3ff2dadce21cd1, type: 3}
       propertyPath: m_Name
       value: DesertTree2

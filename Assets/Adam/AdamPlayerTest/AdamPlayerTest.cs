@@ -346,6 +346,9 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
     {
         if (active && canAttack && attackCooldown <= 0 && (GameData.hasWeapon || testing))
         {
+
+            SoundManager.PlaySound(SoundType.playerAttack, 0.7f);
+
             canAttack = false;
             attacking = true;
             Vector2 attackOffset = new Vector2(0, 0);
@@ -424,6 +427,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
     {
         StartCoroutine(KnockBack(knockBackPower, hitPos));
 
+        SoundManager.PlaySound(SoundType.hit, 0.4f);
         playerHealth -= damage;
 
         if (playerHealth <= 0)

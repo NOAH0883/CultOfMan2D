@@ -192,12 +192,12 @@ public class RamEnemy : MonoBehaviour, Damageable
         StartCoroutine(KnockBack(knockBackPower, hitPos));
 
         enemyHealth -= damage;
-        SoundManager.PlaySound(SoundType.hit, 0.5f);
+        SoundManager.PlaySound(SoundType.hit, 0.4f);
 
         if (enemyHealth <= 0)
         {
             GameData.food += foodAmount;
-            SoundManager.PlaySound(SoundType.enemyDead);
+            SoundManager.PlaySound(SoundType.enemyDead, 0.5f);
             Destroy(gameObject);
         }
             

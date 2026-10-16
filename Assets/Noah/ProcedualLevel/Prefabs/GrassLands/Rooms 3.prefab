@@ -3250,7 +3250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -3610,7 +3610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
@@ -3784,6 +3784,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
       value: Tree1 (3)
@@ -3870,6 +3874,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name
       value: Tree1 (4)
@@ -3955,6 +3963,10 @@ PrefabInstance:
     - target: {fileID: 2726127588858755186, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5200300200678372031, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6491676948916474876, guid: 6eca7bad8a6cda444b5a16523c9b6641, type: 3}
       propertyPath: m_Name

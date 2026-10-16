@@ -53,12 +53,7 @@ public class Boss1_Manager : MonoBehaviour, Damageable
         {
             state = BossState.DEAD;
 
-            GameObject player = GameObject.FindWithTag("Player");
-            Destroy(player);
-            GameObject soundManager = GameObject.FindWithTag("SoundManager");
-
-            Time.timeScale = 1.0f;
-            SceneManager.LoadScene("YouWin");
+           
 
         }
 
@@ -90,13 +85,17 @@ public class Boss1_Manager : MonoBehaviour, Damageable
 
     public void Damage(float damage, Vector2 hitPos, float knockBackPower)
     {
-
+        SoundManager.PlaySound(SoundType.hit, 0.4f);
         bossHP -= damage;
 
         if (bossHP <= 0)
         {
-            //Add win screen here
-            Destroy(gameObject);
+            GameObject player = GameObject.FindWithTag("Player");
+            Destroy(player);
+            GameObject soundManager = GameObject.FindWithTag("SoundManager");
+
+            Time.timeScale = 1.0f;
+            SceneManager.LoadScene("YouWin");
         }
 
 

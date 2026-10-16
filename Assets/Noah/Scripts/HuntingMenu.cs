@@ -51,8 +51,14 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
         ActiveButtons();
 
-        closeMenu.action.Enable();
-        closeMenu.action.performed += OnCancel;
+        if (closeMenu.action != null)
+        {
+            closeMenu.action.performed -= OnCancel;
+            closeMenu.action.performed += OnCancel;
+            closeMenu.action.Enable();
+        }
+            
+        
 
         huntingMenu.SetActive(true);
         Time.timeScale = 0f;
@@ -84,7 +90,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
         if (context.performed)
         {
 
-            closeMenu.action.Disable();
+            //closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
 
 
@@ -99,7 +105,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
     {
         if(GameData.isDay)
         {
-            closeMenu.action.Disable();
+            //closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
 
 
@@ -115,7 +121,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
     {
         if (GameData.population >= 7 & GameData.isDay)
         {
-            closeMenu.action.Disable();
+            //closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
 
 
@@ -148,6 +154,16 @@ public class HuntingMenu : MonoBehaviour, Interactable
             desertOverlay.SetActive(false);
         }
 
+
+    }
+
+
+    private void OnDisable()
+    {
+        if (closeMenu.action != null)
+        {
+            closeMenu.action.performed -= OnCancel;
+        }
 
     }
 
