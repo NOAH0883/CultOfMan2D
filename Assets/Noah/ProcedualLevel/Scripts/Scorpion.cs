@@ -204,7 +204,7 @@ public class Scorpion : MonoBehaviour, Damageable
 
     public void Damage(float damage, Vector2 hitPos, float knockBackPower)
     {
-        SoundManager.PlaySound(SoundType.hit);
+        SoundManager.PlaySound(SoundType.hit, 0.5f);
         StartCoroutine(KnockBack(knockBackPower, hitPos));
 
         enemyHealth -= damage;

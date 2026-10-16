@@ -352,12 +352,12 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
             Vector2 attackSize = new Vector2(0, 0);
             comboTimer = 0.5f;
             comboCount++;
-
+            float damage = playerHitboxScript.damage;
             if (comboCount >= 3)
             {
                 attackOffset = new Vector2(1.5f, 0);
                 attackSize = new Vector2 (3, 1);
-                playerHitboxScript.damage = 3;
+                playerHitboxScript.damage += 2;
                 attackCooldown = 0.3f;
                 comboCount = 0;
             } 
@@ -365,7 +365,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
             {
                 attackOffset = new Vector2(1, 0);
                 attackSize = new Vector2(1.5f, 2.5f);
-                playerHitboxScript.damage = 1;
+                playerHitboxScript.damage += 1;
                 attackCooldown = 0.2f;
             }
 
@@ -373,6 +373,7 @@ public class AdamPlayerTest : MonoBehaviour, Damageable
             playerHitboxCollider.size = attackSize;
             playerHitboxVisuals.transform.localPosition = attackOffset;
             playerHitboxVisuals.transform.localScale = attackSize;
+            playerHitboxScript.damage = damage;
 
             StartCoroutine(Attack());
             Debug.Log("Left click.");

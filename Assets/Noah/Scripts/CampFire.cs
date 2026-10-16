@@ -53,7 +53,7 @@ public class CampFire : MonoBehaviour, Interactable
     [SerializeField] TextMeshProUGUI upgradeCostText;
     [SerializeField] Image upgradeImageSprite;
     UpgradScriptableObj upgradScriptableObj;
-    [SerializeField]GameObject player;
+    [SerializeField] GameObject player;
     AdamPlayerTest playerScript;
     PlayerHitbox playerWeapon;
 
@@ -71,7 +71,9 @@ public class CampFire : MonoBehaviour, Interactable
 
 
         playerScript = player.GetComponent<AdamPlayerTest>();
-        
+        playerWeapon = player.GetComponentInChildren<PlayerHitbox>();
+
+
     }
 
     void Update()
@@ -81,12 +83,11 @@ public class CampFire : MonoBehaviour, Interactable
             GameObject player = GameObject.FindWithTag("Player");
             Destroy(player);
             GameObject soundManager = GameObject.FindWithTag("SoundManager");
+            Destroy(soundManager);
 
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
 
-
-            CampFireMenu.SetActive(false);
             Time.timeScale = 1f;
 
             SceneManager.LoadScene("YouLose");
@@ -274,7 +275,7 @@ public class CampFire : MonoBehaviour, Interactable
         upgradeImageSprite.sprite = upgradScriptableObj.icon;
 
 
-        if(GameData.food < upgradScriptableObj.cost)
+        if(GameData.food < upgradScriptableObj.cost || upgradesList[0] == null)
         {
             upgradeGreyOut.SetActive(true);
             upgradeButton.enabled = false;
@@ -299,6 +300,7 @@ public class CampFire : MonoBehaviour, Interactable
         playerScript.playerMaxHealth += upgradScriptableObj.healthBonus;
 
         upgradesList.RemoveAt(0);
+        
     }
   
 }

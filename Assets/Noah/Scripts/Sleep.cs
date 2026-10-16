@@ -48,11 +48,8 @@ public class Sleep : MonoBehaviour, Interactable
     {
         if(GameData.population <=0)
         {
-           
-
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
-
 
         }
 

@@ -85,7 +85,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4530670122045351285, guid: e50598f87faf4014e9a9894932ce4779, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -212,7 +212,7 @@ MonoBehaviour:
   enemySight: 5
   movementRange: 5
   bulletPrefab: {fileID: 1544508288429048599, guid: 04718f2fd5c4c9142a8b2fef5fe7e136, type: 3}
-  bulletSpeed: 3
+  bulletSpeed: 2
   enemyHealth: 5
   foodAmount: 4
 --- !u!95 &6749405372187092232

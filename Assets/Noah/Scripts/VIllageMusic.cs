@@ -10,6 +10,7 @@ public class VIllageMusic : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -18,12 +19,12 @@ public class VIllageMusic : MonoBehaviour
         if(GameData.isDay)
         {
             audioSource.clip = dayVillageMusic; 
-            audioSource.Play();
+            
         }
         else
         {
             audioSource.clip = nightVillageMusic;
-            audioSource.Play();
+            
         }
     }
 }
