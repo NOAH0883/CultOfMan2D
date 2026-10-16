@@ -209,8 +209,11 @@ public class RoomManager : MonoBehaviour
         Destroy(lastRoom);
 
         
+        
         cameraConfiner.BoundingShape2D = cameraBounds;
+        
         navMesh.BuildNavMesh();
+        
         Debug.Log("Buildnavmesh");
 
     }

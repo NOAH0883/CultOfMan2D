@@ -43,9 +43,9 @@ public class VillagerAI : MonoBehaviour
     void Update()
     {
 
-        if (GameData.hasSacrificed)
+        if (GameData.daysSinceSac)
         {
-            foodNeeded = 3;
+            foodNeeded = (int)(2f * 1.5f);
         }
         else
         {
@@ -53,7 +53,7 @@ public class VillagerAI : MonoBehaviour
         }
 
 
-            stateTimer += Time.deltaTime;
+        stateTimer += Time.deltaTime;
 
         if (stateTimer >= targetStateTime)
         {

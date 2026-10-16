@@ -113,7 +113,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     public void Desert(string sceneToLoad)
     {
-        if (GameData.population >= 10 & GameData.isDay)
+        if (GameData.population >= 7 & GameData.isDay)
         {
             closeMenu.action.Disable();
             closeMenu.action.performed -= OnCancel;
@@ -142,7 +142,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
             grasslandsButton.enabled = true;
             grasslandsOverlay.SetActive(false);
         }
-        if (GameData.isDay && GameData.population >= 10)
+        if (GameData.isDay && GameData.population >= 7)
         {
             desertButton.enabled = true;
             desertOverlay.SetActive(false);

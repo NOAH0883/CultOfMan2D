@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static IDamageable;
 
 public class Boss1_Manager : MonoBehaviour, Damageable
@@ -51,7 +52,14 @@ public class Boss1_Manager : MonoBehaviour, Damageable
         if (bossHP <= 0)
         {
             state = BossState.DEAD;
-            Destroy(gameObject);
+
+            GameObject player = GameObject.FindWithTag("Player");
+            Destroy(player);
+            GameObject soundManager = GameObject.FindWithTag("SoundManager");
+
+            Time.timeScale = 1.0f;
+            SceneManager.LoadScene("YouWin");
+
         }
 
     }

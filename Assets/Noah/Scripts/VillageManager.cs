@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 
@@ -24,7 +25,7 @@ public class VillageManager : MonoBehaviour
     [SerializeField] VillagerAI villagerScript;
     public int villagersFeed;
     bool canSpawnVillagers;
-    [SerializeField] GameObject bloodVisual;
+    
 
 
     [Header("housing")]
@@ -44,6 +45,12 @@ public class VillageManager : MonoBehaviour
     public float villagersDead;
     public float villagersSick;
 
+
+
+    [Header("GuidingArrows")]
+    [SerializeField] GameObject huntingArrow;
+    [SerializeField] GameObject campFireArrow;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -57,7 +64,8 @@ public class VillageManager : MonoBehaviour
         GameData.isDay = true;
         GameData.population = 3;
         gameObject.SetActive(true);
-        bloodVisual.SetActive(false);
+        GameData.daysSinceSac = false;
+        
 
         for (int i = 0; i < GameData.population; i++)
         {
@@ -68,8 +76,25 @@ public class VillageManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
 
-    
+       
+
+
+        if (GameData.isDay)
+        {
+            huntingArrow.SetActive(true);
+            campFireArrow.SetActive(false);
+        }
+        else
+        {
+            huntingArrow.SetActive(false);
+            campFireArrow.SetActive(true);
+        }
+
+    }
+
 
     public void FeedVillagers()
     {
@@ -193,13 +218,30 @@ public class VillageManager : MonoBehaviour
         {
             foodInPot += 4;
             GameData.food -= 4;
-            villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+            if(GameData.daysSinceSac)
+            {
+                villagersFeed = Mathf.Clamp(foodInPot / 3, 0, GameData.population);
+            }
+            else
+            {
+                villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+            }
+               
         }
         else
         {
             foodInPot += GameData.food;
             GameData.food = 0;
-            villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+            
+            if (GameData.hasSacrificed)
+            {
+                villagersFeed = Mathf.Clamp(foodInPot / 3, 0, GameData.population);
+            }
+            else
+            {
+                villagersFeed = Mathf.Clamp(foodInPot / 2, 0, GameData.population);
+            }
+
         }
         SoundManager.PlaySound(SoundType.feedPot);
     }
@@ -209,7 +251,7 @@ public class VillageManager : MonoBehaviour
         housing += 5;
         housesToBuild++;
         housingIncrease += 5;
-        GameData.food -= 5;
+        GameData.food -= 10;
 
         
     }
@@ -217,6 +259,7 @@ public class VillageManager : MonoBehaviour
 
     public void Sacrifice()
     {
+
         int rnd = Random.Range(0, villagers.Count);
         Debug.Log(rnd);
         Destroy(villagers[rnd]);
@@ -226,9 +269,12 @@ public class VillageManager : MonoBehaviour
         GameData.food += sacrificeAmount;
         villSac ++;
 
-       
-        bloodVisual.SetActive(true);
-        SoundManager.PlaySound(SoundType.sacrifice);
+       GameData.hasSacrificed = true;
+       SoundManager.PlaySound(SoundType.sacrifice);
+
+
+        
+
     }
    
 

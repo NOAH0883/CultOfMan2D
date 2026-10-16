@@ -12,22 +12,30 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadHunting(string loadScene)
     {
-        TutorialManager tutorialManager = FindAnyObjectByType<TutorialManager>();
-        if (tutorialManager != null && !tutorialManager.tutorialDone)
+        if (!GameData.tutorialDone)
         {
-            tutorialManager.nextTutorial();
+            TutorialManager tutorialManager = FindAnyObjectByType<TutorialManager>();
+            if (tutorialManager != null)
+            {
+                tutorialManager.nextTutorial();
+            }
         }
+       
 
         StartCoroutine(LoadHuntingScene(loadScene));
     }
 
     public void LoadVillage()
     {
-        TutorialManager tutorialManager = FindAnyObjectByType<TutorialManager>();
-        if (tutorialManager != null && !tutorialManager.tutorialDone)
+        if (!GameData.tutorialDone)
         {
-            tutorialManager.nextTutorial();
+            TutorialManager tutorialManager = FindAnyObjectByType<TutorialManager>();
+            if (tutorialManager != null)
+            {
+                tutorialManager.nextTutorial();
+            }
         }
+       
         
         StartCoroutine(LoadVillageScene());
     }
@@ -44,7 +52,7 @@ public class SceneLoader : MonoBehaviour
     {
         Scene activeScene = SceneManager.GetActiveScene();
 
-        AsyncOperation async = SceneManager.LoadSceneAsync("Boss", LoadSceneMode.Additive);
+        AsyncOperation async = SceneManager.LoadSceneAsync("Boss");
         while (!async.isDone)
         {
             yield return null;

@@ -14,4 +14,7 @@ public static class GameData
     //public static bool hasFeedVillage;
     //public static bool spawnVillagers;
     public static bool hasWeapon;
+    public static bool tutorialDone;
+    public static bool daysSinceSac;
+
 }

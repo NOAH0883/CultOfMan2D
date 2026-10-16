@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static IInteractable;
 
@@ -68,8 +69,6 @@ public class CampFire : MonoBehaviour, Interactable
         sacButtonVisual.SetActive(false);
         sacButton.enabled = false;
 
-        
-        
 
         playerScript = player.GetComponent<AdamPlayerTest>();
         
@@ -77,6 +76,24 @@ public class CampFire : MonoBehaviour, Interactable
 
     void Update()
     {
+        if (GameData.population <= 0)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            Destroy(player);
+            GameObject soundManager = GameObject.FindWithTag("SoundManager");
+
+            closeMenu.action.Disable();
+            closeMenu.action.performed -= OnCancel;
+
+
+            CampFireMenu.SetActive(false);
+            Time.timeScale = 1f;
+
+            SceneManager.LoadScene("YouLose");
+
+        }
+
+
         ActiveButtons();
         Upgrades();
         keepSelected();
@@ -155,13 +172,6 @@ public class CampFire : MonoBehaviour, Interactable
     }
 
 
-
-    public void Sacrifice()
-    {
-        if(GameData.population > 0 )
-            villageManager.Sacrifice();
-        
-    }
 
  
 

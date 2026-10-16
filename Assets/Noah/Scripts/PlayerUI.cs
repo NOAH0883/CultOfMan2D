@@ -16,6 +16,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Image[] hearts;
 
     [SerializeField] GameObject KockedOutMenu;
+    [SerializeField] GameObject bloodVisual;
 
     SceneLoader sceneLoader;
 
@@ -24,13 +25,26 @@ public class PlayerUI : MonoBehaviour
         playerController = GetComponentInParent<AdamPlayerTest>();
         
         KockedOutMenu.SetActive(false);
+        bloodVisual.SetActive(false);   
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        GameData.dailyGoal = GameData.population * 2;
+        if (GameData.hasSacrificed)
+        {
+            bloodVisual.SetActive(true);
+            if(GameData.isDay)
+            {
+                GameData.dailyGoal = (int)(GameData.population * 2) * 1.5f;
+            }
+            
+        }
+        else
+        {
+            bloodVisual.SetActive(false);
+            GameData.dailyGoal = GameData.population * 2;
+        }
         foodNeededText.text = "Food " + GameData.food.ToString() + " / " + GameData.dailyGoal.ToString();
 
 
