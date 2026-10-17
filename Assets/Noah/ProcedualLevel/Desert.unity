@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4935352478292091481, guid: 5ca1265bb16f45e44a3db978ca4b4f67, type: 3}
       propertyPath: timer
-      value: 70
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 5873946902088459011, guid: 5ca1265bb16f45e44a3db978ca4b4f67, type: 3}
       propertyPath: m_LocalPosition.x
@@ -890,6 +890,19 @@ MonoBehaviour:
   range: 70
   spawnObject: {fileID: 0}
   loadingScreen: {fileID: 636252483}
+  HuntingTutorial: {fileID: 0}
+  closeMenu:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6570e59a-1846-4a4f-afe5-729968d8cc60
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!1 &2101323398
 GameObject:
   m_ObjectHideFlags: 0
