@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &333086913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,18 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialCOntroller
   tutorialVisual: {fileID: 433594610}
-  closeMenu:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Close Menu
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 8d7957bd-d456-40bd-88f7-b4f34bb78283
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 7727032971491509709, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   tutorialEnd: 1
 --- !u!4 &333086914
 Transform:
@@ -1221,6 +1209,10 @@ PrefabInstance:
     - target: {fileID: 5130079648129486019, guid: 5333f7c0c2ebaf244b2dc20a6fd783da, type: 3}
       propertyPath: m_Name
       value: LoadingScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130079648129486019, guid: 5333f7c0c2ebaf244b2dc20a6fd783da, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6603705444805253255, guid: 5333f7c0c2ebaf244b2dc20a6fd783da, type: 3}
       propertyPath: m_Pivot.x

@@ -7,56 +7,79 @@ public class TutorialCOntroller : MonoBehaviour
 {
 
     [SerializeField] GameObject tutorialVisual;
-    [SerializeField] private InputActionProperty closeMenu;
+   
     [SerializeField] bool tutorialEnd;
 
+    [SerializeField] bool isCollider;
+    InputSystem_Actions inputActions;
+
+
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-        closeMenu.action.performed -= OnCancel;
-        closeMenu.action.Disable();
-        closeMenu.action.Enable();
-        closeMenu.action.performed += OnCancel;
-
-        Debug.Log("=============================" + GameData.tutorialDone);
-        if (GameData.tutorialDone)
+        inputActions = new InputSystem_Actions();
+        if(!isCollider)
         {
-            //Time.timeScale = 1.0f;
-            StartCoroutine(RemoveTutorial());
+            if (GameData.tutorialDone)
+            {
+                StartCoroutine(RemoveTutorial());
+            }
+            else
+            {
+                inputActions.Player.Disable();
+                inputActions.UI.Enable();
+
+
+                tutorialVisual.gameObject.SetActive(true);
+                Time.timeScale = 0f;
+            }
         }
-        else
-        {
-            tutorialVisual.gameObject.SetActive(true);
-            //Time.timeScale = 0f;
-            
-        }
+        
+       
     }
 
-    void OnCancel(InputAction.CallbackContext context)
-    {
-        Time.timeScale = 1.0f;
 
-        tutorialVisual.gameObject.SetActive(false);
-        StartCoroutine(RemoveTutorial());
+    private void Update()
+    {
+        if (inputActions.UI.Cancel.WasPressedThisFrame())
+        {
+            if (tutorialEnd)
+            {
+                GameData.tutorialDone = true;
+            }
+
+            tutorialVisual.gameObject.SetActive(false);
+            StartCoroutine(RemoveTutorial());
+        }
     }
 
 
     IEnumerator RemoveTutorial()
     {
+        Time.timeScale = 1f;
+
+        inputActions.Player.Enable();
+        inputActions.UI.Disable();
         yield return new WaitForEndOfFrame();
         Destroy(gameObject);
     }
 
 
-    private void OnDestroy()
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Time.timeScale = 1.0f;
-        Debug.Log("=====================Close tutorial=====================");
-        if (closeMenu.action != null)
+        if(collision.CompareTag("Player") && !GameData.isDay)
         {
-            closeMenu.action.performed -= OnCancel;
-            
+            inputActions.Player.Disable();
+            inputActions.UI.Enable();
+
+            tutorialVisual.gameObject.SetActive(true);
+            Time.timeScale = 0f;
         }
+       
     }
+
+
 }

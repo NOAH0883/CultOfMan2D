@@ -15,6 +15,10 @@ public class SceneLoader : MonoBehaviour
         //        tutorialManager.NextTutorial();
         //    }
         //}
+
+        
+
+
         StartCoroutine(LoadHuntingScene(loadScene));
     }
 

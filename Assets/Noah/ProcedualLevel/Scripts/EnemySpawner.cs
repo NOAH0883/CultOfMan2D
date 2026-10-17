@@ -77,20 +77,11 @@ public class EnemySpawner : MonoBehaviour
         else
         {
             loadingScreen.SetActive(false);
-            Time.timeScale = 1;
             if (GameData.tutorialDone)
             {
                 
                 Time.timeScale = 1;
             }
-            else
-            {
-                //HuntingTutorial.SetActive(true);
-                //closeMenu.action.performed -= OnCancel;
-                //closeMenu.action.performed += OnCancel;
-            }
-
-
               
         }
 

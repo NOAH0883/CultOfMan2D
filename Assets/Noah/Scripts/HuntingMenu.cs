@@ -13,7 +13,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
 
     [SerializeField] GameObject huntingMenu;
     [SerializeField] GameObject firstButtonInMenu;
-    [SerializeField] InputActionProperty closeMenu;
+ 
     SceneLoader sceneLoader;
     GameObject lastSelected;
 
@@ -25,51 +25,63 @@ public class HuntingMenu : MonoBehaviour, Interactable
     [SerializeField] GameObject desertOverlay;
 
 
-
+    InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        inputActions = new InputSystem_Actions();
+
+        inputActions.Player.Disable();
+        inputActions.UI.Disable();
+
         huntingMenu.SetActive(false);
 
         sceneLoader = GetComponent<SceneLoader>();
 
-        desertButton.enabled = false;
+        desertButton.interactable = false;
         desertOverlay.SetActive(true);
 
     }
 
     private void Update()
     {
-        keepSelected();
-        
+        if (inputActions.UI.Cancel.WasPressedThisFrame())
+        {
+            CloseMenu();
+        }
     }
 
     public void Interact()
     {
-        StartCoroutine(WaitFrame());
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        inputActions.Player.Disable();
+
+        inputActions.UI.Submit.Reset();
+
 
         ActiveButtons();
-
-        if (closeMenu.action != null)
-        {
-            closeMenu.action.performed -= OnCancel;
-            closeMenu.action.performed += OnCancel;
-            closeMenu.action.Enable();
-        }
-            
         
-
         huntingMenu.SetActive(true);
         Time.timeScale = 0f;
+
+
+        StartCoroutine(WaitFrame());
+
+
     }
 
 
     IEnumerator WaitFrame()
     {
-        yield return 0;
+        yield return new WaitForEndOfFrame();
+        inputActions.UI.Enable();
+
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstButtonInMenu.gameObject);
+        EventSystem.current.SetSelectedGameObject(firstButtonInMenu);
+
     }
 
     void keepSelected()
@@ -85,29 +97,28 @@ public class HuntingMenu : MonoBehaviour, Interactable
         }
     }
 
-    void OnCancel(InputAction.CallbackContext context)
+
+
+    void CloseMenu()
     {
-        if (context.performed)
-        {
+        inputActions.UI.Disable();
+        inputActions.Player.Enable();
 
-            //closeMenu.action.Disable();
-            closeMenu.action.performed -= OnCancel;
+        huntingMenu.SetActive(false);
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
-            huntingMenu.SetActive(false);
-            Time.timeScale = 1f;
-
-        }
-
+        Time.timeScale = 1f;
     }
 
     public void GrassLands(string sceneToLoad)
     {
         if(GameData.isDay)
         {
-            //closeMenu.action.Disable();
-            closeMenu.action.performed -= OnCancel;
 
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
             huntingMenu.SetActive(false);
             Time.timeScale = 1f;
@@ -121,9 +132,8 @@ public class HuntingMenu : MonoBehaviour, Interactable
     {
         if (GameData.population >= 7 & GameData.isDay)
         {
-            //closeMenu.action.Disable();
-            closeMenu.action.performed -= OnCancel;
-
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
             huntingMenu.SetActive(false);
             Time.timeScale = 1f;
@@ -137,7 +147,7 @@ public class HuntingMenu : MonoBehaviour, Interactable
     {
         if (!GameData.isDay)
         {
-            grasslandsButton.enabled = false;
+            grasslandsButton.interactable = false;
             grasslandsOverlay.SetActive(true);
 
             desertButton.enabled = false;
@@ -145,24 +155,13 @@ public class HuntingMenu : MonoBehaviour, Interactable
         }
         else
         {
-            grasslandsButton.enabled = true;
+            grasslandsButton.interactable = true;
             grasslandsOverlay.SetActive(false);
         }
         if (GameData.isDay && GameData.population >= 7)
         {
-            desertButton.enabled = true;
+            desertButton.interactable = true;
             desertOverlay.SetActive(false);
-        }
-
-
-    }
-
-
-    private void OnDisable()
-    {
-        if (closeMenu.action != null)
-        {
-            closeMenu.action.performed -= OnCancel;
         }
 
     }

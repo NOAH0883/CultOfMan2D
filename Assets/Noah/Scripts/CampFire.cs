@@ -17,9 +17,9 @@ public class CampFire : MonoBehaviour, Interactable
 
 
     [SerializeField] GameObject CampFireMenu;
-    [SerializeField] InputActionProperty closeMenu;
-    [SerializeField] EventSystem eventSystem;
-    GameObject lastSelected;
+
+    InputSystem_Actions inputActions;
+
 
     VillageManager villageManager;
 
@@ -63,21 +63,27 @@ public class CampFire : MonoBehaviour, Interactable
 
 
 
-    [SerializeField] GameObject campfireTutorial;
-    bool firstTimeMenu;
+    
+    bool menuOpen;
+
+    GameObject lastSelected;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
-        firstTimeMenu = false;
+        inputActions = new InputSystem_Actions();
 
-        campfireTutorial.SetActive(false);
+        inputActions.Player.Disable();
+        inputActions.UI.Disable();
+
+        menuOpen = false;
+       
         CampFireMenu.SetActive(false);
         villageManager = GetComponent<VillageManager>();
         
         sacButtonVisual.SetActive(false);
-        sacButton.enabled = false;
+        sacButton.interactable = false;
 
 
         playerScript = player.GetComponent<AdamPlayerTest>();
@@ -95,128 +101,126 @@ public class CampFire : MonoBehaviour, Interactable
             GameObject soundManager = GameObject.FindWithTag("SoundManager");
             Destroy(soundManager);
 
-            closeMenu.action.Disable();
-            closeMenu.action.performed -= OnCancel;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
 
             Time.timeScale = 1f;
 
             SceneManager.LoadScene("YouLose");
 
         }
-
+        
+        if (inputActions.UI.Cancel.WasPressedThisFrame())
+        {
+            CloseMenu();
+        }
 
         ActiveButtons();
         Upgrades();
-        keepSelected();
+        CurrentSelection();
+
+
     }
 
     public void Interact()
     {
-
-        
-        closeMenu.action.performed += OnCancel;
-
-
-        if(!firstTimeMenu && !GameData.isDay)
+        if(!menuOpen)
         {
-            Debug.Log("===================================Load tutorial for campfire");
-            campfireTutorial.SetActive(true);
+            menuOpen = true;
         }
-        else
-        {
-            CampFireMenu.SetActive(true);
-        }
-
-        StartCoroutine(WaitFrame());
 
         if (!GameData.isDay && GameData.food < GameData.dailyGoal)
         {
             canSac = true;
         }
 
-        if (!GameData.isDay && canSac)
-        {
-            sacButtonVisual.SetActive(true);
-            sacButton.enabled = true;
-        }
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        inputActions.Player.Disable();
+        inputActions.UI.Submit.Reset();
+
+
+        CampFireMenu.SetActive(true);
+
+        StartCoroutine(WaitFrame());
+       
 
         Time.timeScale = 0f;
     }
 
     IEnumerator WaitFrame()
     {
-        yield return 0;
+        
+        yield return new WaitForEndOfFrame();
+        inputActions.UI.Enable();
 
-
-        if (feedButton.IsActive())
+        if(feedButton.interactable)
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(feedButton.gameObject);
         }
-        else if (sacButton.IsActive())
+        else if (sacButton.interactable)
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(sacButton.gameObject);
         }
-        
-    }
 
-    void keepSelected()
-    {
-        if (EventSystem.current.currentSelectedGameObject != null)
-        {
-            // Only update if it's a completely new object
-            if (EventSystem.current.currentSelectedGameObject != lastSelected)
-            {
-                lastSelected = EventSystem.current.currentSelectedGameObject;
-            }
-        }
-        // 2. If selection becomes null, safely restore the last one
-        else if (lastSelected != null)
-        {
-            StartCoroutine(RestoreSelectionRoutine());
-        }
-    }
+       
 
-    private IEnumerator RestoreSelectionRoutine()
-    {
-        // Wait until the very end of the current frame 
-        // This stops Unity from glitching or getting stuck in a loop
-        yield return new WaitForEndOfFrame();
-
-        // Double check it's still null before restoring
-        if (EventSystem.current.currentSelectedGameObject == null)
-        {
-            EventSystem.current.SetSelectedGameObject(lastSelected);
-        }
     }
 
 
-
-    void OnCancel (InputAction.CallbackContext context)  
+    void CurrentSelection()
     {
-       if(context.performed)
-       {
-            
-            if(!firstTimeMenu)
-            {
-                campfireTutorial.SetActive(false);
-                closeMenu.action.performed -= OnCancel;
-                firstTimeMenu = true;
-                Interact();
-            }
-            else
-            {
-                closeMenu.action.performed -= OnCancel;
+        if (!CampFireMenu.activeSelf) return;
 
+        GameObject currentSelected = EventSystem.current.currentSelectedGameObject;
 
-                CampFireMenu.SetActive(false);
-                Time.timeScale = 1f;
+        // If nothing is selected, or the selected object is disabled / not interactable
+        if (currentSelected == null || !currentSelected.activeInHierarchy ||
+            (currentSelected.TryGetComponent<Button>(out Button btn) && !btn.interactable))
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+
+            if (feedButton != null && feedButton.interactable && feedButton.gameObject.activeInHierarchy)
+            {
+                EventSystem.current.SetSelectedGameObject(feedButton.gameObject);
             }
-            
+            else if (sacButton != null && sacButton.interactable && sacButton.gameObject.activeInHierarchy)
+            {
+                EventSystem.current.SetSelectedGameObject(sacButton.gameObject);
+            }
+            else if (housingButton != null && housingButton.interactable && housingButton.gameObject.activeInHierarchy)
+            {
+                EventSystem.current.SetSelectedGameObject(housingButton.gameObject);
+            }
+            else if (upgradeButton != null && upgradeButton.interactable && upgradeButton.gameObject.activeInHierarchy)
+            {
+                EventSystem.current.SetSelectedGameObject(upgradeButton.gameObject);
+            }
         }
-            
+    }
+
+    void CloseMenu()  
+    {
+        if (menuOpen)
+        {
+            inputActions.UI.Disable();
+            inputActions.Player.Enable();
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+
+            CampFireMenu.SetActive(false);
+            Time.timeScale = 1f;
+
+            menuOpen = false;
+        }
+
+
     }
 
 
@@ -231,11 +235,11 @@ public class CampFire : MonoBehaviour, Interactable
         {
             
             housingGreyOut.SetActive(true);
-            housingButton.enabled = false;
+            housingButton.interactable = false;
         }
         else
         {
-            housingButton.enabled = true;
+            housingButton.interactable = true;
             housingGreyOut.SetActive(false);
         }
 
@@ -244,18 +248,24 @@ public class CampFire : MonoBehaviour, Interactable
         {
             feedText.text = "-4 FOOD";
             feedGreyOut.SetActive(false);
-            feedButton.enabled = true;
+            feedButton.interactable = true;
         }
         else if (GameData.food > 0 && !GameData.isDay)
         {
             feedText.text = "Fill";
             feedGreyOut.SetActive(false);
-            feedButton.enabled = true;
+            feedButton.interactable = true;
         }
         else
         {
             feedGreyOut.SetActive(true);
-            feedButton.enabled = false;
+            feedButton.interactable = false;
+        }
+
+        if (!GameData.isDay && canSac)
+        {
+            sacButtonVisual.SetActive(true);
+            sacButton.interactable = true;
         }
 
         //if (GameData.food > 4)
@@ -322,7 +332,7 @@ public class CampFire : MonoBehaviour, Interactable
             upgradeCostText.text = null;
             upgradeImageSprite.sprite = null;
             upgradeGreyOut.SetActive(true);
-            upgradeButton.enabled = false;
+            upgradeButton.interactable = false;
             return; 
         }
 
@@ -333,17 +343,17 @@ public class CampFire : MonoBehaviour, Interactable
         {
             
             upgradeGreyOut.SetActive(true);
-            upgradeButton.enabled = false;
+            upgradeButton.interactable = false;
         }
         else
         {
             
             upgradeNameText.text = upgradScriptableObj.upgradeName;
             upgradeDescriptionText.text = upgradScriptableObj.destriptionText;
-            upgradeCostText.text = upgradScriptableObj.cost.ToString();
+            upgradeCostText.text = "-" + upgradScriptableObj.cost.ToString() + " FOOD";
             upgradeImageSprite.sprite = upgradScriptableObj.icon;
             upgradeGreyOut.SetActive(false);
-            upgradeButton.enabled = true;
+            upgradeButton.interactable = true;
         }
 
     }
@@ -358,14 +368,6 @@ public class CampFire : MonoBehaviour, Interactable
         playerScript.playerMaxHealth += upgradScriptableObj.healthBonus;
 
         upgradesList.RemoveAt(0);
-    }
-
-
-
-    private void OnDisable()
-    {
-        closeMenu.action.Disable();
-        closeMenu.action.performed -= OnCancel;
     }
 
 }
