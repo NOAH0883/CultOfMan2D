@@ -147,7 +147,7 @@ RectTransform:
   m_GameObject: {fileID: 1099877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.5203366, y: 5.5203366, z: 5.5203366}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1529181996}
@@ -156,7 +156,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -405}
-  m_SizeDelta: {x: 50, y: 23}
+  m_SizeDelta: {x: 468.75, y: 187.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1099879
 MonoBehaviour:
@@ -187,9 +187,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -8556979757774128395, guid: 996ae3da52f69e9499e6ca32826c60f6, type: 3}
-    m_PressedSprite: {fileID: -7772703502123973992, guid: 95991146a8ababa4ba2995cc6a6c298d, type: 3}
-    m_SelectedSprite: {fileID: -3230210956655250039, guid: 01df7454a8d468e499deb9ef7bae2cee, type: 3}
+    m_HighlightedSprite: {fileID: 428539790929782388, guid: fd8238170ff63a74b879052feee2675d, type: 3}
+    m_PressedSprite: {fileID: 7041384331746634415, guid: fd8238170ff63a74b879052feee2675d, type: 3}
+    m_SelectedSprite: {fileID: 428539790929782388, guid: fd8238170ff63a74b879052feee2675d, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4851316526356351072, guid: 08de7db9f6824144c95f3ea8646a28f5, type: 3}
+  m_Sprite: {fileID: 2555367647144294544, guid: fd8238170ff63a74b879052feee2675d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -753,14 +753,14 @@ RectTransform:
   m_GameObject: {fileID: 1529181995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.6581, y: 5.6581, z: 5.6581}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1099878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5, y: -14.7}
+  m_AnchoredPosition: {x: 1.5, y: -90}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1529181997
