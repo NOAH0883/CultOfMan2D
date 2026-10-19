@@ -143,6 +143,7 @@ public class Sleep : MonoBehaviour, Interactable
             villageManager.villagersDead = 0;
             villageManager.villSac = 0;
             villageManager.housesToBuild = 0;
+            villageManager.villagersFeed = 0;
             GameData.food = 0;
             GameData.isDay = true;
 

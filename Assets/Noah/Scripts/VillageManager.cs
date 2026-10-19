@@ -160,7 +160,7 @@ public class VillageManager : MonoBehaviour
 
     void VIllagerSpawnAmount()
     {
-       if (canSpawnVillagers)
+       if (canSpawnVillagers && !GameData.hasSacrificed)
        {
             if (housing - GameData.population >=2)
             {

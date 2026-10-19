@@ -267,49 +267,54 @@ public class CampFire : MonoBehaviour, Interactable
             sacButtonVisual.SetActive(true);
             sacButton.interactable = true;
         }
+        else
+        {
+            sacButtonVisual.SetActive(false);
+            sacButton.interactable = false;
+        }
 
-        //if (GameData.food > 4)
-        //{
-        //    feedText.text = "-4 FOOD";
-        //    feedGreyOut.SetActive(false);
-        //    feedButton.enabled = true;
-        //}
-        //else
-        //{
+            //if (GameData.food > 4)
+            //{
+            //    feedText.text = "-4 FOOD";
+            //    feedGreyOut.SetActive(false);
+            //    feedButton.enabled = true;
+            //}
+            //else
+            //{
 
-        //    if(!GameData.isDay)
-        //    {
-        //        canSac = true;
-        //    }
+            //    if(!GameData.isDay)
+            //    {
+            //        canSac = true;
+            //    }
 
-        //    if (GameData.food > 0)
-        //    {
-        //        feedText.text = "FILL";
-        //        feedGreyOut.SetActive(false);
-        //        feedButton.enabled = true;
-        //    }
-        //    else
-        //    {
-        //        feedButton.enabled = false;
-        //        feedGreyOut.SetActive(true);
-        //    }
-        //}
-
-
-        // if player has more than 4 food 
-        // turn on food button 
-        //else if 
-        //player has less than 4 food 
-        // if food is greater than 0
-        // button turns to fill 
-        //else if
-        //player <= 0 
-        // button get turned off 
+            //    if (GameData.food > 0)
+            //    {
+            //        feedText.text = "FILL";
+            //        feedGreyOut.SetActive(false);
+            //        feedButton.enabled = true;
+            //    }
+            //    else
+            //    {
+            //        feedButton.enabled = false;
+            //        feedGreyOut.SetActive(true);
+            //    }
+            //}
 
 
+            // if player has more than 4 food 
+            // turn on food button 
+            //else if 
+            //player has less than 4 food 
+            // if food is greater than 0
+            // button turns to fill 
+            //else if
+            //player <= 0 
+            // button get turned off 
 
-        // Population
-        popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
+
+
+            // Population
+            popUIText.text = GameData.population.ToString() + " / " + villageManager.housing.ToString();
 
 
         //Food
