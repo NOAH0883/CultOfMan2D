@@ -1,6 +1,5 @@
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Tilemaps;
+
 using UnityEngine;
 
 public class Boss1_Active : MonoBehaviour
